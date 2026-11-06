@@ -87,12 +87,12 @@ E. **회차 실무**:
 - F. 아직 잘 모르겠어요. 하나씩 배우고 싶어요. | `formation, guided`
 
 **Q4. 피정 안내에서 한 제목에 눈이 머문다면?**
-- A. '이냐시오 영신수련, 내 삶을 식별하다' | `ignatian, discernment`
-- B. '수도원의 하루, 기도와 일상' | `monastic, benedictine`
-- C. '말씀을 깊이 읽는 시간' | `lectio, scripture`
-- D. '화해와 위로의 길' | `relationship, reconciliation, spiritual-healing`
-- E. '창조와 생태영성, 느리게 걷기' | `ecology, walking, franciscan`
-- F. '삶을 새롭게 만나는 체험·음악·봉사' | `arts, service, mission`
+- A. '마음의 움직임을 살피며 삶의 길 찾기 (영신수련)' | `ignatian, discernment`
+- B. '수도원의 기도와 일상을 경험하기' | `monastic, benedictine`
+- C. '성경을 천천히 읽고 묵상하기' | `lectio, scripture`
+- D. '관계 속에서 화해와 위로 찾기' | `relationship, reconciliation, spiritual-healing`
+- E. '생태영성 안에서 천천히 걷고 기도하기' | `ecology, walking, franciscan`
+- F. '음악·체험·봉사로 신앙 새롭게 만나기' | `arts, service, mission`
 
 **Q5. 피정의 진행 방식은 어느 쪽이 편하신가요?**
 - A. 일정의 대부분을 혼자 자유롭게 | `self-directed`
