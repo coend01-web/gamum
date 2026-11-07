@@ -1,6 +1,14 @@
-# 가뭄 사용성 간소화 검토본
+# 가뭄 일상형 10문항 v2 검토본
 
-현재 작업은 **로컬 `ux-simplify-v1` 브랜치**에 있습니다. GitHub로 push하거나 공개 홈페이지에 배포하지 않았습니다.
+현재 작업은 **`quiz-everyday-v2` 브랜치**에 있습니다. 공개 main은 UX 간소화 v1이며 이번 질문 개편을 병합하거나 배포하지 않았습니다.
+
+첨부 사양서의 일상형 Q1~Q10과 복수 태그·가중치, 참가 조건을 먼저 검사하는 추천, 조건 조정, 모바일 고정 질문 위치를 적용했습니다. ‘오늘, 1분 머뭄’은 처음부터 펼쳐집니다. 기존 가상 카탈로그는 그대로 보존했으며 자격 정보 미확인으로 추천은 현재 0개입니다. 일반 탐색에서 모든 자료를 계속 볼 수 있습니다.
+
+- 구현 및 데이터 연결: `docs/QUIZ-V2-IMPLEMENTATION.md`
+- 16개 시나리오와 PC·모바일 검사 결과: `docs/QUIZ-V2-QA.md`
+- 적용한 사양서: `docs/quiz-everyday-v2-spec.md`
+
+아래는 기존 UX 간소화의 구조·시연 범위 안내입니다.
 
 최신 간소화 작업 및 검증 내용은 `docs/UX-SIMPLIFY.md`에 있습니다. 이전 `design-v1`은 그대로 보존했습니다.
 
@@ -23,6 +31,9 @@ python3 -m http.server 8765 --bind 127.0.0.1
 - `assets/css/design.css`: v1.0 디자인 토큰·공통 컴포넌트·반응형 규칙
 - `assets/js/data.js`: 기존 시연 데이터, 원본 그대로 유지
 - `assets/js/app.js`: 기존 화면과 동작, 카드·목록·묵상 공통 렌더링
+- `assets/js/quiz-data.js`: 일상형 10문항과 숨은 태그·가중치
+- `assets/js/recommendation.js`: 참가 자격·회차 필터와 추천 점수 계산
+- `assets/css/quiz-v2.css`: 고정 질문 영역·조건 조정 반응형 스타일
 - `docs/ASSETS.md`: 이미지·폰트 출처와 이미지 생성 프롬프트
 - `tests/regression.mjs`: 원본과 추천 계산 비교 및 주요 기능 검사
 
@@ -43,7 +54,7 @@ python3 -m http.server 8765 --bind 127.0.0.1
 - 복구 태그: `baseline-v0.6-2026-11-05`
 - 원본 `main` 브랜치는 변경하지 않았습니다.
 
-원본을 별도로 확인하려면 변경사항을 먼저 커밋하거나 보관한 다음 `git switch main`을 사용합니다. 현재 디자인으로 돌아올 때는 `git switch ux-simplify-v1`을 사용합니다.
+원본을 별도로 확인하려면 변경사항을 먼저 커밋하거나 보관한 다음 `git switch main`을 사용합니다. 현재 검토본으로 돌아올 때는 `git switch quiz-everyday-v2`를 사용합니다. 개편 전 main은 `before-quiz-everyday-v2-2026-11-06` 태그와 별도 로컬 bundle로 보존했습니다.
 
 ## 검사
 
@@ -51,9 +62,10 @@ Node.js가 있는 환경에서:
 
 ```sh
 node tests/regression.mjs
+node tests/recommendation-v2.mjs
 ```
 
-원본 태그가 있는 Git checkout에서 실행합니다. 원본 카탈로그 동일성, 24가지 답변 조합별 추천 동일성, 모집 상태, 13개 경로, 1분 머뭄 단계, 정렬, 참가 대상 유지 등을 검사합니다.
+원본 이력이 있는 Git checkout에서 실행합니다. 원본 카탈로그 동일성, 모집 상태, 14개 경로, 기존 묵상 보존, 1분 머뭄 단계, 정렬, 참가 대상 유지와 새 추천 규칙을 검사합니다.
 
 브라우저 검증은 360·390·768·1440px에서 수행했습니다. 실물 iOS/Android 기기에서의 검증은 포함하지 않습니다. 외부 공유 메시지를 실제로 전송하지 않았습니다.
 

@@ -17,18 +17,9 @@ const themes = [
 ];
 const regions=['서울','경기','인천','강원','충북','충남','대전','세종','전북','광주','전남','경북','대구','경남','부산','울산','제주'];
 const regionPoints={서울:[39,22],인천:[29,26],경기:[46,28],강원:[70,22],충북:[55,42],충남:[38,47],대전:[49,54],세종:[42,41],전북:[41,67],광주:[36,81],전남:[40,90],경북:[70,57],대구:[67,75],경남:[58,86],부산:[76,91],울산:[82,80],제주:[24,95]};
-const questions=[
- {q:'모처럼 아무 일정도 없는 하루. 가장 하고 싶은 일은 무엇인가요?',opts:[['조용히 혼자 쉬고 싶어요',['쉼','침묵','개인']],['좋은 이야기를 듣고 배우고 싶어요',['말씀','배움','성경']],['사람들과 마음을 나누고 싶어요',['관계','나눔','공동체']],['어딘가 걸어가고 싶어요',['자연','걷기','활동']]]},
- {q:'요즘 하루를 마치고 가장 자주 드는 생각은?',opts:[['잠시 쉬어 가고 싶다',['쉼','개인']],['내 마음을 정리하고 싶다',['침묵','묵상']],['삶의 방향을 돌아보고 싶다',['식별','기도']],['누군가와 이야기를 나누고 싶다',['관계','나눔']]]},
- {q:'낯선 공간에 도착하면 어떤 순간이 가장 편안할까요?',opts:[['말하지 않아도 되는 고요함',['침묵','개인']],['누군가 친절히 길을 알려주는 순간',['배움','기도']],['함께 식탁에 둘러앉는 순간',['공동체','관계']],['나무와 바람을 만나는 순간',['자연','쉼']]]},
- {q:'한 가지를 내려놓을 수 있다면 무엇일까요?',opts:[['끝없이 이어지는 분주함',['쉼','침묵']],['답을 찾지 못한 고민',['식별','묵상']],['어려워진 사람 사이의 거리',['화해','관계']],['늘 같은 하루의 반복',['활동','자연']]]},
- {q:'어떤 방식으로 마음을 표현하는 것이 편하신가요?',opts:[['혼자 생각하고 쓰기',['개인','묵상']],['말씀을 읽고 따라가기',['말씀','성경']],['서로 이야기를 나누기',['나눔','관계']],['몸을 움직이며 느끼기',['걷기','자연']]]},
- {q:'기도하는 시간을 상상하면 어떤 장면이 떠오르나요?',opts:[['작은 경당의 침묵',['침묵','관상']],['성경을 펼친 책상',['말씀','성경']],['함께 부르는 노래',['공동체','기도']],['햇살이 들어오는 숲길',['자연','걷기']]]},
- {q:'지금 내게 가장 필요한 한마디는?',opts:[['괜찮아요, 잠시 쉬어도 돼요',['쉼','개인']],['말씀 안에서 길을 찾아봐요',['말씀','식별']],['당신은 혼자가 아니에요',['관계','공동체']],['한 걸음부터 시작해 봐요',['활동','걷기']]]},
- {q:'다른 사람과 함께하는 시간이 주어진다면?',opts:[['혼자 있는 시간이 더 좋아요',['침묵','개인']],['길잡이의 안내를 듣고 싶어요',['기도','배움']],['서로 경험을 나누고 싶어요',['나눔','공동체']],['함께 걷거나 체험하고 싶어요',['걷기','활동']]]},
- {q:'마지막으로 나를 깊이 돌아본 때는 언제였나요?',opts:[['최근에는 그런 시간이 없었어요',['묵상','쉼']],['말씀을 읽을 때였어요',['말씀','성경']],['중요한 결정을 앞두고였어요',['식별','기도']],['누군가와 화해할 때였어요',['화해','관계']]]},
- {q:'머뭄을 마치고 돌아올 때 어떤 마음이면 좋겠나요?',opts:[['고요하고 가벼운 마음',['쉼','침묵']],['새로운 깨달음과 질문',['말씀','배움']],['다시 사람에게 다가갈 용기',['관계','화해']],['새로운 길을 시작할 용기',['식별','활동']]]}
-];
+const questions=window.GAMUM_QUIZ;
+const recommendation=window.GAMUM_RECOMMEND;
+state.conditions={};
 const profiles = {
  '쉼':['숨을 고르는 사람','많은 것을 해내는 대신, 잠시 쉬어도 괜찮은 시간을 찾고 있군요.'],
  '침묵':['고요한 샘을 찾는 사람','조용한 공간에서 자신과 하느님의 목소리를 더 가까이 듣고 싶은 마음입니다.'],
@@ -39,6 +30,12 @@ const profiles = {
  '기도':['기도의 자리를 찾는 사람','하느님 앞에 머물며 기도의 깊이를 조금 더 발견하고 싶은 마음입니다.'],
  '개인':['오롯한 시간을 찾는 사람','누군가의 속도에 맞추지 않고 자신의 걸음으로 머물고 싶은 마음입니다.']
 };
+Object.assign(profiles,{
+ '성찰':['생각의 여백을 찾는 사람','책과 이야기처럼, 마음에 남은 생각을 천천히 펼쳐 보는 시간은 어떨까요?'],
+ '경험':['새로운 순간을 만나는 사람','익숙한 일상에서 한 걸음 나와, 직접 느끼고 경험하는 시간을 찾아보세요.'],
+ '시작':['작은 시작을 준비하는 사람','모든 것을 알지 못해도 괜찮아요. 안내를 따라 한 걸음 시작해 보세요.'],
+ '열림':['나에게 맞는 시간을 찾는 사람','정해진 유형 없이, 편한 조건부터 골라보셔도 괜찮습니다.']
+});
 // 유형은 진단명이 아니라 지금의 머뭄을 묵상하도록 돕는 안내 카드입니다.
 // 성경은 한국천주교주교회의 새번역의 짧은 발췌문과 공식 장 링크를 사용합니다.
 // 정식 서비스에서 성경 본문을 게시하려면 주교회의의 저작권 사용 승인을 확인하세요.
@@ -108,7 +105,10 @@ const spiritualGuides = {
   prayer:'주님, 제 걸음이 느리더라도 그 안에서 당신을 만나게 하소서.'
  }
 };
+// New everyday headings reuse the existing, sourced spiritual readings; they do not assign a tradition.
+for(const [key,source] of Object.entries({'성찰':'말씀','경험':'자연','시작':'기도','열림':'쉼'}))spiritualGuides[key]={...spiritualGuides[source]};
 const saintSources={"쉼": "https://bible.cbck.or.kr/Knb/Lk/10", "침묵": "https://www.vatican.va/content/benedict-xvi/en/audiences/2011/documents/hf_ben-xvi_aud_20110202.html", "말씀": "https://www.vatican.va/content/benedict-xvi/en/audiences/2007/documents/hf_ben-xvi_aud_20071107.html", "관계": "https://press.vatican.va/content/salastampa/en/bollettino/pubblico/2017/03/15/holy.html", "자연": "https://www.vatican.va/content/benedict-xvi/en/audiences/2010/documents/hf_ben-xvi_aud_20100127.html", "식별": "https://www.vatican.va/content/francesco/en/audiences/2022/documents/20220907-udienza-generale.html", "기도": "https://www.vatican.va/content/benedict-xvi/en/audiences/2011/documents/hf_ben-xvi_aud_20110406.html", "개인": "https://www.vatican.va/content/francesco/en/audiences/2023/documents/20231018-udienza-generale.html"};
+for(const [key,source] of Object.entries({'성찰':'말씀','경험':'자연','시작':'기도','열림':'쉼'}))saintSources[key]=saintSources[source];
 function miniRetreat(profileKey) {
  const g=spiritualGuides[profileKey]||spiritualGuides['쉼'];
  return `<section class="guided-retreat" id="my-moment" aria-label="나를 위한 짧은 머뭄">
@@ -148,7 +148,7 @@ function availability(s){
    }
    return {label:'정보 확인 필요',tone:'unknown',precise:false,stale:true};
  }
- if(s.manualState==='open')return {label:'접수 중 · 기관 확인',tone:'unknown',precise:false};
+ if(s.manualState==='open'&&Number.isFinite(new Date(s.lastConfirmed).getTime())&&now-new Date(s.lastConfirmed).getTime()>=0&&now-new Date(s.lastConfirmed).getTime()<=15*60*1000)return {label:'접수 중 · 기관 확인',tone:'linked',precise:true};
  return {label:'주최 측 확인 필요',tone:'unknown',precise:false};
 }
 function statusHtml(s){const a=availability(s);return `<span class="status ${a.tone}">${safe(a.label)}</span>`}
@@ -189,7 +189,7 @@ const moodGuides={
  'lonely':{name:'외로워요',symbol:'♡',title:'혼자라고 느끼는 당신에게',comfort:'때로는 많은 사람과 함께 있어도 마음이 외로울 수 있습니다. 그 마음을 숨기지 않아도 괜찮습니다. 오늘은 하느님께 있는 그대로 말씀드려 보세요.',reference:'이사야 43,1-4',scripture:'하느님께서 당신 백성을 귀하게 여기시고 사랑하신다는 말씀을 떠올려 보세요.',question:'지금 내게 가장 듣고 싶은 말은 무엇인가요?',prayer:'주님, 저의 외로움 안에서도 당신의 사랑을 기억하게 하소서.'},
  'grateful':{name:'감사해요',symbol:'☼',title:'오늘의 선물을 기억하는 당신에게',comfort:'기쁜 마음을 대수롭지 않게 지나치지 않아도 됩니다. 이 감사가 어디서 왔는지 잠시 떠올려 보세요.',reference:'1테살로니카 5,18',scripture:'바오로 사도는 모든 일에 감사하라고 권고합니다.',question:'오늘 내게 주어진 작은 선물 하나는 무엇인가요?',prayer:'주님, 익숙한 하루에 숨어 있는 은총을 알아보게 하소서.'}
 };
-state.mood='tired';state.momentOpen=false;state.momentStep=0;state.momentFinished=false;state.momentExpanded=false;
+state.mood='tired';state.momentOpen=false;state.momentStep=0;state.momentFinished=false;state.momentExpanded=true;
 function momentReading(g){
  const step=state.momentStep||0;
  const pages=[`<span class="step-label">01 / 04 · 마음을 다독이는 말</span><h3>${safe(g.title)}</h3><p>${safe(g.comfort)}</p>`,
@@ -198,7 +198,7 @@ function momentReading(g){
  `<span class="step-label">04 / 04 · 짧은 기도</span><h3>이 마음을 주님께</h3><p class="reading-reflect">${safe(g.prayer)}</p><div class="moment-actions"><button class="secondary small" data-action="save-word" data-id="${safe(state.mood)}">${isFav('word',state.mood)?'✓ 서랍에 담았어요':'♡ 말씀·묵상 담기'}</button><button class="secondary small" data-action="copy-moment" data-id="${safe(state.mood)}">↗ 친구에게 나누기</button></div>`];
  return `<div class="moment-progress" aria-hidden="true">${pages.map((_,i)=>`<i class="${i<=step?'done':''}"></i>`).join('')}</div>${pages[step]}<div class="moment-navigation"><button class="text-btn" data-action="moment-back" ${step===0?'disabled':''}>← 이전</button><button class="primary" data-action="${step<3?'moment-next':'moment-finish'}">${step<3?'다음으로 →':'머뭄 마치기'}</button></div>`;
 }
-function momentView(){const g=moodGuides[state.mood];return `<section class="fan-section compact-moment" id="one-minute" aria-label="오늘, 1분 머뭄"><details id="moment-disclosure" ${state.momentExpanded||state.momentOpen?'open':''}><summary><span class="moment-summary-copy"><strong>오늘, 1분 머뭄</strong><span>피정을 떠나지 않는 날에도, 잠깐의 고요.</span></span><span class="disclosure-arrow" aria-hidden="true">＋</span></summary><div class="moment-layout ${state.momentOpen?'reading-open':''}"><div class="moment-pick"><h3>오늘 내 마음의 날씨는?</h3><div class="mood-grid">${Object.entries(moodGuides).map(([key,m])=>`<button class="mood-opt ${state.mood===key?'active':''}" data-action="select-mood" data-id="${key}" aria-pressed="${state.mood===key}"><span aria-hidden="true">${m.symbol}</span>${m.name}</button>`).join('')}</div><button class="primary" data-action="open-moment">${state.momentOpen?'처음부터 다시 머물기':'1분 머뭄 시작'} ↗</button></div>${state.momentOpen?`<div class="moment-reading" tabindex="-1" aria-label="1분 머뭄 읽기">${momentReading(g)}</div>`:state.momentFinished?'<p class="moment-finished">오늘도, 잘 머물렀습니다. 잠깐의 고요가 당신의 하루에 함께하기를 바랍니다.</p>':''}</div></details></section>`}
+function momentView(){const g=moodGuides[state.mood];return `<section class="fan-section compact-moment" id="one-minute" aria-label="오늘, 1분 머뭄"><div id="moment-disclosure"><div class="moment-heading"><span class="moment-summary-copy"><strong>오늘, 1분 머뭄</strong><span>피정을 떠나지 않는 날에도, 잠깐의 고요.</span></span></div><div class="moment-layout ${state.momentOpen?'reading-open':''}"><div class="moment-pick"><h3>오늘 내 마음의 날씨는?</h3><div class="mood-grid">${Object.entries(moodGuides).map(([key,m])=>`<button class="mood-opt ${state.mood===key?'active':''}" data-action="select-mood" data-id="${key}" aria-pressed="${state.mood===key}"><span aria-hidden="true">${m.symbol}</span>${m.name}</button>`).join('')}</div><button class="primary" data-action="open-moment">${state.momentOpen?'처음부터 다시 머물기':'1분 머뭄 시작'} ↗</button></div>${state.momentOpen?`<div class="moment-reading" tabindex="-1" aria-label="1분 머뭄 읽기">${momentReading(g)}</div>`:state.momentFinished?'<p class="moment-finished">오늘도, 잘 머물렀습니다. 잠깐의 고요가 당신의 하루에 함께하기를 바랍니다.</p>':''}</div></div></section>`}
 
 function faqView(){return `<div class="soft-accordion"><details><summary>혼자 가도 괜찮을까요?</summary><p>많은 피정은 개인으로 참여할 수 있지만 프로그램마다 참가 조건이 다릅니다. '개인 참가 가능'과 '단체 신청 전용'을 구분해서 안내할 예정입니다.</p></details><details><summary>신앙생활을 오래 쉬었는데 참여할 수 있나요?</summary><p>그럴 수 있습니다. 다만 프로그램별 대상·전제 조건이 다르므로 신청 전에 내용을 확인하세요. 가뭄은 처음 참여하는 분에게도 이해하기 쉬운 설명을 지향합니다.</p></details><details><summary>침묵 피정에서는 무엇을 하나요?</summary><p>보통 일정 시간 대화를 줄이고 기도와 말씀 묵상에 집중합니다. 미사, 강의, 개별 면담 여부는 피정마다 다르므로 상세 페이지에서 확인하세요.</p></details><details><summary>신청·참가비는 어디서 처리하나요?</summary><p>현재 시연판에는 실제 신청 기능이 없습니다. 정식 서비스 초기에는 각 수도회가 안내하는 공식 신청처와 납부 방식으로 연결하는 것을 목표로 합니다.</p></details></div>`}
 function shelfView(){return `${pageTop('나의 머뭄 서랍','한 번 마음에 닿았던 말씀과 피정을 다시 만나는 자리입니다.','MY STAY COLLECTION')}${store.favorites.length?`<div class="shelf-items">${store.favorites.map(f=>{
@@ -217,47 +217,28 @@ function home(){return `<section class="hero home-intro"><div class="hero-copy">
  ${momentView()}`}
 function guideView(){return `${pageTop('머뭄•피정이 처음이신가요?','거창한 준비보다 작은 궁금증을 풀어보세요.','이용 안내')}<section class="first-guide">${faqView()}</section><section class="guide-shelf-note"><h2>나의 머뭄 서랍</h2><p>말씀과 머뭄 결과, 가보고 싶은 피정을 한곳에 모아두세요. 다음에 오면 저장한 자리에서 다시 시작할 수 있습니다.</p><a href="#shelf" class="source-link">내 서랍 열기 ↗</a></section><section class="ad-slot" aria-label="성지순례 별도 광고 예시"><div><strong>성지순례, 또 다른 머뭄</strong><p>향후 검증된 성지순례 제휴 정보가 소개될 별도 공간입니다. 지금은 광고를 운영하지 않습니다.</p></div><span class="ad-label">광고·제휴 예정</span></section>`}
 
-function scoreAnswers(){const score={};for(const [qIdx,optIdx] of Object.entries(state.answers)){const tags=questions[Number(qIdx)].opts[optIdx]?.[1]||[];for(const tag of tags)score[tag]=(score[tag]||0)+1}return Object.entries(score).sort((a,b)=>b[1]-a[1]);}
 function recommend(){
- const ranked=scoreAnswers();
- const score=Object.fromEntries(ranked); // 10번째 답변 이후에도 점수를 계산할 수 있도록 명시적으로 생성
- const profileAliases={'묵상':'침묵','배움':'말씀','성경':'말씀','공동체':'관계','나눔':'관계','화해':'관계','걷기':'자연','활동':'자연','관상':'기도','자유':'쉼'};
- const topTag=ranked[0]?.[0]||'쉼';
- const top=profiles[topTag]?topTag:(profileAliases[topTag]||'쉼');
- const likes=ranked.slice(0,6).map(([tag])=>tag);
- const items=distinctResults(sessionsUpcoming())
-   .map(x=>{
-     const match=x.p.traits.reduce((n,t)=>n+(score[t]||0)*2,0)+x.p.tags.reduce((n,t)=>n+(score[t]||0),0);
-     const shared=[...new Set([...x.p.traits,...x.p.tags])].filter(t=>score[t]>0).sort((a,b)=>score[b]-score[a]);
-     return {...x,match,reason:shared.length?`${shared.slice(0,2).join(' · ')}에 대한 답변과 잘 어울려요.`:'새로운 머뭄 방식으로 함께 살펴보세요.'};
-   })
-   .sort((a,b)=>b.match-a.match||localDate(a.s.start)-localDate(b.s.start));
- return {top,likes,items};
+ const catalog=recommendation.adaptLegacy(state.programs,state.sessions,state.centers,{...state.sync,...state.demoOverrides});
+ return recommendation.recommend({questions,answers:state.answers,conditions:state.conditions,...catalog});
 }
-function quizQuestion(){const q=questions[state.quizStep];return `<span class="eyebrow">QUESTION ${pad(state.quizStep+1)}</span><h2 id="quiz-question" tabindex="-1">${safe(q.q)}</h2><div class="quiz-choices">${q.opts.map((o,i)=>`<button class="quiz-choice" data-action="quiz-answer" data-idx="${i}">${safe(o[0])}<span aria-hidden="true">↗</span></button>`).join('')}</div><div class="quiz-bottom"><button class="text-btn" data-action="quiz-back" ${state.quizStep===0?'disabled':''}>← 이전</button><button class="text-btn" data-action="quiz-skip">잘 모르겠어요, 건너뛰기 →</button></div>`}
-function quiz(){if(state.quizStep>=questions.length)return quizResults();return `<section class="quiz-page"><div class="quiz-intro"><a class="back-link" href="#home">← 피정 찾기</a><h1>나를 찾아가는 머뭄</h1><p>정답은 없어요. 지금의 마음에 가까운 답을 골라보세요.</p></div><div class="quiz"><div class="quiz-progress"><span>나를 알아가는 10가지 질문</span><strong>${state.quizStep+1} / 10</strong></div><div class="progress" role="progressbar" aria-label="질문 진행" aria-valuemin="0" aria-valuemax="10" aria-valuenow="${state.quizStep+1}"><div style="width:${(state.quizStep+1)*10}%"></div></div><div class="panel quiz-panel" aria-labelledby="quiz-question">${quizQuestion()}</div><p class="notice">심리 진단이나 신앙 평가가 아닙니다. 답변은 공유되지 않습니다.</p></div></section>`}
+function quizQuestion(){const q=questions[state.quizStep],last=state.quizStep===questions.length-1;return `<span class="eyebrow">QUESTION ${pad(state.quizStep+1)}</span><h2 id="quiz-question" tabindex="-1">${safe(q.q)}</h2><div class="quiz-choices">${q.opts.map((o,i)=>`<button class="quiz-choice ${state.answers[state.quizStep]===i?'chosen':''}" data-action="quiz-answer" data-idx="${i}" aria-pressed="${state.answers[state.quizStep]===i}"><span>${safe(o.text)}</span><span aria-hidden="true">${state.answers[state.quizStep]===i?'✓':'↗'}</span></button>`).join('')}</div><div class="quiz-bottom"><button class="text-btn" data-action="quiz-back" ${state.quizStep===0?'disabled':''}>← 이전</button><button class="text-btn" data-action="quiz-skip">${last?'건너뛰고 결과 보기':'건너뛰기 →'}</button>${last?`<button class="primary" data-action="quiz-finish" ${state.answers[state.quizStep]===undefined?'disabled':''}>결과 보기</button>`:''}</div>`}
+function quiz(){if(state.quizStep>=questions.length)return quizResults();return `<section class="quiz-page"><div class="quiz-intro"><a class="back-link" href="#home">← 피정 찾기</a><h1>나를 찾아가는 머뭄</h1><p>정답은 없어요. 지금의 마음에 가까운 답을 골라보세요.</p></div><div class="quiz"><div class="quiz-progress"><span>일상 속 작은 발견</span><strong>${state.quizStep+1} / 10</strong></div><div class="progress" role="progressbar" aria-label="질문 진행" aria-valuemin="0" aria-valuemax="10" aria-valuenow="${state.quizStep+1}"><div style="width:${(state.quizStep+1)*10}%"></div></div><div class="panel quiz-panel" aria-labelledby="quiz-question">${quizQuestion()}</div><p class="notice">심리·신앙 진단이 아니에요. 답변은 저장하지 않습니다.</p></div></section>`}
 function updateQuizQuestion(){
  if(state.quizStep>=questions.length){render();root.focus({preventScroll:true});window.scrollTo({top:0,behavior:'instant'});return}
- const panel=$('.quiz-panel');if(!panel){render();return}
- const position=window.scrollY;
- panel.innerHTML=quizQuestion();
- $('.quiz-progress strong').textContent=`${state.quizStep+1} / 10`;
- $('.progress').setAttribute('aria-valuenow',state.quizStep+1);
- $('.progress div').style.width=`${(state.quizStep+1)*10}%`;
- $('#quiz-question').focus({preventScroll:true});
- // Restore the existing position, never reset to the page top between questions.
- window.scrollTo({top:position,behavior:'instant'});
+ const panel=$('.quiz-panel');if(!panel){render();return}const position=window.scrollY;
+ panel.innerHTML=quizQuestion();$('.quiz-progress strong').textContent=`${state.quizStep+1} / 10`;
+ $('.progress').setAttribute('aria-valuenow',state.quizStep+1);$('.progress div').style.width=`${(state.quizStep+1)*10}%`;
+ $('#quiz-question').focus({preventScroll:true});window.scrollTo({top:position,behavior:'instant'});
 }
-
-function quizResults(){
- const data=recommend(),profile=profiles[data.top]||profiles['쉼'],items=data.items.slice(0,3);
- return `<div class="result-shell result-first"><section class="result-heading" aria-label="나의 머뭄 결과"><p class="result-kicker">10가지 질문 완료 · 나의 머뭄</p><h1>${safe(profile[0])}</h1><p class="result-summary">${safe(profile[1])}</p></section>
- <section id="suggested-retreats" class="suggested-retreats" aria-label="추천 머뭄 피정"><div class="section-head"><div><h2>당신에게 어울리는 머뭄 3곳</h2><p>아래 기관과 일정은 시연용 가상 정보입니다.</p></div></div>${resultsCards(items)}
- <details class="recommendation-why"><summary>이 머뭄을 추천한 이유</summary><p>${data.likes.length?`답변 중 <b>${data.likes.map(safe).join(' · ')}</b>에 관심이 나타났어요.`:'답변을 건너뛰어 기본 추천을 준비했어요.'} 프로그램의 여러 특징을 비교한 결과입니다.</p></details>
- <div class="result-footer-actions"><button class="secondary" data-action="nav" data-to="themes">주제로 더 찾아보기 ↗</button><button class="text-btn" data-action="jump-section" data-target="my-moment">나를 위한 짧은 머뭄 ↓</button></div></section>
- ${miniRetreat(data.top)}
- <details class="result-tools"><summary>결과 저장·공유와 다시 하기</summary><div class="button-row">${wordSaveButton(data.top)}<button class="secondary small" data-action="download-result" data-profile="${safe(data.top)}">↓ 결과 이미지 카드 저장</button><button class="secondary small" data-action="share-result" data-profile="${safe(data.top)}">친구에게 결과 문장 나누기 ↗</button><button class="text-btn" data-action="quiz-restart">10가지 질문 다시 하기</button></div></details></div>`;
+function recommendationCard(item){const {p,s,reason,status}=item,liked=isFav('program',p.id);const external=url=>/^https?:\/\//i.test(url||'')?safe(url):null;
+ return `<article class="retreat-card"><div class="art"><span class="art-tag">${p.demo?'가상 시연 프로그램':'공식 공고 확인'}</span><button class="bookmark-fab" data-action="toggle-favorite" data-kind="program" data-id="${safe(p.id)}" aria-label="${safe(p.title)} ${liked?'서랍에서 삭제':'서랍에 담기'}" aria-pressed="${liked}">${liked?'♥ 담았어요':'♡ 저장'}</button></div><div class="retreat-card-body"><div class="card-meta">${safe(p.organization)}</div><h3>${safe(p.title)}</h3><p class="match-explain">${safe(reason)}</p><dl class="card-facts"><div><dt>날짜</dt><dd>${dateRange(s)} (${recommendation.nights(s)}박)</dd></div><div><dt>장소</dt><dd>${safe(s.region)} · ${safe(s.place)}</dd></div><div><dt>대상</dt><dd>${safe(p.audience||'공고의 참가 자격 참고')}</dd></div><div><dt>참가비</dt><dd>${Number.isFinite(Number(s.fee))&&s.fee!==null?Number(s.fee).toLocaleString('ko-KR')+'원':'확인 필요'}${s.feeUnit==='person'?' / 1인':''}${p.demo?' · 가상 금액':''}</dd></div></dl><p class="status">${safe(status.label)}</p><p class="notice">${s.checkedAt?'모집 확인: '+safe(dateLong(s.checkedAt)):'모집 확인 시각 미등록'} · 참가 확정은 주최 측에서 안내합니다.</p><p class="card-contact">연락처 · ${safe(s.phone||'미등록 — 주최 측 확인 필요')}</p>${external(s.applicationUrl)?`<a class="card-cta" href="${external(s.applicationUrl)}" target="_blank" rel="noopener noreferrer">${p.demo?'입력된 신청 링크 (가상 시연)':'공식 신청 방법 확인'} ↗</a>`:'<p class="notice">신청 방법 · 공식 신청처 미등록</p>'}<a class="source-link" href="#session/${safe(s.id)}">회차 상세 보기 ↗</a></div></article>`;
 }
+function recommendationOptions(data){const c=state.conditions;const select=(key,label,entries,def='')=>`<label class="form-field" for="condition-${key}"><span>${label}</span><select name="${key}" id="condition-${key}">${entries.map(([v,t])=>`<option value="${safe(v)}" ${(c[key]??def)===v?'selected':''}>${t}</option>`).join('')}</select></label>`;
+ const input=(key,label,type='number',attrs='')=>`<label class="form-field" for="condition-${key}"><span>${label}</span><input name="${key}" id="condition-${key}" type="${type}" value="${safe(c[key]??'')}" ${attrs}/></label>`;
+ const check=(key,label)=>`<label class="check-field"><input type="checkbox" name="${key}" ${c[key]?'checked':''}/> ${label}</label>`;
+ return `<section id="recommendation-options" class="recommendation-options" aria-labelledby="options-heading"><h2 id="options-heading">추천을 조금 더 정확하게</h2><p>선택 사항이에요. 날짜·지역·예산은 입력하면 꼭 지킬 조건이 됩니다. 질문은 다시 하지 않아도 돼요.</p><form id="recommendation-form"><div class="condition-grid">${select('region','지역',[['','어디든'],...regions.map(x=>[x,x])])}${input('dateFrom','가능한 첫날','date')}${input('dateTo','가능한 마지막 날','date')}${input('budget','1인당 전체 예산 상한 (원)','number','min="0" step="1000" inputmode="numeric"')}${select('duration','머물고 싶은 시간',Object.entries(recommendation.durationLabels),data.pref.duration)}${select('company','함께 떠날 사람',Object.entries(recommendation.companyLabels),data.pref.company)}</div><div class="condition-flags">${check('durationRequired','이 기간만 가능해요')}${check('companyRequired','이 동행 조건은 꼭 필요해요')}</div><details class="advanced-conditions" ${Object.keys(c).length?'open':''}><summary>참가 대상·숙박·경험·관심 영성 더 고르기</summary><div class="condition-grid">${select('mode','꼭 필요한 참여 방식',[['any','아직 정하지 않았어요'],['no-night','숙박 불가 (당일·통원·온라인)'],['daytime','당일만 가능'],['residential','숙박형'],['commuter','통원형'],['online','온라인']], 'any')}${input('age','본인 나이 (만 나이)','number','min="0" max="120" step="1" inputmode="numeric"')}${input('youngestAge','동행 중 가장 적은 나이','number','min="0" max="120" step="1" inputmode="numeric"')}${input('oldestAge','동행 중 가장 많은 나이','number','min="0" max="120" step="1" inputmode="numeric"')}${input('partySize','본인 포함 동행 인원','number','min="1" max="500" step="1" inputmode="numeric"')}${input('childAge','자녀 중 가장 어린 나이','number','min="0" max="17" step="1" inputmode="numeric"')}${select('gender','참가자 성별 (제한 확인용)',[['','미정·응답하지 않음'],['female','모두 여성'],['male','모두 남성'],['mixed','다양한 성별']])}${select('role','참가 대상',[['','미정·응답하지 않음'],['lay','평신도'],['clergy','성직자'],['religious','수도자']])}${select('married','혼인 조건',[['','미정·응답하지 않음'],['yes','배우자와 혼인 관계'],['no','해당하지 않음']])}${select('vocation','성소 관심자 전용 참여',[['','미정·응답하지 않음'],['yes','성소 관심자로 참여 희망'],['no','해당하지 않음']])}${select('faith','신앙 단계',[['','미정·응답하지 않음'],['baptized','세례받은 신자'],['catechumen','예비신자'],['other','그 외']])}${select('experience','피정 경험',[['','아직 알려주지 않았어요'],['first','이번이 처음'],['some','참여 경험 있음'],['advanced','심화 경험 있음']])}${input('courses','이수한 선행 과정명 (쉼표로 구분)','text','placeholder="주최가 요구하는 정확한 과정명"')}${select('interest','관심 영성',[['','잘 모르겠어요'],['scripture','말씀·성경'],['silence','침묵·관상'],['ignatian','영신수련·식별'],['eucharistic','성체조배'],['marian','성모신심'],['praise','찬양·성령'],['monastic','수도생활 체험'],['family','가족·관계'],['ecology','생태영성·봉사']])}</div>${check('minors','미성년 자녀도 함께해요')}<p class="notice">심화 경험이 있어도 특정 선행 과정을 이수한 것으로 간주하지 않아요. 입력한 조건은 이 화면에서만 사용하며 저장·공유하지 않습니다.</p></details><p id="condition-error" role="alert"></p><div class="button-row"><button class="primary" type="submit">이 조건으로 다시 찾기</button><button class="text-btn" type="button" data-action="reset-conditions">조건 넓혀 다시 찾기</button></div></form><p id="recommendation-update" tabindex="-1" role="status">현재 추천 ${data.items.length}개 · ${data.unconfirmed.length}개 회차는 참가 대상 확인 필요</p><a href="#suggested-retreats" class="source-link" data-action="jump-section" data-target="suggested-retreats">바뀐 추천 보기 ↑</a></section>`;
+}
+function quizResults(){const data=recommend(),profile=profiles[data.top]||profiles['쉼'];return `<div class="result-shell result-first"><section class="result-heading" aria-label="나의 머뭄 결과"><p class="result-kicker">일상 속 10가지 질문 · 나의 머뭄</p><h1>${safe(profile[0])}</h1><p class="result-summary">${safe(profile[1])}</p><p class="notice">지금의 마음을 돌아보는 안내이며 성격·신앙 판정이 아닙니다.</p></section><section id="suggested-retreats" class="suggested-retreats" aria-label="추천 머뭄 피정"><div class="section-head"><div><h2>조건에 맞는 머뭄 ${data.items.length}개</h2><p>확인된 참가 조건에 맞는 회차만 최대 3개 보여드려요.</p></div></div><p class="demo-data-note">현재 등록된 ${state.programs.length}개 프로그램과 일정은 모두 가상 시연 자료입니다. 실제 신청은 되지 않습니다.</p>${data.items.length?`<div class="card-grid">${data.items.map(recommendationCard).join('')}</div>`:`<div class="empty"><strong>지금은 참가 조건을 확인할 수 있는 추천이 없어요.</strong><p>${data.unconfirmed.length?'기존 가상 자료에 참가 자격·동행 허용·선행 조건이 빠져 있어 추천을 보류했어요.':'입력한 조건과 모집 일정을 함께 만족하는 회차가 없어요.'}</p><button class="secondary" data-action="jump-section" data-target="recommendation-options">조건 확인·조정하기 ↓</button></div>`}<p class="notice">${data.unconfirmed.length}개 회차: 참가 대상 확인 필요 · ${data.excluded.length}개 회차: 조건 불일치 또는 모집 종료. 확인되지 않은 자격과 잔여석을 임의로 채우지 않습니다.</p>${data.pref.answered===0?'<p class="notice">모든 질문을 건너뛰었어요. 편한 탐색 방법으로 둘러보세요.</p>':''}<div class="button-row"><button class="secondary" data-action="nav" data-to="themes">전체 피정 둘러보기</button><button class="text-btn" data-action="nav" data-to="calendar">날짜로 찾기</button></div><details class="recommendation-why"><summary>추천 기준 알아보기</summary><p>${data.likes.length?`답변에서 ${data.likes.map(safe).join(' · ')}에 관심이 나타났어요.`:'답변 없이도 참가 조건부터 확인할 수 있어요.'} 일상 선호는 특정 영성 전통으로 단정하지 않습니다. 참가 자격 확인을 먼저 하고, 확인된 특징 안에서만 순서를 정합니다.</p></details></section>${recommendationOptions(data)}${miniRetreat(data.top)}<details class="result-tools"><summary>결과 저장·공유와 다시 하기</summary><p class="notice">유형 문장과 묵상 안내만 저장해요. 답변·개인 조건·추천 목록은 저장하거나 공유하지 않습니다.</p><div class="button-row">${wordSaveButton(data.top)}<button class="secondary small" data-action="download-result" data-profile="${safe(data.top)}">↓ 결과 이미지 카드 저장</button><button class="secondary small" data-action="share-result" data-profile="${safe(data.top)}">친구에게 결과 문장 나누기 ↗</button><button class="text-btn" data-action="quiz-restart">10가지 질문 다시 하기</button></div></details></div>`;}
 
 function sharedResult(profileKey){const p=profiles[profileKey]||profiles['쉼'];return `${pageTop('친구가 공유한 머뭄 이야기','이런 시간은 어떠세요? 나도 마음 여행을 시작할 수 있어요.','가뭄 공유 카드')}<div class="result-hero"><div class="big-icon">✦</div><h2>${safe(p[0])}</h2><p>${safe(p[1])}</p><button class="primary" data-action="nav" data-to="discover">나도 10가지 질문 해보기 ↗</button><div style="margin-top:13px">${wordSaveButton(profileKey)}</div></div>${miniRetreat(profileKey)}`}
 function sortedItems(items){return [...items].sort((a,b)=>state.sortOrder==='fee-asc'?a.p.fee-b.p.fee:state.sortOrder==='fee-desc'?b.p.fee-a.p.fee:localDate(a.s.start)-localDate(b.s.start))}
@@ -314,7 +295,7 @@ function publishConventDemo(){const d=state.demoConvent;if(!d.title.trim()||!d.h
  state.demoCreatedId=id;nav('program/'+id);toast('시연용 프로그램을 만들었습니다. 실제 공개되지는 않습니다.');
 }
 function notFound(){return `${pageTop('페이지를 찾지 못했어요','첫 화면으로 돌아가 다시 찾아보세요.')}<button class="primary" data-action="nav" data-to="home">처음으로</button>`}
-function render(){const previousPage=state.page;const resultToolsOpen=$('.result-tools')?.open;const active=document.activeElement;const focusData=active?.closest('[data-action]')?.dataset;let hash=decodeURIComponent(location.hash.slice(1))||'home',parts=hash.split('?')[0].split('/'),page=parts[0];state.page=page;$('.main-nav a.active')?.classList.remove('active');const navPage=['discover','themes','calendar','places','program','session','result'].includes(page)?'home':page;$(`[data-nav="${navPage}"]`)?.classList.add('active');root.innerHTML=page==='home'?home():page==='discover'?quiz():page==='result'?sharedResult(new URLSearchParams(hash.split('?')[1]||'').get('p')||'쉼'):page==='shelf'?shelfView():page==='guide'?guideView():page==='themes'?themesView():page==='calendar'?calendarView():page==='places'?placesView():page==='program'?programView(parts[1]):page==='session'?sessionView(parts[1]):page==='qr'?qrView(parts[1]):page==='admin'?adminView():page==='convent'?conventView():page==='convent-register'?demoConventView():notFound();const counter=$('#shelfCount');if(counter)counter.textContent=favoriteCount();if(previousPage===page&&resultToolsOpen&&$('.result-tools'))$('.result-tools').open=true;document.querySelectorAll('.main-nav a').forEach(a=>{if(a.dataset.nav===navPage)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current')});
+function render(){document.body?.classList.toggle('quiz-active',location.hash.startsWith('#discover')&&state.quizStep<questions.length);const previousPage=state.page;const resultToolsOpen=$('.result-tools')?.open;const active=document.activeElement;const focusData=active?.closest('[data-action]')?.dataset;let hash=decodeURIComponent(location.hash.slice(1))||'home',parts=hash.split('?')[0].split('/'),page=parts[0];state.page=page;$('.main-nav a.active')?.classList.remove('active');const navPage=['discover','themes','calendar','places','program','session','result'].includes(page)?'home':page;$(`[data-nav="${navPage}"]`)?.classList.add('active');root.innerHTML=page==='home'?home():page==='discover'?quiz():page==='result'?sharedResult(new URLSearchParams(hash.split('?')[1]||'').get('p')||'쉼'):page==='shelf'?shelfView():page==='guide'?guideView():page==='themes'?themesView():page==='calendar'?calendarView():page==='places'?placesView():page==='program'?programView(parts[1]):page==='session'?sessionView(parts[1]):page==='qr'?qrView(parts[1]):page==='admin'?adminView():page==='convent'?conventView():page==='convent-register'?demoConventView():notFound();const counter=$('#shelfCount');if(counter)counter.textContent=favoriteCount();if(previousPage===page&&resultToolsOpen&&$('.result-tools'))$('.result-tools').open=true;document.querySelectorAll('.main-nav a').forEach(a=>{if(a.dataset.nav===navPage)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current')});
  if(focusData&&previousPage===page){const matching=Array.from(root.querySelectorAll('[data-action]')).find(el=>Object.entries(focusData).every(([key,value])=>el.dataset[key]===value));(matching||root).focus({preventScroll:true});}
  else if(previousPage!==page){root.focus({preventScroll:true});window.scrollTo({top:0,behavior:'instant'});}
 }
@@ -344,11 +325,13 @@ root.addEventListener('click',async e=>{
  if(act==='convent-publish'){publishConventDemo();return}
  if(act==='nav'){nav(b.dataset.to);return}
  if(act==='program'||act==='session'||act==='qr'){nav(`${act}/${b.dataset.id}`);return}
- if(act==='quiz-answer'){state.answers[state.quizStep]=Number(b.dataset.idx);state.quizStep++;updateQuizQuestion();return}
+ if(act==='quiz-answer'){state.answers[state.quizStep]=Number(b.dataset.idx);if(state.quizStep<questions.length-1)state.quizStep++;updateQuizQuestion();return}
+ if(act==='quiz-finish'){state.quizStep=questions.length;updateQuizQuestion();return}
  if(act==='quiz-back'){state.quizStep=Math.max(0,state.quizStep-1);updateQuizQuestion();return}
  if(act==='quiz-skip'){delete state.answers[state.quizStep];state.quizStep++;updateQuizQuestion();return}
- if(act==='jump-section'){document.getElementById(b.dataset.target)?.scrollIntoView({behavior:'smooth',block:'start'});return}
- if(act==='quiz-restart'){state.answers={};state.quizStep=0;nav('discover');return}
+ if(act==='jump-section'){e.preventDefault();document.getElementById(b.dataset.target)?.scrollIntoView({behavior:'smooth',block:'start'});return}
+ if(act==='quiz-restart'){state.answers={};state.conditions={};state.quizStep=0;nav('discover');return}
+ if(act==='reset-conditions'){state.conditions={duration:'flexible',company:'flexible'};render();$('#recommendation-options')?.scrollIntoView({block:'start'});return}
   if(act==='share-result'){const p=b.dataset.profile,g=spiritualGuides[p]||spiritualGuides['쉼'];const pr=profiles[p]||profiles['쉼'];await shareText(`가뭄 · 나의 머뭄 결과\n${pr[0]}\n${pr[1]}\n함께 읽을 성경: ${g.reference}\n가뭄 · 가톨릭 머뭄`);return}
  if(act==='toggle-tag'){const t=b.dataset.tag;state.selectedTags=state.selectedTags.includes(t)?state.selectedTags.filter(x=>x!==t):[...state.selectedTags,t];render();return}
  if(act==='clear-tags'){state.selectedTags=[];render();return}
@@ -364,7 +347,15 @@ root.addEventListener('click',async e=>{
  if(act==='manual-close'){const s=state.sessions.find(s=>s.id==='s02');s.manualState='closed';render();toast('시연용 모집 마감 상태로 변경되었습니다.');return}
  if(act==='manual-reset'){const s=state.sessions.find(s=>s.id==='s02');s.manualState='unknown';render();return}
 });
-root.addEventListener('toggle',e=>{if(e.target.id==='moment-disclosure')state.momentExpanded=e.target.open},true);
+root.addEventListener('submit',e=>{
+ if(e.target.id!=='recommendation-form')return;e.preventDefault();
+ const form=e.target;if(!form.reportValidity())return;
+ const values=Object.fromEntries(new FormData(form));
+ if(values.dateFrom&&values.dateTo&&values.dateFrom>values.dateTo){$('#condition-error').textContent='가능한 마지막 날짜를 시작 날짜 이후로 골라주세요.';return}
+ if(values.minors&&!values.childAge&&values.childAge!=='0'){$('#condition-error').textContent='동행하는 자녀 중 가장 어린 나이를 알려주세요.';return}
+ state.conditions={...values,minors:!!values.minors,durationRequired:!!values.durationRequired,companyRequired:!!values.companyRequired,courses:(values.courses||'').split(',').map(x=>x.trim()).filter(Boolean)};
+ const y=window.scrollY;render();$('#recommendation-update').focus({preventScroll:true});window.scrollTo({top:y,behavior:'instant'});
+});
 root.addEventListener('input',e=>{const key=e.target.dataset.demoField;if(key)state.demoConvent[key]=e.target.value});
 root.addEventListener('change',e=>{if(e.target.id==='retreatSort'){state.sortOrder=e.target.value;render();$('#retreatSort')?.focus({preventScroll:true});return}const key=e.target.dataset.demoField;if(key)state.demoConvent[key]=e.target.value});
 root.addEventListener('keydown',e=>{const b=e.target.closest('.retreat-card[role="button"]');if(b&&!e.target.closest('button,a')&&(e.key==='Enter'||e.key===' ')){e.preventDefault();nav('program/'+b.dataset.id)}});
