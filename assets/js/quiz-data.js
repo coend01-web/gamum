@@ -39,33 +39,33 @@ window.GAMUM_QUIZ = [
     "q": "내 인생에 버튼 하나를 추가할 수 있다면?",
     "opts": [
       {
-        "text": "⏸ 일시정지 — 아무것도 안 하고 싶다.",
+        "text": "일시정지 — 아무것도 안 하고 싶다.",
         "weights": {
           "rest": 3,
           "quiet": 2
         }
       },
       {
-        "text": "↩ 되감기 — 그때 그 말을 바꾸고 싶다.",
+        "text": "되감기 — 그때 그 말을 바꾸고 싶다.",
         "weights": {
           "reconciliation": 3,
           "relationship": 2
         }
       },
       {
-        "text": "🧭 길찾기 — 어디로 가야 할지 모르겠다.",
+        "text": "길찾기 — 어디로 가야 할지 모르겠다.",
         "weights": {
           "discernment": 3
         }
       },
       {
-        "text": "↻ 새로고침 — 뭔가 새롭게 시작하고 싶다.",
+        "text": "새로고침 — 뭔가 새롭게 시작하고 싶다.",
         "weights": {
           "renewal": 3
         }
       },
       {
-        "text": "🔇 음소거 — 잠시 세상 소리를 끄고 싶다.",
+        "text": "음소거 — 잠시 세상 소리를 끄고 싶다.",
         "weights": {
           "quiet": 3,
           "solitude": 2
