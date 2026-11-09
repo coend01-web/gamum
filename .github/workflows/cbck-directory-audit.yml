@@ -38,3 +38,16 @@ jobs:
           with open(__import__("os").environ["GITHUB_STEP_SUMMARY"],"a",encoding="utf-8") as f:
               f.write("\n".join(rows)+"\n")
           PY
+
+      - name: Upload temporary staging package (not committed, no credentials)
+        uses: actions/upload-artifact@v4
+        with:
+          name: cbck-candidates-review-only
+          path: |
+            private/cbck/cbck_all_records.csv
+            private/cbck/organizations_pending.csv
+            private/cbck/retreat_houses_pending.csv
+            private/cbck/cbck_staging_review_ONLY.sql
+            private/cbck/report.json
+          if-no-files-found: error
+          retention-days: 1
