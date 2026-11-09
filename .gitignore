@@ -4,3 +4,6 @@ node_modules/
 ops/config.local.js
 supabase/.temp/
 *.log
+
+# Official CBCK directory working files: private staging, never publish to the public repo.
+private/cbck/
