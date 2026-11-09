@@ -5,6 +5,7 @@ Run from repository root: python3 -m pip install beautifulsoup4
 Files are created in git-ignored private/cbck/. Respect CBCK usage rights.
 """
 import csv, datetime, hashlib, json, re, sys, time
+from collections import Counter
 from pathlib import Path
 from urllib.parse import urlencode, urljoin
 from urllib.request import Request, urlopen
@@ -23,6 +24,7 @@ SETS = [
     ("male_head", 6, "201005720", 40),
     ("female_head", 7, "201005720", 90),
 ]
+REPEATED_NONLIST_KEYS = {}
 COLUMNS = ["record_id","source_type","cbck_code","name","context","source_url","checked_on"]
 
 def fetch(url):
@@ -70,16 +72,25 @@ def collect(kind,group,area,minimum):
     if not first or end==0:raise RuntimeError(f"{kind}: first page empty")
     size=min(end,len(first))
     found={row["record_id"]:row for row in first}
+    occurrences=Counter(row["cbck_code"] or row["name"] for row in first)
     for start in range(1+size,total+1,size):
         params.update(start=str(start),paged=str(size))
         rows,_,this_total=parse(fetch(BASE+"?"+urlencode(params)),kind)
         if not rows or this_total!=total:
             raise RuntimeError(f"{kind}: incomplete/changed page at start={start}")
         found.update({row["record_id"]:row for row in rows})
+        occurrences.update(row["cbck_code"] or row["name"] for row in rows)
         time.sleep(.15)
-    if len(found)<max(minimum,int(total*.98)):
-        raise RuntimeError(f"{kind}: expected {total}, received {len(found)}. No export.")
-    print(f"{kind}: {len(found)}/{total}")
+    group="male" if kind.startswith("male") else "female" if kind.startswith("female") else "houses"
+    if kind.endswith("_all") or kind=="retreat_house":
+        repeated={key for key,how_many in occurrences.items() if how_many>1}
+        REPEATED_NONLIST_KEYS[group]=repeated
+    else:
+        repeated=REPEATED_NONLIST_KEYS.get(group,set())
+    found={rid:row for rid,row in found.items() if (row["cbck_code"] or row["name"]) not in repeated}
+    if len(found)!=total or len(found)<minimum:
+        raise RuntimeError(f"{kind}: expected {total} exact list entries; got {len(found)} after excluding {len(repeated)} repeating non-list links. Do not pre-assign codes.")
+    print(f"{kind}: {len(found)}/{total} (excluded {len(repeated)} repeating navigational links)")
     return list(found.values()),total
 
 def write_csv(path, rows, cols):
