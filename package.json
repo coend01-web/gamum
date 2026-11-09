@@ -1,0 +1,19 @@
+{
+  "name": "camum",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build:ops": "node scripts/build-ops.mjs",
+    "test": "node tests/regression.mjs && node tests/recommendation-v2.mjs && node tests/demo-catalog.mjs && node tests/ops.mjs && node tests/ops-db.mjs && node tests/ops-edge.mjs"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "2.119.0",
+    "qrcode-generator": "2.0.4"
+  },
+  "devDependencies": {
+    "@electric-sql/pglite": "0.5.15"
+  },
+  "engines": {
+    "node": ">=22.13"
+  }
+}

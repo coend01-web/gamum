@@ -1,0 +1,4 @@
+project_id = "camum-v021-development"
+[functions.institution-auth]
+# Login/reset must be reachable without a JWT; authenticated actions verify getUser + DB MFA inside.
+verify_jwt = false

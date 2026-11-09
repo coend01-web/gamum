@@ -1,0 +1,21 @@
+name: v0.21 development checks
+on:
+  push:
+    branches: [feature/v0.21-convent-ops]
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - run: npm run build:ops
+      - run: git diff --exit-code -- ops/vendor
+      - run: npm test
+# No Pages deployment and no cloud credentials in this workflow.

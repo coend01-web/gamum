@@ -1,0 +1,2 @@
+# Preserve third-party SDK sources exactly as published, including whitespace inside template literals.
+ops/vendor/* -whitespace

@@ -1,0 +1,13 @@
+import assert from 'node:assert/strict';import {readFile} from 'node:fs/promises';import vm from 'node:vm';
+import {parseCSV,validateSessions,repeatSessions,catalogFromRows,columns,validateConfig,https,visibleStatus} from '../ops/domain.js';import {session} from './ops-db-support.mjs';
+let n=0;const ok=(v,m)=>{assert.ok(v,m);n++;};
+const s=session(),repeated=repeatSessions(s,40,7);ok(repeated.length===40,'repeat 40');ok(validateSessions(repeated).errors.length===0,'valid repeated');ok(validateSessions([s,s]).errors.length>0,'duplicate check');ok(validateSessions([{...s,fee:-1}]).errors.length>0,'negative fee');ok(validateSessions([{...s,capacity:0}]).errors.length>0,'invalid capacity');ok(validateSessions([{...s,application_end:s.ends_at}]).errors.length>0,'deadline after start');ok(validateSessions([{...s,application_url:'javascript:alert(1)'}]).errors.length>0,'unsafe URL');
+const csv=columns.join(',')+'\r\n'+columns.map(k=>s[k]??'').join(',')+'\r\n';ok(parseCSV(csv).length===1,'CSV');ok(validateSessions(parseCSV(csv)).errors.length===0,'CSV validate');assert.throws(()=>parseCSV('bad,header\n1,2'));n++;assert.throws(()=>parseCSV(columns.join(',')+'\n"unterminated'));n++;
+ok(!validateConfig('https://x.supabase.co','sb_secret_bad'),'no secret key');ok(validateConfig('https://x.supabase.co','sb_publishable_test'),'public config');ok(!https('https://user:password@example.org'),'no credential URL');
+const r={...s,start:s.starts_at,end:s.ends_at,applicationStart:s.application_start,applicationEnd:s.application_end,programId:'p',id:'s',demo:false,source:{url:'https://example.org',verified:true,checkedAt:new Date().toISOString()},requirements:{complete:true,companies:['solo'],prerequisites:[],roles:['any']},taxonomy:{features:['rest']},applicationUrl:'https://example.org',checkedAt:new Date().toISOString()};
+ok(catalogFromRows([r,{...r,demo:true},{...r,catalogKind:'concert'}]).sessions.length===1,'no demo or concert contamination');
+const context={};vm.createContext(context);vm.runInContext(await readFile('assets/js/recommendation.js','utf8'),context);const engine=context.GAMUM_RECOMMEND;
+for(const status of ['waiting','paused','closed','cancelled','ended']){ok(engine.status({...r,status}).closed,'non-enrollable status '+status);}
+ok(engine.recommend({questions:[],...catalogFromRows([r]),answers:{}}).items.length===1,'approved real data recommendation');ok(engine.recommend({questions:[],...catalogFromRows([{...r,requirements:{complete:false}}]),answers:{}}).items.length===0,'unknown qualification excluded');
+ok(visibleStatus({...r,status:'waiting'})==='대기 접수','waiting label');
+console.log(`PASS: ${n} CSV, recurrence, validation, approved-data adapter and recommendation checks.`);

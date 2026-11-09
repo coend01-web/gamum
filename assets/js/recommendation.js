@@ -65,6 +65,8 @@
   function status(s,now=Date.now()) {
     if(!Number.isFinite(ms(s.start))||!Number.isFinite(ms(s.end)))return {label:'일정 확인 필요',closed:false};
     if(ms(s.end)<now)return {label:'종료',closed:true};
+    // Verified operational status is authoritative; never recommend paused/waitlisted sessions as open.
+    if(s.demo===false&&['paused','waiting','ended'].includes(s.status))return {label:{paused:'접수 일시중지',waiting:'대기 접수',ended:'종료'}[s.status],closed:true};
     const verified=Number.isFinite(ms(s.checkedAt))&&now-ms(s.checkedAt)>=0&&now-ms(s.checkedAt)<=15*60000;
     if(s.status==='closed'||s.status==='cancelled'||(verified&&s.remaining===0))return {label:s.status==='cancelled'?'취소':'모집 마감',closed:true};
     if(Number.isFinite(ms(s.applicationEnd))&&ms(s.applicationEnd)<now)return {label:'접수 기간 종료',closed:true};
