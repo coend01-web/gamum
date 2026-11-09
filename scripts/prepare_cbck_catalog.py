@@ -54,15 +54,9 @@ def parse(html, kind):
         match=re.search(r"(?i)(?:[?&]|&amp;)code=([^&#\s\"']+)",href+" "+onclick)
         code=match.group(1) if match else ""
         record_id=f"{kind}:{code}" if code else f"{kind}:{hashlib.sha256((name+url).encode()).hexdigest()[:16]}"
-        context=name
-        for parent in anchor.parents:
-            if getattr(parent,"name",None) in ("body","html"):break
-            value=re.sub(r"\s+"," ",parent.get_text(" ",strip=True))
-            if len(name)<len(value)<650:
-                context=value[:550]
-                if "표 주소" in value or "교구" in value: break
+        # Only directory name/code/link. Do not bulk-copy office holders or contact text.
         rows[record_id]=dict(record_id=record_id,source_type=kind,cbck_code=code,
-            name=name,context=context,source_url=url,
+            name=name,context="",source_url=url,
             checked_on=datetime.date.today().isoformat())
     return list(rows.values()),end,total
 
