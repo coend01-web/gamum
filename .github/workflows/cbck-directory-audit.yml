@@ -1,0 +1,37 @@
+name: CBCK directory source completeness audit
+on:
+  push:
+    branches: [feature/v0.21-convent-ops]
+    paths:
+      - scripts/prepare_cbck_catalog.py
+      - .github/workflows/cbck-directory-audit.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  official-directory-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - name: Install public HTML parser
+        run: python -m pip install --disable-pip-version-check beautifulsoup4
+      - name: Fetch official CBCK listings and verify expected counts (development only)
+        run: python scripts/prepare_cbck_catalog.py
+      - name: Publish aggregate count summary only (no source directory data)
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          data=json.loads(Path("private/cbck/report.json").read_text(encoding="utf-8"))
+          rows=["## CBCK directory aggregate check", "", "| Source | Extracted | CBCK reported |",
+                "|---|---:|---:|"]
+          for key,info in data["totals"].items():
+              rows.append(f'| {key} | {info["collected"]} | {info["reported"]} |')
+          rows.extend(["", "**Unverified candidates only.** No credentials generated, no DB updates, no public release."])
+          with open(__import__("os").environ["GITHUB_STEP_SUMMARY"],"a",encoding="utf-8") as f:
+              f.write("\n".join(rows)+"\n")
+          PY
