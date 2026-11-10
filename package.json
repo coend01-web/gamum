@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "build:ops": "node scripts/build-ops.mjs",
-    "test": "node tests/regression.mjs && node tests/recommendation-v2.mjs && node tests/demo-catalog.mjs && node tests/ops.mjs && node tests/ops-db.mjs && node tests/ops-edge.mjs"
+    "test": "node tests/regression.mjs && node tests/recommendation-v2.mjs && node tests/demo-catalog.mjs && node tests/ops.mjs && node tests/ops-db.mjs && node tests/ops-edge.mjs && node tests/directory.mjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "2.119.0",

@@ -7,3 +7,6 @@ supabase/.temp/
 
 # Official CBCK directory working files: private staging, never publish to the public repo.
 private/cbck/
+
+__pycache__/
+*.pyc

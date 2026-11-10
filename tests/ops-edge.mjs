@@ -16,7 +16,7 @@ function createClient(_url,key,options={}){const bearer=options.global?.headers?
 };}
 const env={SUPABASE_URL:'https://development.example',SUPABASE_ANON_KEY:'test-public-key',SUPABASE_SERVICE_ROLE_KEY:'test-service-key',CAMUM_ALLOWED_ORIGINS:'http://127.0.0.1:8771',CAMUM_RATE_SALT:'test-only-salt-32-bytes-never-production'};
 const source=(await readFile('supabase/functions/institution-auth/index.ts','utf8')).replace(/^import .*supabase-js.*;$/m,'');const compiled=stripTypeScriptTypes(source,{mode:'strip'});
-vm.runInNewContext(compiled,{createClient,crypto,Request,Response,TextEncoder,TextDecoder,atob,Deno:{env:{get:k=>env[k]},serve:fn=>handler=fn}});
+vm.runInNewContext(compiled,{createClient,crypto,URL,Request,Response,TextEncoder,TextDecoder,atob,Deno:{env:{get:k=>env[k]},serve:fn=>handler=fn}});
 let n=0;const ok=(x,m)=>{assert.ok(x,m);n++;};
 async function call(data,token,origin='http://127.0.0.1:8771'){const response=await handler(new Request('http://test/institution-auth',{method:'POST',headers:{origin,'content-type':'application/json',...(token?{authorization:'Bearer '+token}:{})},body:JSON.stringify(data)}));return {status:response.status,...await response.json()};}
 ok((await call({action:'login',number,password:'wrong'})).status===401,'wrong password rejected');
@@ -29,6 +29,7 @@ ok((await call({action:'login',number,password:'test-new-password-only'})).statu
 const recovery=await call({action:'recover',number});ok(recovery.status===200&&!recovery.token,'number alone only requests recovery');
 const centralAal1=await mint(ids.operator,'aal1');ok((await call({action:'issue-reset',number,note:'가상 기관 공식 연락처 확인 테스트 완료'},centralAal1.access_token)).status===403,'MFA mandatory for reset issuance');
 const central=await mint(ids.operator,'aal2');const issued=await call({action:'issue-reset',number,note:'가상 기관 공식 연락처 확인 테스트 완료'},central.access_token);ok(issued.status===200&&issued.token.length===64,'operator verified one-time reset link');
+const resetInfo=await call({action:'reset-info',token:issued.token});ok(resetInfo.number===number&&resetInfo.name==='가상 A 수도회','valid invitation shows institution identity');
 ok((await call({action:'complete-reset',token:issued.token,newPassword:'test-recovered-password'})).status===200,'redeem reset');
 ok((await call({action:'complete-reset',token:issued.token,newPassword:'test-recovered-password'})).status!==200,'reset replay rejected');
 ok((await call({action:'login',number,password:'test-recovered-password'})).status===200,'recovered credential can log in');
@@ -39,4 +40,10 @@ const newNumber=(await db.query('select management_number from organizations whe
 const first=await call({action:'issue-reset',number:newNumber,note:'가상 기관 첫 발급 시 공식 확인 경로 테스트'},central.access_token);ok(first.status===200,'first institution Auth account provisioned without showing a password');
 ok((await call({action:'complete-reset',token:first.token,newPassword:'test-new-institution-password'})).status===200,'first institution password initialized');
 ok((await call({action:'login',number:newNumber,password:'test-new-institution-password'})).status===200,'first institution number login');
+await db.query("insert into camum_private.cbck_directory_staging(source_record_id,cbck_code,source_section,official_name,source_checked_on,provisional_management_number) values('male_head:990000001','990000001','male_head','가상 신청 검사 기관',current_date,'CAM-555555')");
+const request=await call({action:'directory-request',sourceUrl:'https://directory.cbck.or.kr/OnlineAddress/Catholic/DetailInfo.aspx?code=990000001',contact:'가상 공식 회신 연락처'});
+ok(request.status===200&&!request.token,'application issues no credential');
+ok((await db.query('select count(*) from camum_private.directory_claims')).rows[0].count===1,'verified-site request stored privately');
+ok((await call({action:'directory-request',sourceUrl:'https://untrusted.example/DetailInfo.aspx?code=990000001',contact:'가상 공식 회신 연락처'})).status===400,'lookalike source rejected');
+ok((await call({action:'reset-info',token:issued.token})).status!==200,'used invitation no longer displays identity');
 console.log(`PASS: ${n} Edge handler checks with fake Auth + PostgreSQL, including old password refusal, revoked JWTs, verified reset, MFA and replay. Hosted Auth still required.`);await db.close();

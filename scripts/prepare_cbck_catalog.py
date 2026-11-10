@@ -111,8 +111,13 @@ def main():
     OUT.mkdir(parents=True,exist_ok=True)
     orgpath=OUT/"organizations_pending.csv"
     housepath=OUT/"retreat_houses_pending.csv"
-    existing_org=previous(orgpath,"management_number")
-    existing_house=previous(housepath,"facility_number")
+    ledgerpath=OUT/'code_reservations.json'
+    ledger=json.loads(ledgerpath.read_text()) if ledgerpath.exists() else {'organizations':{},'houses':{}}
+    existing_org={**ledger['organizations'],**previous(orgpath,'management_number')}
+    existing_house={**ledger['houses'],**previous(housepath,'facility_number')}
+    for old,current in [(ledger['organizations'],existing_org),(ledger['houses'],existing_house)]:
+        if any(current[k]!=v for k,v in old.items()) or len(set(current.values()))!=len(current):
+            raise RuntimeError('Reservation ledger changed or has duplicate numbers; stop.')
     org_n=next_serial("CAM-",existing_org)
     house_n=next_serial("CAM-H-",existing_house)
     org=[];houses=[]
@@ -133,6 +138,9 @@ def main():
     write_csv(OUT/"cbck_all_records.csv",source,COLUMNS)
     write_csv(orgpath,org,COLUMNS+["management_number","credential_state","approval_state","claim_state","review_note"])
     write_csv(housepath,houses,COLUMNS+["facility_number","management_number","association_state","publication_state","review_note"])
+    existing_org.update({r['record_id']:r['management_number'] for r in org})
+    existing_house.update({r['record_id']:r['facility_number'] for r in houses})
+    ledgerpath.write_text(json.dumps({'organizations':existing_org,'houses':existing_house},ensure_ascii=False,indent=2))
     report=dict(source=BASE,checked_on=datetime.date.today().isoformat(),totals=totals,
         provisional_institution_codes=len(org),provisional_facility_codes=len(houses),
         status="local-only, unverified, unclaimed, unissued; NOT deployed to Supabase",

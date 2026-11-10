@@ -24,8 +24,19 @@ Deno.serve(async(req:Request)=>{
  const ip=(req.headers.get('x-forwarded-for')||'unknown').split(',').at(-1)?.trim()||'unknown';
  // Account-wide limit remains effective even if an untrusted forwarding header is spoofed.
  const ipHash=await hash(salt+'|'+ip);
- if(['login','recover','complete-reset'].includes(d.action)){
- if(!await rpc('ops_auth_attempt',{p_number:d.action==='complete-reset'?'reset:'+(await hash(String(d.token||''))).slice(0,16):number.slice(0,40),p_ip_hash:ipHash}))return reply(429,{error:'시도가 많습니다. 15분 뒤 다시 시도해 주세요.'});}
+ if(['login','recover','complete-reset','reset-info','directory-request'].includes(d.action)){
+ if(!await rpc('ops_auth_attempt',{p_number:['complete-reset','reset-info'].includes(d.action)?'reset:'+(await hash(String(d.token||''))).slice(0,16):number.slice(0,40),p_ip_hash:ipHash}))return reply(429,{error:'시도가 많습니다. 15분 뒤 다시 시도해 주세요.'});}
+ if(d.action==='directory-request'){
+ const source=new URL(String(d.sourceUrl||''));
+ if(source.protocol!=='https:'||source.hostname!=='directory.cbck.or.kr'||!source.pathname.endsWith('/DetailInfo.aspx'))return reply(400,{error:'CBCK 공식 주소록의 기관 상세 주소를 입력해 주세요.'});
+ await rpc('ops_auth_directory_request',{p_code:source.searchParams.get('code')||'',p_contact:String(d.contact||'')});
+ return reply(200,{message:'기관 확인 요청을 접수했습니다. 중앙관리자가 기존 공식 연락처로 담당 권한을 확인한 뒤 안내합니다. 비밀번호는 아직 발급되지 않았습니다.'});
+ }
+ if(d.action==='reset-info'){
+ if(!/^[a-f0-9]{64}$/.test(d.token||''))return reply(400,{error:'초기설정 링크를 확인해 주세요.'});
+ const info=await rpc('ops_auth_reset_info',{p_hash:await hash(d.token)});
+ if(!info)return reply(400,{error:'만료되었거나 사용할 수 없는 초기설정 링크입니다.'});return reply(200,info);
+ }
  if(d.action==='login'){
  const info=await rpc('ops_auth_lookup',{p_number:number});if(!info||!info.user_id||info.state!=='active'||['suspended','rejected'].includes(info.organization_status))return reply(401,{error:'기관 관리번호와 비밀번호를 확인해 주세요.'});
  const client=publicClient();const {data,error}=await client.auth.signInWithPassword({email:info.email,password:String(d.password||'')});
@@ -36,6 +47,7 @@ Deno.serve(async(req:Request)=>{
  if(d.action==='recover'){await rpc('ops_auth_recovery_request',{p_number:number});return reply(200,{message:'요청을 접수했습니다. 중앙관리자가 기존 공식 연락처로 기관을 확인한 뒤 재설정을 안내합니다. 관리번호만으로 비밀번호는 바뀌지 않습니다.'});}
  if(d.action==='complete-reset'){
  if(!passwordOK(d.newPassword)||!/^[a-f0-9]{64}$/.test(d.token||''))return reply(400,{error:'새 비밀번호는 12~128자로 입력하고 재설정 링크를 확인해 주세요.'});
+ if(!await rpc('ops_auth_reset_info',{p_hash:await hash(d.token)}))return reply(400,{error:'승인되지 않았거나 만료된 기관 링크입니다.'});
  const ticket=await rpc('ops_auth_redeem_reset',{p_hash:await hash(d.token)});
  const {error}=await admin.auth.admin.updateUserById(ticket.user_id,{password:d.newPassword,email:ticket.email,email_confirm:true});if(error)throw Error('안전하게 잠근 상태입니다. 중앙관리자에게 새 재설정 링크를 요청해 주세요.');
  await rpc('ops_auth_activate',{p_org:ticket.org});return reply(200,{message:'비밀번호를 설정하고 기존 모든 기관 세션을 해제했습니다. 기관 관리번호로 다시 로그인해 주세요.'});

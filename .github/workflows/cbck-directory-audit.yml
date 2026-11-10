@@ -5,6 +5,8 @@ on:
     paths:
       - scripts/prepare_cbck_catalog.py
       - scripts/export_cbck_staging_sql.py
+      - scripts/review_cbck_catalog.py
+      - tests/cbck-preparation.py
       - .github/workflows/cbck-directory-audit.yml
   workflow_dispatch:
 permissions:
@@ -19,10 +21,12 @@ jobs:
         with:
           python-version: '3.12'
       - name: Install public HTML parser
-        run: python -m pip install --disable-pip-version-check beautifulsoup4
+        run: python -m pip install --disable-pip-version-check beautifulsoup4 certifi
       - name: Fetch official CBCK listings and verify expected counts (development only)
         run: |
+          python tests/cbck-preparation.py
           python scripts/prepare_cbck_catalog.py
+          python scripts/review_cbck_catalog.py
           python scripts/export_cbck_staging_sql.py
       - name: Publish aggregate count summary only (no source directory data)
         run: |
@@ -39,15 +43,4 @@ jobs:
               f.write("\n".join(rows)+"\n")
           PY
 
-      - name: Upload temporary staging package (not committed, no credentials)
-        uses: actions/upload-artifact@v4
-        with:
-          name: cbck-candidates-review-only
-          path: |
-            private/cbck/cbck_all_records.csv
-            private/cbck/organizations_pending.csv
-            private/cbck/retreat_houses_pending.csv
-            private/cbck/cbck_staging_review_ONLY.sql
-            private/cbck/report.json
-          if-no-files-found: error
-          retention-days: 1
+      # The directory and SQL remain private working data; do not publish them as CI artifacts.
