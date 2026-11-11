@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 270 1200 600" width="1200" height="600" role="img" aria-labelledby="title desc">
+<title id="title">다시 시작 — 햇빛이 닿는 계단</title><desc id="desc">밝은 입구로 향하는 넓은 돌계단 네 단. 첫 단과 마지막 단의 빛이 서로 다른 명도로 이어진다. 창작 건축 그래픽. 모바일에서는 가로로 낮은 화면에 맞춰 주요 공간과 사물을 중심으로 구도를 골랐다.</desc>
+<metadata>Original CAMUM architectural illustration. Created for CAMUM design review, 2026-11-12. No external photographs, fonts, or third-party artwork. Light direction: inside.</metadata>
+<defs>
+<linearGradient id="wall" x1="0" y1="0" x2="1" y2=".5"><stop stop-color="#e4ddca"/><stop offset="1" stop-color="#b5ad96"/></linearGradient>
+<linearGradient id="stone" x1="0" y1="0" x2="1" y2=".3"><stop stop-color="#b5ad96"/><stop offset="1" stop-color="#e4ddca"/></linearGradient>
+<linearGradient id="floor" x1="0" y1="0" x2=".2" y2="1"><stop stop-color="#b5ad96"/><stop offset="1" stop-color="#e4ddca"/></linearGradient>
+<linearGradient id="beam" x1="0" y1="0" x2=".3" y2="1"><stop stop-color="#fff2d3" stop-opacity=".95"/><stop offset="1" stop-color="#fff2d3" stop-opacity=".5"/></linearGradient>
+<linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#fff2d3"/><stop offset="1" stop-color="#c9d3b6"/></linearGradient>
+<linearGradient id="glow" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fff2d3"/><stop offset=".7" stop-color="#fff8df"/><stop offset="1" stop-color="#c9d3b6"/></linearGradient>
+<linearGradient id="linen" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#e4ddca"/><stop offset=".42" stop-color="#fff2d3"/><stop offset=".7" stop-color="#fff9e9"/><stop offset="1" stop-color="#e4ddca"/></linearGradient>
+<linearGradient id="water" x1="0" y1="0" x2=".5" y2="1"><stop stop-color="#c9d3b6"/><stop offset="1" stop-color="#839177"/></linearGradient>
+<filter id="grain" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency=".65" numOctaves="2" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter>
+</defs>
+<rect width="1200" height="900" fill="url(#wall)"/>
+<path d="M385 89H861V514H385Z" fill="#bcb39f"/><path d="M421 120H825V500H421Z" fill="url(#sky)"/>
+<path d="M421 371H825V500H421Z" fill="#bcc6ad"/>
+<path d="M385 500H861L922 560H324Z" fill="#f7edda"/><path d="M324 560H922V604H324Z" fill="#bcb39f"/>
+<path d="M324 604H922L984 667H262Z" fill="#eae1ce"/><path d="M262 667H984V716H262Z" fill="#aca694"/>
+<path d="M262 716H984L1050 786H196Z" fill="#e1d9c6"/><path d="M196 786H1050V840H196Z" fill="#a8a28f"/>
+<path d="M196 840H1050L1110 900H136Z" fill="#d8d1bc"/>
+<path d="M825 120V500L559 900H254L421 500V120Z" fill="url(#beam)" opacity=".52"/>
+<path d="M0 0H211V900H0Z" fill="#b4b19f" opacity=".6"/>
+<rect width="1200" height="900" filter="url(#grain)" opacity=".055" style="mix-blend-mode:multiply"/>
+</svg>

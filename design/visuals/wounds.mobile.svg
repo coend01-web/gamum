@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="120 200 1080 540" width="1080" height="540" role="img" aria-labelledby="title desc">
+<title id="title">상처 — 빛이 닿는 갈라진 벽</title><desc id="desc">완벽하게 매끈하지 않은 벽의 이음새를 부드러운 빛이 감싼다. 금을 과장하지 않고 온전한 벽과 함께 보여 주는 창작 건축 그래픽. 모바일에서는 가로로 낮은 화면에 맞춰 주요 공간과 사물을 중심으로 구도를 골랐다.</desc>
+<metadata>Original CAMUM architectural illustration. Created for CAMUM design review, 2026-11-12. No external photographs, fonts, or third-party artwork. Light direction: right.</metadata>
+<defs>
+<linearGradient id="wall" x1="0" y1="0" x2="1" y2=".5"><stop stop-color="#e5dccc"/><stop offset="1" stop-color="#b6a991"/></linearGradient>
+<linearGradient id="stone" x1="0" y1="0" x2="1" y2=".3"><stop stop-color="#b6a991"/><stop offset="1" stop-color="#e5dccc"/></linearGradient>
+<linearGradient id="floor" x1="0" y1="0" x2=".2" y2="1"><stop stop-color="#b6a991"/><stop offset="1" stop-color="#e5dccc"/></linearGradient>
+<linearGradient id="beam" x1="0" y1="0" x2=".3" y2="1"><stop stop-color="#fff2d6" stop-opacity=".95"/><stop offset="1" stop-color="#fff2d6" stop-opacity=".5"/></linearGradient>
+<linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#fff2d6"/><stop offset="1" stop-color="#c3bda8"/></linearGradient>
+<linearGradient id="glow" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fff2d6"/><stop offset=".7" stop-color="#fff8df"/><stop offset="1" stop-color="#c3bda8"/></linearGradient>
+<linearGradient id="linen" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#e5dccc"/><stop offset=".42" stop-color="#fff2d6"/><stop offset=".7" stop-color="#fff9e9"/><stop offset="1" stop-color="#e5dccc"/></linearGradient>
+<linearGradient id="water" x1="0" y1="0" x2=".5" y2="1"><stop stop-color="#c3bda8"/><stop offset="1" stop-color="#857b68"/></linearGradient>
+<filter id="grain" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency=".65" numOctaves="2" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter>
+</defs>
+<rect width="1200" height="900" fill="url(#wall)"/><path d="M0 720H1200V900H0Z" fill="url(#floor)"/>
+<path d="M0 0H640L607 157 629 268 583 406 610 522 574 720H0Z" fill="url(#stone)"/>
+<path d="M640 0L607 157 629 268 583 406 610 522 574 720" fill="none" stroke="#9e8e77" stroke-width="5"/>
+<path d="M649 0L619 154 641 269 595 407 622 521 586 720" fill="none" stroke="#f5ead4" stroke-width="5"/>
+<path d="M940 0H1140L648 720H338Z" fill="url(#beam)" opacity=".7"/>
+<path d="M250 195L276 213 342 205M206 477L267 463 282 474M432 616L476 624" fill="none" stroke="#b8ae9b" stroke-width="2"/>
+<path d="M338 720H648L503 900H113Z" fill="#ede2cc" opacity=".48"/>
+<rect width="1200" height="900" filter="url(#grain)" opacity=".055" style="mix-blend-mode:multiply"/>
+</svg>

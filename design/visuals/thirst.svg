@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" width="1200" height="900" role="img" aria-labelledby="title desc">
+<title id="title">갈증 — 돌 사이의 샘</title><desc id="desc">왼쪽 위에서 비친 빛이 거친 돌벽을 가르고, 바닥의 좁은 수로에 닿는다. 실재 장소를 묘사하지 않은 창작 건축 그래픽. </desc>
+<metadata>Original CAMUM architectural illustration. Created for CAMUM design review, 2026-11-12. No external photographs, fonts, or third-party artwork. Light direction: left.</metadata>
+<defs>
+<linearGradient id="wall" x1="0" y1="0" x2="1" y2=".5"><stop stop-color="#dcd6c9"/><stop offset="1" stop-color="#b2a998"/></linearGradient>
+<linearGradient id="stone" x1="0" y1="0" x2="1" y2=".3"><stop stop-color="#b2a998"/><stop offset="1" stop-color="#dcd6c9"/></linearGradient>
+<linearGradient id="floor" x1="0" y1="0" x2=".2" y2="1"><stop stop-color="#b2a998"/><stop offset="1" stop-color="#dcd6c9"/></linearGradient>
+<linearGradient id="beam" x1="0" y1="0" x2=".3" y2="1"><stop stop-color="#f8ebcd" stop-opacity=".95"/><stop offset="1" stop-color="#f8ebcd" stop-opacity=".5"/></linearGradient>
+<linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#f8ebcd"/><stop offset="1" stop-color="#a2afa2"/></linearGradient>
+<linearGradient id="glow" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f8ebcd"/><stop offset=".7" stop-color="#fff8df"/><stop offset="1" stop-color="#a2afa2"/></linearGradient>
+<linearGradient id="linen" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#dcd6c9"/><stop offset=".42" stop-color="#f8ebcd"/><stop offset=".7" stop-color="#fff9e9"/><stop offset="1" stop-color="#dcd6c9"/></linearGradient>
+<linearGradient id="water" x1="0" y1="0" x2=".5" y2="1"><stop stop-color="#a2afa2"/><stop offset="1" stop-color="#657c73"/></linearGradient>
+<filter id="grain" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency=".65" numOctaves="2" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter>
+</defs>
+<path d="M0 0H1200V650L0 730Z" fill="url(#wall)"/><path d="M0 730L1200 650V900H0Z" fill="url(#floor)"/>
+<path d="M0 0H735L645 647 0 730Z" fill="url(#stone)"/><path d="M735 0H795L710 650 645 647Z" fill="#8e887d"/>
+<path d="M120 0H400L720 650 448 678Z" fill="url(#beam)"/>
+<path d="M715 0L682 178 692 225 660 315 669 401 635 519 645 647" fill="none" stroke="#a39c8d" stroke-width="3"/>
+<path d="M0 245L694 182M0 478L670 397M209 0L185 228M270 453L241 700" fill="none" stroke="#b2a99a" stroke-width="2" opacity=".42"/>
+<path d="M645 647L710 650 811 900H690Z" fill="#625f54"/><path d="M657 650L699 652 778 900H711Z" fill="url(#water)"/>
+<path d="M667 671L706 673M676 712L720 714M690 778L742 779M704 850L765 852" stroke="#f6f3df" stroke-width="2" opacity=".65"/>
+<path d="M634 650L645 647 690 900H673Z" fill="#d0c6b5"/><path d="M710 650L722 647 834 900H811Z" fill="#f2e8d7"/>
+<rect width="1200" height="900" filter="url(#grain)" opacity=".055" style="mix-blend-mode:multiply"/>
+</svg>

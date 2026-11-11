@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="100 230 1100 550" width="1100" height="550" role="img" aria-labelledby="title desc">
+<title id="title">길 — 굽이 뒤의 빛</title><desc id="desc">매끈한 두 개의 높은 벽 사이로 돌길이 굽이쳐 밝은 출구로 이어진다. 위에서 아래로 부드러운 자연광이 흐른다. 창작 건축 그래픽. 모바일에서는 가로로 낮은 화면에 맞춰 주요 공간과 사물을 중심으로 구도를 골랐다.</desc>
+<metadata>Original CAMUM architectural illustration. Created for CAMUM design review, 2026-11-12. No external photographs, fonts, or third-party artwork. Light direction: top.</metadata>
+<defs>
+<linearGradient id="wall" x1="0" y1="0" x2="1" y2=".5"><stop stop-color="#e9e3d5"/><stop offset="1" stop-color="#a9ad9d"/></linearGradient>
+<linearGradient id="stone" x1="0" y1="0" x2="1" y2=".3"><stop stop-color="#a9ad9d"/><stop offset="1" stop-color="#e9e3d5"/></linearGradient>
+<linearGradient id="floor" x1="0" y1="0" x2=".2" y2="1"><stop stop-color="#a9ad9d"/><stop offset="1" stop-color="#e9e3d5"/></linearGradient>
+<linearGradient id="beam" x1="0" y1="0" x2=".3" y2="1"><stop stop-color="#fff6dc" stop-opacity=".95"/><stop offset="1" stop-color="#fff6dc" stop-opacity=".5"/></linearGradient>
+<linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#fff6dc"/><stop offset="1" stop-color="#c3cab7"/></linearGradient>
+<linearGradient id="glow" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fff6dc"/><stop offset=".7" stop-color="#fff8df"/><stop offset="1" stop-color="#c3cab7"/></linearGradient>
+<linearGradient id="linen" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#e9e3d5"/><stop offset=".42" stop-color="#fff6dc"/><stop offset=".7" stop-color="#fff9e9"/><stop offset="1" stop-color="#e9e3d5"/></linearGradient>
+<linearGradient id="water" x1="0" y1="0" x2=".5" y2="1"><stop stop-color="#c3cab7"/><stop offset="1" stop-color="#7b8974"/></linearGradient>
+<filter id="grain" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency=".65" numOctaves="2" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter>
+</defs>
+<rect width="1200" height="900" fill="url(#sky)"/><path d="M0 900V275Q350 90 647 175V525Q413 575 493 900Z" fill="url(#stone)"/>
+<path d="M1200 900V39Q801 62 746 368L738 540Q897 652 801 900Z" fill="url(#wall)"/>
+<path d="M493 900Q413 575 647 525L649 368 746 368 738 540Q897 652 801 900Z" fill="url(#floor)"/>
+<path d="M647 525L649 368 746 368 738 540Q786 576 811 620L580 620Q604 563 647 525Z" fill="url(#beam)"/>
+<path d="M0 311Q350 128 609 193V532" fill="none" stroke="#e8dfce" stroke-width="6"/>
+<path d="M485 802Q659 745 819 794M482 707Q657 666 821 710M539 624Q652 600 810 620" fill="none" stroke="#b9b3a2" stroke-width="2"/>
+<rect width="1200" height="900" filter="url(#grain)" opacity=".055" style="mix-blend-mode:multiply"/>
+</svg>

@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" width="1200" height="900" role="img" aria-labelledby="title desc">
+<title id="title">침묵 — 깊어지는 회랑</title><desc id="desc">반복되는 기둥과 둥근 개구부가 먼 빛의 방으로 이어진다. 수직선과 좁아지는 바닥의 원근이 중심을 향한다. 창작 건축 그래픽. </desc>
+<metadata>Original CAMUM architectural illustration. Created for CAMUM design review, 2026-11-12. No external photographs, fonts, or third-party artwork. Light direction: left.</metadata>
+<defs>
+<linearGradient id="wall" x1="0" y1="0" x2="1" y2=".5"><stop stop-color="#e7dfcf"/><stop offset="1" stop-color="#b9ae9b"/></linearGradient>
+<linearGradient id="stone" x1="0" y1="0" x2="1" y2=".3"><stop stop-color="#b9ae9b"/><stop offset="1" stop-color="#e7dfcf"/></linearGradient>
+<linearGradient id="floor" x1="0" y1="0" x2=".2" y2="1"><stop stop-color="#b9ae9b"/><stop offset="1" stop-color="#e7dfcf"/></linearGradient>
+<linearGradient id="beam" x1="0" y1="0" x2=".3" y2="1"><stop stop-color="#fbf3df" stop-opacity=".95"/><stop offset="1" stop-color="#fbf3df" stop-opacity=".5"/></linearGradient>
+<linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#fbf3df"/><stop offset="1" stop-color="#c4c8b5"/></linearGradient>
+<linearGradient id="glow" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fbf3df"/><stop offset=".7" stop-color="#fff8df"/><stop offset="1" stop-color="#c4c8b5"/></linearGradient>
+<linearGradient id="linen" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#e7dfcf"/><stop offset=".42" stop-color="#fbf3df"/><stop offset=".7" stop-color="#fff9e9"/><stop offset="1" stop-color="#e7dfcf"/></linearGradient>
+<linearGradient id="water" x1="0" y1="0" x2=".5" y2="1"><stop stop-color="#c4c8b5"/><stop offset="1" stop-color="#7a8176"/></linearGradient>
+<filter id="grain" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency=".65" numOctaves="2" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter>
+</defs>
+<rect width="1200" height="900" fill="#d9d5c9"/><path d="M0 900L514 540H690L1200 900Z" fill="url(#floor)"/>
+<path d="M330 900V330C330 20 870 20 870 330V900H1200V0H0V900Z" fill="url(#stone)"/>
+<path d="M395 900V340C395 92 805 92 805 340V900H870V330C870 20 330 20 330 330V900Z" fill="#b6b0a3"/>
+<path d="M395 900V340C395 92 805 92 805 340V900L746 775V342C746 164 454 164 454 342V775Z" fill="url(#wall)"/>
+<path d="M454 775V342C454 164 746 164 746 342V775L705 679V347C705 219 495 219 495 347V679Z" fill="#c4bcae"/>
+<path d="M495 679V347C495 219 705 219 705 347V679L675 607V350C675 258 525 258 525 350V607Z" fill="#e8e0d1"/>
+<path d="M525 607V350C525 258 675 258 675 350V607Z" fill="url(#sky)"/>
+<path d="M525 607H675L746 900H330Z" fill="url(#beam)"/>
+<path d="M395 900L525 607M805 900L675 607M600 607V900" stroke="#b2aa9d" stroke-width="1.5" opacity=".45"/>
+<rect width="1200" height="900" filter="url(#grain)" opacity=".055" style="mix-blend-mode:multiply"/>
+</svg>

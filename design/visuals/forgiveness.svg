@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" width="1200" height="900" role="img" aria-labelledby="title desc">
+<title id="title">용서 — 반쯤 열린 문</title><desc id="desc">닫히지도 활짝 열리지도 않은 두꺼운 회전문. 문턱 옆의 그늘과 열린 쪽의 빛을 함께 담은 창작 건축 그래픽. </desc>
+<metadata>Original CAMUM architectural illustration. Created for CAMUM design review, 2026-11-12. No external photographs, fonts, or third-party artwork. Light direction: inside.</metadata>
+<defs>
+<linearGradient id="wall" x1="0" y1="0" x2="1" y2=".5"><stop stop-color="#e2e1d2"/><stop offset="1" stop-color="#aaa994"/></linearGradient>
+<linearGradient id="stone" x1="0" y1="0" x2="1" y2=".3"><stop stop-color="#aaa994"/><stop offset="1" stop-color="#e2e1d2"/></linearGradient>
+<linearGradient id="floor" x1="0" y1="0" x2=".2" y2="1"><stop stop-color="#aaa994"/><stop offset="1" stop-color="#e2e1d2"/></linearGradient>
+<linearGradient id="beam" x1="0" y1="0" x2=".3" y2="1"><stop stop-color="#faf2d9" stop-opacity=".95"/><stop offset="1" stop-color="#faf2d9" stop-opacity=".5"/></linearGradient>
+<linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#faf2d9"/><stop offset="1" stop-color="#c1c8b1"/></linearGradient>
+<linearGradient id="glow" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#faf2d9"/><stop offset=".7" stop-color="#fff8df"/><stop offset="1" stop-color="#c1c8b1"/></linearGradient>
+<linearGradient id="linen" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#e2e1d2"/><stop offset=".42" stop-color="#faf2d9"/><stop offset=".7" stop-color="#fff9e9"/><stop offset="1" stop-color="#e2e1d2"/></linearGradient>
+<linearGradient id="water" x1="0" y1="0" x2=".5" y2="1"><stop stop-color="#c1c8b1"/><stop offset="1" stop-color="#7c8974"/></linearGradient>
+<filter id="grain" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency=".65" numOctaves="2" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter>
+</defs>
+<rect width="1200" height="900" fill="url(#wall)"/><path d="M0 690H1200V900H0Z" fill="url(#floor)"/>
+<path d="M365 126H841V690H365Z" fill="#7e8273"/><path d="M399 153H811V659H399Z" fill="url(#glow)"/>
+<path d="M523 115L742 210V723L523 659Z" fill="url(#stone)"/><path d="M742 210L759 202V715L742 723Z" fill="#9a9986"/>
+<path d="M523 115V659" stroke="#cfc7b2" stroke-width="5"/>
+<path d="M399 659H523L655 900H264Z" fill="url(#beam)"/><path d="M759 659H811L1032 900H894Z" fill="url(#beam)"/>
+<path d="M523 659L742 723 958 900H655Z" fill="#727d6f" opacity=".22"/>
+<path d="M691 407V476" stroke="#706f5e" stroke-width="5" stroke-linecap="round"/>
+<rect width="1200" height="900" filter="url(#grain)" opacity=".055" style="mix-blend-mode:multiply"/>
+</svg>

@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" width="1200" height="900" role="img" aria-labelledby="title desc">
+<title id="title">만남 — 마주 보는 자리</title><desc id="desc">곡선 벽을 배경으로 서로 마주 보는 두 나무 의자. 사이에는 작은 빛의 공간을 남긴 창작 건축 그래픽. </desc>
+<metadata>Original CAMUM architectural illustration. Created for CAMUM design review, 2026-11-12. No external photographs, fonts, or third-party artwork. Light direction: top.</metadata>
+<defs>
+<linearGradient id="wall" x1="0" y1="0" x2="1" y2=".5"><stop stop-color="#e6e1d2"/><stop offset="1" stop-color="#c4beaa"/></linearGradient>
+<linearGradient id="stone" x1="0" y1="0" x2="1" y2=".3"><stop stop-color="#c4beaa"/><stop offset="1" stop-color="#e6e1d2"/></linearGradient>
+<linearGradient id="floor" x1="0" y1="0" x2=".2" y2="1"><stop stop-color="#c4beaa"/><stop offset="1" stop-color="#e6e1d2"/></linearGradient>
+<linearGradient id="beam" x1="0" y1="0" x2=".3" y2="1"><stop stop-color="#fff4d9" stop-opacity=".95"/><stop offset="1" stop-color="#fff4d9" stop-opacity=".5"/></linearGradient>
+<linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#fff4d9"/><stop offset="1" stop-color="#c5c9af"/></linearGradient>
+<linearGradient id="glow" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fff4d9"/><stop offset=".7" stop-color="#fff8df"/><stop offset="1" stop-color="#c5c9af"/></linearGradient>
+<linearGradient id="linen" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#e6e1d2"/><stop offset=".42" stop-color="#fff4d9"/><stop offset=".7" stop-color="#fff9e9"/><stop offset="1" stop-color="#e6e1d2"/></linearGradient>
+<linearGradient id="water" x1="0" y1="0" x2=".5" y2="1"><stop stop-color="#c5c9af"/><stop offset="1" stop-color="#8c917b"/></linearGradient>
+<filter id="grain" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency=".65" numOctaves="2" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter>
+</defs>
+<rect width="1200" height="900" fill="url(#wall)"/><path d="M0 0Q120 360 0 691H1200V0Z" fill="url(#wall)"/>
+<path d="M0 690Q600 600 1200 690V900H0Z" fill="url(#floor)"/><path d="M0 690Q600 600 1200 690" fill="none" stroke="#bbb4a2" stroke-width="2"/>
+<path d="M490 0H700L832 650H370Z" fill="url(#beam)" opacity=".7"/>
+<path d="M335 690L450 681 605 777 446 800Z" fill="#827e6a" opacity=".22"/><path d="M750 681L863 690 976 775 819 800Z" fill="#827e6a" opacity=".22"/>
+<path d="M324 490H351V689H324ZM340 584H459V607H340ZM437 607H459V713H437ZM324 490L424 469V493L351 510Z" fill="#9b896e"/>
+<path d="M340 584L422 561 481 583 459 607Z" fill="#bdab8a"/><path d="M424 469H443V564H424Z" fill="#9b896e"/>
+<path d="M848 490H875V689H848ZM740 584H859V607H740ZM740 607H762V713H740ZM775 469L875 490 848 510 775 493Z" fill="#9b896e"/>
+<path d="M718 583L777 561 859 584 740 607Z" fill="#bdab8a"/><path d="M756 469H775V564H756Z" fill="#9b896e"/>
+<rect width="1200" height="900" filter="url(#grain)" opacity=".055" style="mix-blend-mode:multiply"/>
+</svg>

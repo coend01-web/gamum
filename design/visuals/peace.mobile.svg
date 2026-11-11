@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 170 1200 600" width="1200" height="600" role="img" aria-labelledby="title desc">
+<title id="title">평화 — 저녁을 담은 방</title><desc id="desc">넓은 개구부를 통해 낮은 수평선이 보이는 저녁 실내. 차분한 세이지빛 안뜰과 밝은 벽이 균형을 이루는 창작 건축 그래픽. 모바일에서는 가로로 낮은 화면에 맞춰 주요 공간과 사물을 중심으로 구도를 골랐다.</desc>
+<metadata>Original CAMUM architectural illustration. Created for CAMUM design review, 2026-11-12. No external photographs, fonts, or third-party artwork. Light direction: horizon.</metadata>
+<defs>
+<linearGradient id="wall" x1="0" y1="0" x2="1" y2=".5"><stop stop-color="#e2e6d8"/><stop offset="1" stop-color="#b5c0ae"/></linearGradient>
+<linearGradient id="stone" x1="0" y1="0" x2="1" y2=".3"><stop stop-color="#b5c0ae"/><stop offset="1" stop-color="#e2e6d8"/></linearGradient>
+<linearGradient id="floor" x1="0" y1="0" x2=".2" y2="1"><stop stop-color="#b5c0ae"/><stop offset="1" stop-color="#e2e6d8"/></linearGradient>
+<linearGradient id="beam" x1="0" y1="0" x2=".3" y2="1"><stop stop-color="#f4edcf" stop-opacity=".95"/><stop offset="1" stop-color="#f4edcf" stop-opacity=".5"/></linearGradient>
+<linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#f4edcf"/><stop offset="1" stop-color="#c7cfb4"/></linearGradient>
+<linearGradient id="glow" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f4edcf"/><stop offset=".7" stop-color="#fff8df"/><stop offset="1" stop-color="#c7cfb4"/></linearGradient>
+<linearGradient id="linen" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#e2e6d8"/><stop offset=".42" stop-color="#f4edcf"/><stop offset=".7" stop-color="#fff9e9"/><stop offset="1" stop-color="#e2e6d8"/></linearGradient>
+<linearGradient id="water" x1="0" y1="0" x2=".5" y2="1"><stop stop-color="#c7cfb4"/><stop offset="1" stop-color="#869b83"/></linearGradient>
+<filter id="grain" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency=".65" numOctaves="2" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter>
+</defs>
+<rect width="1200" height="900" fill="url(#wall)"/><path d="M0 716H1200V900H0Z" fill="url(#floor)"/>
+<path d="M194 188H1011V716H194Z" fill="#8c998a"/><path d="M228 218H977V680H228Z" fill="url(#sky)"/>
+<path d="M228 506Q432 487 618 506T977 500V680H228Z" fill="#a4b29d"/>
+<path d="M228 579Q469 543 680 567T977 558V680H228Z" fill="#819780"/>
+<path d="M228 635Q603 611 977 631V680H228Z" fill="#b6bea6"/>
+<path d="M194 716L228 680H977L1011 716Z" fill="#dedfcc"/>
+<path d="M228 716H977L1020 900H266Z" fill="url(#beam)" opacity=".35"/>
+<path d="M194 188H1011L977 218H228Z" fill="#9ca18e"/><path d="M1011 188V716L977 680V218Z" fill="#f0ead6"/>
+<path d="M347 727H553V745H347Z" fill="#c0c3b0"/>
+<rect width="1200" height="900" filter="url(#grain)" opacity=".055" style="mix-blend-mode:multiply"/>
+</svg>

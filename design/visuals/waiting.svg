@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" width="1200" height="900" role="img" aria-labelledby="title desc">
+<title id="title">기다림 — 흐린 날의 창가</title><desc id="desc">흐린 하늘 아래 낮고 긴 창과 두꺼운 돌 창턱. 빛이 넓게 퍼지고 아직 아무것도 놓이지 않은 창가가 남는다. 창작 건축 그래픽. </desc>
+<metadata>Original CAMUM architectural illustration. Created for CAMUM design review, 2026-11-12. No external photographs, fonts, or third-party artwork. Light direction: diffuse.</metadata>
+<defs>
+<linearGradient id="wall" x1="0" y1="0" x2="1" y2=".5"><stop stop-color="#e5e6dd"/><stop offset="1" stop-color="#c0c7ba"/></linearGradient>
+<linearGradient id="stone" x1="0" y1="0" x2="1" y2=".3"><stop stop-color="#c0c7ba"/><stop offset="1" stop-color="#e5e6dd"/></linearGradient>
+<linearGradient id="floor" x1="0" y1="0" x2=".2" y2="1"><stop stop-color="#c0c7ba"/><stop offset="1" stop-color="#e5e6dd"/></linearGradient>
+<linearGradient id="beam" x1="0" y1="0" x2=".3" y2="1"><stop stop-color="#f4f3e6" stop-opacity=".95"/><stop offset="1" stop-color="#f4f3e6" stop-opacity=".5"/></linearGradient>
+<linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#f4f3e6"/><stop offset="1" stop-color="#d2dbcd"/></linearGradient>
+<linearGradient id="glow" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f4f3e6"/><stop offset=".7" stop-color="#fff8df"/><stop offset="1" stop-color="#d2dbcd"/></linearGradient>
+<linearGradient id="linen" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#e5e6dd"/><stop offset=".42" stop-color="#f4f3e6"/><stop offset=".7" stop-color="#fff9e9"/><stop offset="1" stop-color="#e5e6dd"/></linearGradient>
+<linearGradient id="water" x1="0" y1="0" x2=".5" y2="1"><stop stop-color="#d2dbcd"/><stop offset="1" stop-color="#99a593"/></linearGradient>
+<filter id="grain" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency=".65" numOctaves="2" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter>
+</defs>
+<rect width="1200" height="900" fill="url(#wall)"/><path d="M0 720H1200V900H0Z" fill="url(#floor)"/>
+<path d="M198 366H1000V610H198Z" fill="#9aa193"/><path d="M228 392H970V577H228Z" fill="url(#sky)"/>
+<path d="M228 521Q431 495 610 523T970 511V577H228Z" fill="#b5bfb0"/>
+<path d="M198 610L228 577H970L1000 610V643H198Z" fill="#e8e5d8"/>
+<path d="M198 643H1000V659H198Z" fill="#b1b4a5"/><path d="M198 659H1000L1060 720H245Z" fill="#9fa797" opacity=".16"/>
+<path d="M603 392V577" stroke="#d6dcd0" stroke-width="4"/>
+<path d="M235 0V366M970 0V366" stroke="#d2d5c8" stroke-width="1"/>
+<rect width="1200" height="900" filter="url(#grain)" opacity=".055" style="mix-blend-mode:multiply"/>
+</svg>

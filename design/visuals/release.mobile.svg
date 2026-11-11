@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 300 1200 600" width="1200" height="600" role="img" aria-labelledby="title desc">
+<title id="title">내려놓음 — 비어 있는 벽</title><desc id="desc">넓은 회백색 벽, 낮은 돌 경계, 사선으로 떨어진 하나의 빛. 비어 있는 중앙에 긴 여백을 둔 창작 건축 그래픽. 모바일에서는 가로로 낮은 화면에 맞춰 주요 공간과 사물을 중심으로 구도를 골랐다.</desc>
+<metadata>Original CAMUM architectural illustration. Created for CAMUM design review, 2026-11-12. No external photographs, fonts, or third-party artwork. Light direction: right.</metadata>
+<defs>
+<linearGradient id="wall" x1="0" y1="0" x2="1" y2=".5"><stop stop-color="#e7e5d9"/><stop offset="1" stop-color="#bbbfb1"/></linearGradient>
+<linearGradient id="stone" x1="0" y1="0" x2="1" y2=".3"><stop stop-color="#bbbfb1"/><stop offset="1" stop-color="#e7e5d9"/></linearGradient>
+<linearGradient id="floor" x1="0" y1="0" x2=".2" y2="1"><stop stop-color="#bbbfb1"/><stop offset="1" stop-color="#e7e5d9"/></linearGradient>
+<linearGradient id="beam" x1="0" y1="0" x2=".3" y2="1"><stop stop-color="#faf5e3" stop-opacity=".95"/><stop offset="1" stop-color="#faf5e3" stop-opacity=".5"/></linearGradient>
+<linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#faf5e3"/><stop offset="1" stop-color="#bac0ae"/></linearGradient>
+<linearGradient id="glow" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#faf5e3"/><stop offset=".7" stop-color="#fff8df"/><stop offset="1" stop-color="#bac0ae"/></linearGradient>
+<linearGradient id="linen" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#e7e5d9"/><stop offset=".42" stop-color="#faf5e3"/><stop offset=".7" stop-color="#fff9e9"/><stop offset="1" stop-color="#e7e5d9"/></linearGradient>
+<linearGradient id="water" x1="0" y1="0" x2=".5" y2="1"><stop stop-color="#bac0ae"/><stop offset="1" stop-color="#7c8574"/></linearGradient>
+<filter id="grain" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency=".65" numOctaves="2" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter>
+</defs>
+<rect width="1200" height="900" fill="url(#wall)"/><path d="M0 630H1200V900H0Z" fill="url(#floor)"/>
+<path d="M960 0H1125L570 630H299Z" fill="url(#beam)"/><path d="M299 630H570L388 900H0Z" fill="#f5eedc"/>
+<path d="M0 631H1200" stroke="#a5a391" stroke-width="2" opacity=".5"/>
+<path d="M815 610H1200V652H815Z" fill="#c6c2b3"/><path d="M815 610L844 592H1200V610Z" fill="#eeeadd"/>
+<path d="M815 652H1200V670L815 660Z" fill="#a4a28f" opacity=".3"/>
+<path d="M180 0V629" stroke="#cfc9bc" stroke-width="1"/>
+<rect width="1200" height="900" filter="url(#grain)" opacity=".055" style="mix-blend-mode:multiply"/>
+</svg>

@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="50 300 1120 560" width="1120" height="560" role="img" aria-labelledby="title desc">
+<title id="title">감사 — 식탁 위의 오후</title><desc id="desc">긴 돌 식탁 위에 놓인 소박한 찻잔 하나. 측면의 낮은 빛이 잔의 둥근 그림자와 식탁의 긴 선을 만든다. 창작 건축 그래픽. 모바일에서는 가로로 낮은 화면에 맞춰 주요 공간과 사물을 중심으로 구도를 골랐다.</desc>
+<metadata>Original CAMUM architectural illustration. Created for CAMUM design review, 2026-11-12. No external photographs, fonts, or third-party artwork. Light direction: right.</metadata>
+<defs>
+<linearGradient id="wall" x1="0" y1="0" x2="1" y2=".5"><stop stop-color="#e7ddc9"/><stop offset="1" stop-color="#c6b89d"/></linearGradient>
+<linearGradient id="stone" x1="0" y1="0" x2="1" y2=".3"><stop stop-color="#c6b89d"/><stop offset="1" stop-color="#e7ddc9"/></linearGradient>
+<linearGradient id="floor" x1="0" y1="0" x2=".2" y2="1"><stop stop-color="#c6b89d"/><stop offset="1" stop-color="#e7ddc9"/></linearGradient>
+<linearGradient id="beam" x1="0" y1="0" x2=".3" y2="1"><stop stop-color="#fff0d0" stop-opacity=".95"/><stop offset="1" stop-color="#fff0d0" stop-opacity=".5"/></linearGradient>
+<linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#fff0d0"/><stop offset="1" stop-color="#c6c6ab"/></linearGradient>
+<linearGradient id="glow" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fff0d0"/><stop offset=".7" stop-color="#fff8df"/><stop offset="1" stop-color="#c6c6ab"/></linearGradient>
+<linearGradient id="linen" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#e7ddc9"/><stop offset=".42" stop-color="#fff0d0"/><stop offset=".7" stop-color="#fff9e9"/><stop offset="1" stop-color="#e7ddc9"/></linearGradient>
+<linearGradient id="water" x1="0" y1="0" x2=".5" y2="1"><stop stop-color="#c6c6ab"/><stop offset="1" stop-color="#8d8b70"/></linearGradient>
+<filter id="grain" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency=".65" numOctaves="2" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter>
+</defs>
+<rect width="1200" height="900" fill="url(#wall)"/><path d="M0 750H1200V900H0Z" fill="url(#floor)"/>
+<path d="M0 481L731 415 1200 649 454 777Z" fill="#d3c8b0"/><path d="M454 777L1200 649V686L454 818Z" fill="#ab9f87"/>
+<path d="M0 481L454 777V818L0 515Z" fill="#c2b59b"/><path d="M524 805H571V900H524Z" fill="#a3977e"/>
+<path d="M915 0H1100L593 516 310 544Z" fill="url(#beam)" opacity=".7"/>
+<path d="M670 523L893 594Q931 628 865 642L643 560Z" fill="#897b60" opacity=".2"/>
+<ellipse cx="644" cy="546" rx="78" ry="25" fill="#ede5d1"/><ellipse cx="644" cy="541" rx="58" ry="17" fill="#c2b8a1"/>
+<path d="M594 458H693V523Q693 558 644 559Q594 558 594 523Z" fill="url(#linen)"/>
+<path d="M693 476Q738 466 738 496Q738 523 693 519" fill="none" stroke="#e5dfcc" stroke-width="13"/>
+<ellipse cx="644" cy="458" rx="50" ry="16" fill="#f3edde"/><ellipse cx="644" cy="459" rx="41" ry="11" fill="#96866b"/><path d="M604 475V520Q604 537 621 541" fill="none" stroke="#fff8e6" stroke-width="5" opacity=".7"/>
+<rect width="1200" height="900" filter="url(#grain)" opacity=".055" style="mix-blend-mode:multiply"/>
+</svg>

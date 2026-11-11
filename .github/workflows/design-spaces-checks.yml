@@ -1,0 +1,20 @@
+name: CAMUM design review checks
+on:
+  push:
+    branches: ['design/camum-20-spaces']
+  pull_request:
+    paths: ['design/**', 'tests/design-spaces.mjs']
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - run: npm test
+      - run: node tests/design-spaces.mjs

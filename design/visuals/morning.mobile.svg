@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 160 1200 600" width="1200" height="600" role="img" aria-labelledby="title desc">
+<title id="title">아침 — 휘어진 벽의 첫 빛</title><desc id="desc">해가 떠오르는 열린 안뜰과 둥글게 휘어진 석회벽. 낮은 아침 빛이 긴 곡선 그림자를 만드는 창작 건축 그래픽. 모바일에서는 가로로 낮은 화면에 맞춰 주요 공간과 사물을 중심으로 구도를 골랐다.</desc>
+<metadata>Original CAMUM architectural illustration. Created for CAMUM design review, 2026-11-12. No external photographs, fonts, or third-party artwork. Light direction: left.</metadata>
+<defs>
+<linearGradient id="wall" x1="0" y1="0" x2="1" y2=".5"><stop stop-color="#ecdfc7"/><stop offset="1" stop-color="#c0b69d"/></linearGradient>
+<linearGradient id="stone" x1="0" y1="0" x2="1" y2=".3"><stop stop-color="#c0b69d"/><stop offset="1" stop-color="#ecdfc7"/></linearGradient>
+<linearGradient id="floor" x1="0" y1="0" x2=".2" y2="1"><stop stop-color="#c0b69d"/><stop offset="1" stop-color="#ecdfc7"/></linearGradient>
+<linearGradient id="beam" x1="0" y1="0" x2=".3" y2="1"><stop stop-color="#fff1c8" stop-opacity=".95"/><stop offset="1" stop-color="#fff1c8" stop-opacity=".5"/></linearGradient>
+<linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#fff1c8"/><stop offset="1" stop-color="#d5d9be"/></linearGradient>
+<linearGradient id="glow" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fff1c8"/><stop offset=".7" stop-color="#fff8df"/><stop offset="1" stop-color="#d5d9be"/></linearGradient>
+<linearGradient id="linen" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#ecdfc7"/><stop offset=".42" stop-color="#fff1c8"/><stop offset=".7" stop-color="#fff9e9"/><stop offset="1" stop-color="#ecdfc7"/></linearGradient>
+<linearGradient id="water" x1="0" y1="0" x2=".5" y2="1"><stop stop-color="#d5d9be"/><stop offset="1" stop-color="#929b7e"/></linearGradient>
+<filter id="grain" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency=".65" numOctaves="2" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter>
+</defs>
+<rect width="1200" height="900" fill="url(#sky)"/><path d="M0 629Q622 519 1200 634V900H0Z" fill="url(#floor)"/>
+<path d="M1200 900V222Q750 56 412 212V631Q785 479 1200 666Z" fill="url(#wall)"/>
+<path d="M1200 222Q750 56 412 212L432 196Q786 25 1200 202Z" fill="#fdf2db"/>
+<path d="M412 212V631Q681 520 919 561Q692 474 540 532V159Z" fill="#d3c2a5"/>
+<path d="M412 631Q786 479 1200 666L1200 900H971Q819 684 412 631Z" fill="#8c917c" opacity=".25"/>
+<path d="M0 629L412 631Q671 658 830 769L0 782Z" fill="url(#beam)"/>
+<circle cx="268" cy="315" r="66" fill="#f9edcf" opacity=".65"/><path d="M0 602Q205 563 412 602" fill="none" stroke="#b4bca2" stroke-width="3"/>
+<rect width="1200" height="900" filter="url(#grain)" opacity=".055" style="mix-blend-mode:multiply"/>
+</svg>

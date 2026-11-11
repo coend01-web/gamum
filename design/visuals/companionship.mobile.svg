@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="40 130 1120 560" width="1120" height="560" role="img" aria-labelledby="title desc">
+<title id="title">동행 — 나란한 두 빛</title><desc id="desc">나란한 두 개구부에서 두 줄기 빛이 같은 바닥을 향해 내려온다. 서로 다른 폭의 아치와 하나의 바닥이 이어진다. 창작 건축 그래픽. 모바일에서는 가로로 낮은 화면에 맞춰 주요 공간과 사물을 중심으로 구도를 골랐다.</desc>
+<metadata>Original CAMUM architectural illustration. Created for CAMUM design review, 2026-11-12. No external photographs, fonts, or third-party artwork. Light direction: left.</metadata>
+<defs>
+<linearGradient id="wall" x1="0" y1="0" x2="1" y2=".5"><stop stop-color="#e3dfd0"/><stop offset="1" stop-color="#b0b5a5"/></linearGradient>
+<linearGradient id="stone" x1="0" y1="0" x2="1" y2=".3"><stop stop-color="#b0b5a5"/><stop offset="1" stop-color="#e3dfd0"/></linearGradient>
+<linearGradient id="floor" x1="0" y1="0" x2=".2" y2="1"><stop stop-color="#b0b5a5"/><stop offset="1" stop-color="#e3dfd0"/></linearGradient>
+<linearGradient id="beam" x1="0" y1="0" x2=".3" y2="1"><stop stop-color="#fff6df" stop-opacity=".95"/><stop offset="1" stop-color="#fff6df" stop-opacity=".5"/></linearGradient>
+<linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#fff6df"/><stop offset="1" stop-color="#c1cdb1"/></linearGradient>
+<linearGradient id="glow" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fff6df"/><stop offset=".7" stop-color="#fff8df"/><stop offset="1" stop-color="#c1cdb1"/></linearGradient>
+<linearGradient id="linen" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#e3dfd0"/><stop offset=".42" stop-color="#fff6df"/><stop offset=".7" stop-color="#fff9e9"/><stop offset="1" stop-color="#e3dfd0"/></linearGradient>
+<linearGradient id="water" x1="0" y1="0" x2=".5" y2="1"><stop stop-color="#c1cdb1"/><stop offset="1" stop-color="#829078"/></linearGradient>
+<filter id="grain" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency=".65" numOctaves="2" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter>
+</defs>
+<rect width="1200" height="900" fill="url(#wall)"/><path d="M0 650H1200V900H0Z" fill="url(#floor)"/>
+<path d="M310 650V280A140 140 0 0 1 590 280V650Z" fill="#b8ad99"/><path d="M340 650V286A110 110 0 0 1 560 286V650Z" fill="url(#sky)"/>
+<path d="M655 650V312A118 118 0 0 1 891 312V650Z" fill="#a99f8b"/><path d="M682 650V315A91 91 0 0 1 864 315V650Z" fill="url(#sky)"/>
+<path d="M340 550Q453 527 560 543V650H340Z" fill="#adbba2"/><path d="M682 543Q777 520 864 551V650H682Z" fill="#adbba2"/>
+<path d="M340 650H560L368 900H81Z" fill="url(#beam)"/><path d="M682 650H864L723 900H469Z" fill="url(#beam)"/>
+<path d="M590 650V280M891 650V312" stroke="#f4edda" stroke-width="7"/>
+<rect width="1200" height="900" filter="url(#grain)" opacity=".055" style="mix-blend-mode:multiply"/>
+</svg>

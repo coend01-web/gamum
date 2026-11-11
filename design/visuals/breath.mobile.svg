@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="120 150 1080 540" width="1080" height="540" role="img" aria-labelledby="title desc">
+<title id="title">숨 — 바람의 자리를 비운 커튼</title><desc id="desc">왼쪽으로 부드럽게 흘러내리는 린넨 커튼과 높은 창. 바닥에는 차분한 유백색 빛이 머문다. 창작 건축 그래픽. 모바일에서는 가로로 낮은 화면에 맞춰 주요 공간과 사물을 중심으로 구도를 골랐다.</desc>
+<metadata>Original CAMUM architectural illustration. Created for CAMUM design review, 2026-11-12. No external photographs, fonts, or third-party artwork. Light direction: right.</metadata>
+<defs>
+<linearGradient id="wall" x1="0" y1="0" x2="1" y2=".5"><stop stop-color="#e8e9df"/><stop offset="1" stop-color="#bfc6bb"/></linearGradient>
+<linearGradient id="stone" x1="0" y1="0" x2="1" y2=".3"><stop stop-color="#bfc6bb"/><stop offset="1" stop-color="#e8e9df"/></linearGradient>
+<linearGradient id="floor" x1="0" y1="0" x2=".2" y2="1"><stop stop-color="#bfc6bb"/><stop offset="1" stop-color="#e8e9df"/></linearGradient>
+<linearGradient id="beam" x1="0" y1="0" x2=".3" y2="1"><stop stop-color="#fcfbef" stop-opacity=".95"/><stop offset="1" stop-color="#fcfbef" stop-opacity=".5"/></linearGradient>
+<linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#fcfbef"/><stop offset="1" stop-color="#b8c3af"/></linearGradient>
+<linearGradient id="glow" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fcfbef"/><stop offset=".7" stop-color="#fff8df"/><stop offset="1" stop-color="#b8c3af"/></linearGradient>
+<linearGradient id="linen" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#e8e9df"/><stop offset=".42" stop-color="#fcfbef"/><stop offset=".7" stop-color="#fff9e9"/><stop offset="1" stop-color="#e8e9df"/></linearGradient>
+<linearGradient id="water" x1="0" y1="0" x2=".5" y2="1"><stop stop-color="#b8c3af"/><stop offset="1" stop-color="#758476"/></linearGradient>
+<filter id="grain" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency=".65" numOctaves="2" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter>
+</defs>
+<path d="M0 0H1200V900H0Z" fill="url(#wall)"/><path d="M0 690L1200 615V900H0Z" fill="url(#floor)"/>
+<path d="M390 54H846V645L390 674Z" fill="#9ca395"/><path d="M421 76H817V618L421 643Z" fill="url(#sky)"/>
+<path d="M421 437Q575 365 817 424V618L421 643Z" fill="#a5b09f"/>
+<path d="M426 75H650Q615 266 645 438T620 671Q499 629 381 694Q446 503 408 367T426 75Z" fill="url(#linen)"/>
+<path d="M475 77Q447 240 481 397T463 656M535 77Q503 230 536 402T525 659M591 77Q562 240 595 408T584 664" fill="none" stroke="#d7d5c6" stroke-width="3" opacity=".52"/>
+<path d="M421 644L817 619 1031 900H534Z" fill="url(#beam)"/>
+<path d="M817 76V619" fill="none" stroke="#dce2d6" stroke-width="3"/><path d="M421 73H819" fill="none" stroke="#877f70" stroke-width="7"/>
+<rect width="1200" height="900" filter="url(#grain)" opacity=".055" style="mix-blend-mode:multiply"/>
+</svg>

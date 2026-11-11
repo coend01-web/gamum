@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="120 270 1080 540" width="1080" height="540" role="img" aria-labelledby="title desc">
+<title id="title">쉼 — 빈 의자가 있는 방</title><desc id="desc">오른쪽 높은 창의 오전 빛과 긴 나무 의자. 의자 아래의 묵직한 그림자가 빈 공간의 고요를 드러낸다. 창작 건축 그래픽. 모바일에서는 가로로 낮은 화면에 맞춰 주요 공간과 사물을 중심으로 구도를 골랐다.</desc>
+<metadata>Original CAMUM architectural illustration. Created for CAMUM design review, 2026-11-12. No external photographs, fonts, or third-party artwork. Light direction: left.</metadata>
+<defs>
+<linearGradient id="wall" x1="0" y1="0" x2="1" y2=".5"><stop stop-color="#e8e2d7"/><stop offset="1" stop-color="#cbc3b6"/></linearGradient>
+<linearGradient id="stone" x1="0" y1="0" x2="1" y2=".3"><stop stop-color="#cbc3b6"/><stop offset="1" stop-color="#e8e2d7"/></linearGradient>
+<linearGradient id="floor" x1="0" y1="0" x2=".2" y2="1"><stop stop-color="#cbc3b6"/><stop offset="1" stop-color="#e8e2d7"/></linearGradient>
+<linearGradient id="beam" x1="0" y1="0" x2=".3" y2="1"><stop stop-color="#f9f5e9" stop-opacity=".95"/><stop offset="1" stop-color="#f9f5e9" stop-opacity=".5"/></linearGradient>
+<linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#f9f5e9"/><stop offset="1" stop-color="#a6b3a1"/></linearGradient>
+<linearGradient id="glow" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f9f5e9"/><stop offset=".7" stop-color="#fff8df"/><stop offset="1" stop-color="#a6b3a1"/></linearGradient>
+<linearGradient id="linen" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#e8e2d7"/><stop offset=".42" stop-color="#f9f5e9"/><stop offset=".7" stop-color="#fff9e9"/><stop offset="1" stop-color="#e8e2d7"/></linearGradient>
+<linearGradient id="water" x1="0" y1="0" x2=".5" y2="1"><stop stop-color="#a6b3a1"/><stop offset="1" stop-color="#6b746b"/></linearGradient>
+<filter id="grain" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency=".65" numOctaves="2" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter>
+</defs>
+<path d="M0 0H1200V648H0Z" fill="url(#wall)"/><path d="M0 648H1200V900H0Z" fill="url(#floor)"/>
+<path d="M900 70H1050V380H900Z" fill="#b8ae9b"/><path d="M921 90H1050V354H921Z" fill="url(#sky)"/>
+<path d="M920 355H1050L635 648H365Z" fill="url(#beam)"/><path d="M365 648H635L335 900H0Z" fill="#eee8d5" opacity=".75"/>
+<path d="M337 648L840 650 1005 755 473 758Z" fill="#847e6c" opacity=".23"/>
+<path d="M300 550H790L846 587H354Z" fill="#b8a48a"/><path d="M354 587H846V608H354Z" fill="#806e56"/>
+<path d="M300 550L354 587V608L300 572Z" fill="#978267"/><path d="M380 608H404V704H380Z" fill="#8a795e"/><path d="M765 608H789V704H765Z" fill="#8a795e"/>
+<path d="M300 511H790V532H300Z" fill="#9b876a"/><path d="M328 529H342V558H328ZM762 529H776V558H762Z" fill="#88765d"/>
+<path d="M0 648H277M871 648H1200" stroke="#b1a99c" stroke-width="2"/>
+<rect width="1200" height="900" filter="url(#grain)" opacity=".055" style="mix-blend-mode:multiply"/>
+</svg>

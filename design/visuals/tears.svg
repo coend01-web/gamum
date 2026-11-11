@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" width="1200" height="900" role="img" aria-labelledby="title desc">
+<title id="title">눈물 — 비가 지나가는 유리</title><desc id="desc">세로로 흐르는 빗방울이 남은 커다란 유리창과 회색빛 실내. 창 아래 물방울과 부드러운 반사를 그린 창작 건축 그래픽. </desc>
+<metadata>Original CAMUM architectural illustration. Created for CAMUM design review, 2026-11-12. No external photographs, fonts, or third-party artwork. Light direction: diffuse.</metadata>
+<defs>
+<linearGradient id="wall" x1="0" y1="0" x2="1" y2=".5"><stop stop-color="#dfe4dc"/><stop offset="1" stop-color="#b1c0b6"/></linearGradient>
+<linearGradient id="stone" x1="0" y1="0" x2="1" y2=".3"><stop stop-color="#b1c0b6"/><stop offset="1" stop-color="#dfe4dc"/></linearGradient>
+<linearGradient id="floor" x1="0" y1="0" x2=".2" y2="1"><stop stop-color="#b1c0b6"/><stop offset="1" stop-color="#dfe4dc"/></linearGradient>
+<linearGradient id="beam" x1="0" y1="0" x2=".3" y2="1"><stop stop-color="#f2f3e9" stop-opacity=".95"/><stop offset="1" stop-color="#f2f3e9" stop-opacity=".5"/></linearGradient>
+<linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#f2f3e9"/><stop offset="1" stop-color="#c8d4ca"/></linearGradient>
+<linearGradient id="glow" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f2f3e9"/><stop offset=".7" stop-color="#fff8df"/><stop offset="1" stop-color="#c8d4ca"/></linearGradient>
+<linearGradient id="linen" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#dfe4dc"/><stop offset=".42" stop-color="#f2f3e9"/><stop offset=".7" stop-color="#fff9e9"/><stop offset="1" stop-color="#dfe4dc"/></linearGradient>
+<linearGradient id="water" x1="0" y1="0" x2=".5" y2="1"><stop stop-color="#c8d4ca"/><stop offset="1" stop-color="#879e93"/></linearGradient>
+<filter id="grain" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency=".65" numOctaves="2" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter>
+</defs>
+<rect width="1200" height="900" fill="url(#wall)"/><path d="M0 724H1200V900H0Z" fill="url(#floor)"/>
+<path d="M326 74H889V724H326Z" fill="#a3ada4"/><path d="M357 103H860V693H357Z" fill="url(#sky)"/>
+<path d="M357 503Q555 416 860 500V693H357Z" fill="#a5b4a5" opacity=".7"/>
+<path d="M357 590Q537 538 860 588V693H357Z" fill="#82998c" opacity=".45"/>
+<g stroke="#eff2e8" stroke-width="3" fill="none" opacity=".7"><path d="M408 164V300M469 254V421M534 120V208M590 358V576M652 199V361M727 125V295M802 380V545M438 497V633M769 589V676"/></g>
+<g fill="#edf2e7" opacity=".7"><ellipse cx="408" cy="305" rx="4" ry="7"/><ellipse cx="534" cy="213" rx="3" ry="6"/><ellipse cx="652" cy="366" rx="4" ry="8"/><ellipse cx="438" cy="638" rx="3" ry="6"/></g>
+<path d="M326 724L357 693H860L889 724Z" fill="#dedfd1"/><path d="M357 724H860L924 900H429Z" fill="url(#beam)" opacity=".3"/>
+<rect width="1200" height="900" filter="url(#grain)" opacity=".055" style="mix-blend-mode:multiply"/>
+</svg>
