@@ -1,17 +1,16 @@
 // Actual Auth/Edge/RLS integration. Only run after a separate development project is configured.
 // node --env-file=/private/path/camum-dev.env tests/ops-hosted.mjs
+import {pathToFileURL} from 'node:url';
 import assert from 'node:assert/strict';import {createClient} from '@supabase/supabase-js';
 import {requirements,session} from './ops-db-support.mjs';
-const e=process.env;
+export async function runHostedChecks(operator, e, {onFixtures}={}) {
 if(e.CAMUM_ALLOW_DEVELOPMENT_WRITES!=='yes')throw Error('Development-write opt-in is required. Never run against production.');
-for(const k of ['SUPABASE_URL','SUPABASE_PUBLISHABLE_KEY','CAMUM_DEV_ORIGIN','CAMUM_OPERATOR_EMAIL','CAMUM_OPERATOR_PASSWORD','CAMUM_OPERATOR_MFA_CODE'])if(!e[k])throw Error('Missing local setting: '+k);
+for(const k of ['SUPABASE_URL','SUPABASE_PUBLISHABLE_KEY','CAMUM_DEV_ORIGIN'])if(!e[k])throw Error('Missing local setting: '+k);
 const make=()=>createClient(e.SUPABASE_URL,e.SUPABASE_PUBLISHABLE_KEY,{auth:{persistSession:false,autoRefreshToken:false}});
-const operator=make(),anon=make(),created=[],clients=[];
+const anon=make(),created=[],clients=[];let fixturesRetained=false;
 const check=({data,error})=>{if(error)throw Error('Hosted test request failed; inspect the development project without printing credentials.');return data;};
 const call=async(c,name,args={})=>check(await c.rpc(name,args));
-check(await operator.auth.signInWithPassword({email:e.CAMUM_OPERATOR_EMAIL,password:e.CAMUM_OPERATOR_PASSWORD}));
-const factor=check(await operator.auth.mfa.listFactors()).totp.find(f=>f.status==='verified');if(!factor)throw Error('Enroll central-operator MFA first.');
-check(await operator.auth.mfa.challengeAndVerify({factorId:factor.id,code:e.CAMUM_OPERATOR_MFA_CODE}));assert.ok((await call(operator,'ops_bootstrap')).operator);
+assert.ok((await call(operator,'ops_bootstrap')).operator,'real central MFA required');
 const edge=async(action,args={},c)=>{const bearer=c?(await c.auth.getSession()).data.session?.access_token:null;const r=await fetch(e.SUPABASE_URL+'/functions/v1/institution-auth',{method:'POST',headers:{apikey:e.SUPABASE_PUBLISHABLE_KEY,Origin:e.CAMUM_DEV_ORIGIN,'Content-Type':'application/json',...(bearer?{Authorization:'Bearer '+bearer}:{})},body:JSON.stringify({action,...args})});return {status:r.status,...await r.json()};};
 try{
  for(const letter of ['A','B']){
@@ -37,8 +36,23 @@ try{
  assert.notEqual((await edge('login',{number:a.number,password:a.password})).status,200);
  const fresh=await edge('login',{number:a.number,password:next});assert.equal(fresh.status,200);const freshClient=make();check(await freshClient.auth.setSession(fresh.session));assert.equal(check(await freshClient.from('retreat_sessions').select('id').eq('program_id',program)).length,40);
  assert.equal((await edge('recover',{number:a.number})).token,undefined,'number cannot reset password');
+ if(onFixtures){await onFixtures(clients.map(x=>({org:x.org,number:x.number,password:x===a?next:x.password})));fixturesRetained=true;}
  console.log('PASS: hosted institution login, central MFA, A/B RLS, 40 sessions, public approval, early close, password rotation, revoked JWT and persisted data.');await freshClient.auth.signOut();
 }finally{
- for(const org of created){const {error}=await operator.rpc('ops_review_organization',{p_id:org,p_status:'suspended'});if(error)console.error('A synthetic organization could not be suspended. Inspect development data before release.');}
- for(const {client}of clients)await client.auth.signOut();await operator.auth.signOut();
+ for(const org of fixturesRetained?[]:created){const {error}=await operator.rpc('ops_review_organization',{p_id:org,p_status:'suspended'});if(error)console.error('A synthetic organization could not be suspended. Inspect development data before release.');}
+ for(const {client}of clients)await client.auth.signOut();
+}
+}
+
+if(import.meta.url===pathToFileURL(process.argv[1]).href){
+ const e=process.env;
+ for(const k of ['CAMUM_OPERATOR_EMAIL','CAMUM_OPERATOR_PASSWORD','CAMUM_OPERATOR_MFA_CODE'])if(!e[k])throw Error('Missing local setting: '+k);
+ const operator=createClient(e.SUPABASE_URL,e.SUPABASE_PUBLISHABLE_KEY,{auth:{persistSession:false,autoRefreshToken:false}});
+ const check=({data,error})=>{if(error)throw Error('Central authentication failed');return data;};
+ try{
+ check(await operator.auth.signInWithPassword({email:e.CAMUM_OPERATOR_EMAIL,password:e.CAMUM_OPERATOR_PASSWORD}));
+ const factor=check(await operator.auth.mfa.listFactors()).totp.find(f=>f.status==='verified');if(!factor)throw Error('Enroll central MFA first');
+ check(await operator.auth.mfa.challengeAndVerify({factorId:factor.id,code:e.CAMUM_OPERATOR_MFA_CODE}));
+ await runHostedChecks(operator,e);
+ }finally{await operator.auth.signOut();}
 }
