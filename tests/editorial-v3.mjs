@@ -1,0 +1,22 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import {execFileSync} from 'node:child_process';
+const base='8872e93686de0ea9d3d3ee2d2fbaeaa213156555';
+const old=path=>execFileSync('git',['show',`${base}:${path}`],{maxBuffer:10*1024*1024});
+const files=execFileSync('git',['ls-tree','-r','--name-only',base],{encoding:'utf8'}).trim().split('\n');
+const protectedFiles=files.filter(p=>/^(ops\/|supabase\/|assets\/|design\/art-v2\/|design\/visuals\/)/.test(p)||['index.html','legacy.html','design/themes.json','design/visit.js'].includes(p));
+for(const p of protectedFiles)assert.ok(fs.readFileSync(p).equals(old(p)),`preserved ${p}`);
+for(const [a,b] of [['spaces.js','spaces-v2.js'],['spaces.css','spaces-v2.css']])assert.ok(fs.readFileSync('design/'+b).equals(old('design/'+a)),`exact V2 snapshot: ${a}`);
+const themes=JSON.parse(fs.readFileSync('design/themes.json')),palettes=JSON.parse(fs.readFileSync('design/editorial.json'));
+assert.deepEqual(palettes.map(p=>p.id),themes.map(t=>t.id));
+assert.equal(new Set(palettes.map(p=>p.paper)).size,20);
+const luminance=h=>h.slice(1).match(/../g).map(v=>parseInt(v,16)/255).map(v=>v<=.04045?v/12.92:((v+.055)/1.055)**2.4).reduce((s,v,i)=>s+v*[.2126,.7152,.0722][i],0);
+let minimum=21;
+for(const p of palettes)for(const ink of ['#273a32','#5c675e']){const ratio=(luminance(p.paper)+.05)/(luminance(ink)+.05);minimum=Math.min(minimum,ratio);assert.ok(ratio>=4.5,`${p.id} reading contrast ${ratio}`);}
+const js=fs.readFileSync('design/spaces.js','utf8');
+assert.ok(js.includes('minute-departure'));assert.ok(js.includes('href="#paths">나에게 맞는 피정 찾기'));assert.ok(js.includes('data-save-space'));
+assert.ok(!/setInterval|autoplay/.test(js));
+const css=fs.readFileSync('design/editorial.css','utf8');
+assert.ok(css.includes('.chapel:after{display:none}'));assert.ok(css.includes('prefers-reduced-motion'));assert.ok(css.includes('.gallery-card.active img{outline:0}'));
+const compare=fs.readFileSync('design/compare.js','utf8');assert.ok(compare.includes("['v2','v2.html'],['v3','index.html']"));
+console.log(`PASS: ${protectedFiles.length} protected files unchanged; exact ART V2 snapshots; 20 reading palettes (minimum contrast ${minimum.toFixed(2)}:1); prayer exits and comparison entries.`);

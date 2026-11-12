@@ -1,9 +1,9 @@
 name: CAMUM design review checks
 on:
   push:
-    branches: ['design/camum-20-spaces', 'design/camum-20-spaces-art-v2']
+    branches: ['design/camum-20-spaces', 'design/camum-20-spaces-art-v2', 'design/camum-editorial-polish-v3']
   pull_request:
-    paths: ['design/**', 'tests/design-spaces.mjs']
+    paths: ['design/**', 'tests/design-spaces.mjs', 'tests/art-v2.mjs', 'tests/editorial-v3.mjs']
 permissions:
   contents: read
 jobs:
@@ -21,3 +21,4 @@ jobs:
       - run: npm test
       - run: node tests/design-spaces.mjs
       - run: node tests/art-v2.mjs
+      - run: node tests/editorial-v3.mjs
