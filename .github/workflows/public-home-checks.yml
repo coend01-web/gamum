@@ -1,0 +1,20 @@
+name: CAMUM public homepage checks
+on:
+  push:
+    branches: ['main', 'design/camum-final-main']
+permissions:
+  contents: read
+jobs:
+  public-frontend:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+      - run: node tests/regression.mjs && node tests/recommendation-v2.mjs && node tests/demo-catalog.mjs
+      - if: github.ref_name != 'main'
+        run: node scripts/package-public.mjs && node tests/public-home.mjs ../outputs/camum-final-public
+      - run: node tests/public-release.mjs ${{ github.ref_name == 'main' && '.' || '../outputs/camum-final-public' }}
