@@ -1,0 +1,122 @@
+[
+  {
+    "id": "thirst",
+    "paper": "#EEE3CE",
+    "shadow": "#C5C9C8",
+    "lightOrigin": "left top"
+  },
+  {
+    "id": "rest",
+    "paper": "#F2E8D5",
+    "shadow": "#D7D9CF",
+    "lightOrigin": "right top"
+  },
+  {
+    "id": "breath",
+    "paper": "#E5EDE0",
+    "shadow": "#CFDBD6",
+    "lightOrigin": "right center"
+  },
+  {
+    "id": "silence",
+    "paper": "#E3E7E6",
+    "shadow": "#A9BAC0",
+    "lightOrigin": "left bottom"
+  },
+  {
+    "id": "release",
+    "paper": "#F6EFE7",
+    "shadow": "#DED7D3",
+    "lightOrigin": "left top"
+  },
+  {
+    "id": "light",
+    "paper": "#F0E7D1",
+    "shadow": "#B2B9B4",
+    "lightOrigin": "right top"
+  },
+  {
+    "id": "window",
+    "paper": "#E6EBDF",
+    "shadow": "#B8C9C1",
+    "lightOrigin": "right center"
+  },
+  {
+    "id": "path",
+    "paper": "#EAE7DD",
+    "shadow": "#BAC7C5",
+    "lightOrigin": "right top"
+  },
+  {
+    "id": "invitation",
+    "paper": "#F3E6DB",
+    "shadow": "#C6CFD1",
+    "lightOrigin": "left center"
+  },
+  {
+    "id": "companionship",
+    "paper": "#EAEBDD",
+    "shadow": "#C7CFBE",
+    "lightOrigin": "left bottom"
+  },
+  {
+    "id": "wounds",
+    "paper": "#F0E2DE",
+    "shadow": "#CBBFC7",
+    "lightOrigin": "left top"
+  },
+  {
+    "id": "forgiveness",
+    "paper": "#EFE4D7",
+    "shadow": "#BFC7CC",
+    "lightOrigin": "right center"
+  },
+  {
+    "id": "waiting",
+    "paper": "#E9EBE5",
+    "shadow": "#BFC9C5",
+    "lightOrigin": "right top"
+  },
+  {
+    "id": "tears",
+    "paper": "#E2E9ED",
+    "shadow": "#B9C8D1",
+    "lightOrigin": "left center"
+  },
+  {
+    "id": "beginning",
+    "paper": "#F4E7DC",
+    "shadow": "#CEC6D1",
+    "lightOrigin": "right top"
+  },
+  {
+    "id": "morning",
+    "paper": "#F1E8ED",
+    "shadow": "#D0CADB",
+    "lightOrigin": "left top"
+  },
+  {
+    "id": "seed",
+    "paper": "#E8EDDC",
+    "shadow": "#C0CCAF",
+    "lightOrigin": "right top"
+  },
+  {
+    "id": "encounter",
+    "paper": "#EEE3D8",
+    "shadow": "#C4CEBF",
+    "lightOrigin": "left center"
+  },
+  {
+    "id": "gratitude",
+    "paper": "#F2E4CB",
+    "shadow": "#CDC4B7",
+    "lightOrigin": "right top"
+  },
+  {
+    "id": "peace",
+    "paper": "#E5E8EE",
+    "shadow": "#B8C4D3",
+    "lightOrigin": "right bottom"
+  }
+]
