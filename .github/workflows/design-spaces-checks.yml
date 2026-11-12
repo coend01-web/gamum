@@ -1,7 +1,7 @@
 name: CAMUM design review checks
 on:
   push:
-    branches: ['design/camum-20-spaces']
+    branches: ['design/camum-20-spaces', 'design/camum-20-spaces-art-v2']
   pull_request:
     paths: ['design/**', 'tests/design-spaces.mjs']
 permissions:
@@ -20,3 +20,4 @@ jobs:
       - run: npm ci --ignore-scripts
       - run: npm test
       - run: node tests/design-spaces.mjs
+      - run: node tests/art-v2.mjs

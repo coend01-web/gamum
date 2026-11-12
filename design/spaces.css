@@ -7,3 +7,6 @@
 .chapel:after{content:"";position:absolute;inset:0;background-image:var(--space-art);background-position:center;background-size:cover;opacity:.06;pointer-events:none}.chapel>*{z-index:1}.sr-label{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
 
 .hero h1{text-wrap:balance}.review-strip,.review-strip a{min-height:44px}.hero-copy>.tiny{white-space:nowrap}@media(max-width:700px){.hero-copy{padding-top:6px;padding-bottom:14px}.hero h1{font-size:31px}.paths-section{padding-top:20px}.space-caption strong{font-size:9px}.review-strip{height:44px}}
+
+/* Art v2 changes image framing only; existing layout and interaction sizes remain. */
+.hero-visual img{object-position:var(--art-desktop,50% 50%)}@media(max-width:700px){.hero-visual img{object-position:var(--art-mobile,50% 50%)}}
