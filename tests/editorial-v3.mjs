@@ -19,4 +19,5 @@ assert.ok(!/setInterval|autoplay/.test(js));
 const css=fs.readFileSync('design/editorial.css','utf8');
 assert.ok(css.includes('.chapel:after{display:none}'));assert.ok(css.includes('prefers-reduced-motion'));assert.ok(css.includes('.gallery-card.active img{outline:0}'));
 const compare=fs.readFileSync('design/compare.js','utf8');assert.ok(compare.includes("['v2','v2.html'],['v3','index.html']"));
+assert.ok(!compare.includes("querySelectorAll('iframe')"),'never resize hosting-injected frames');
 console.log(`PASS: ${protectedFiles.length} protected files unchanged; exact ART V2 snapshots; 20 reading palettes (minimum contrast ${minimum.toFixed(2)}:1); prayer exits and comparison entries.`);

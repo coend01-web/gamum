@@ -5,9 +5,9 @@ const params=new URLSearchParams(location.search);
 if(themes.some(t=>t.id===params.get('space')))space.value=params.get('space');
 if(['home','minute','gallery'].includes(params.get('view')))view.value=params.get('view');
 if(['360','390','768','1440'].includes(params.get('size')))size.value=params.get('size');
-function scaleFrames(){for(const frame of document.querySelectorAll('iframe')){const shell=frame.parentElement,w=Number(size.value),available=shell.parentElement.clientWidth,scale=Math.min(1,available/w);frame.style.width=w+'px';frame.style.height=(w>700?1000:844)+'px';frame.style.transform=`scale(${scale})`;shell.style.width=w*scale+'px';shell.style.height=(w>700?1000:844)*scale+'px';}}
+function scaleFrames(){for(const frame of document.querySelectorAll('#v2, #v3')){const shell=frame.parentElement,w=Number(size.value),available=shell.parentElement.clientWidth,scale=Math.min(1,available/w);frame.style.width=w+'px';frame.style.height=(w>700?1000:844)+'px';frame.style.transform=`scale(${scale})`;shell.style.width=w*scale+'px';shell.style.height=(w>700?1000:844)*scale+'px';}}
 // Review-only alignment for the preserved V2 page, whose initial async anchor is not restored.
-for(const frame of document.querySelectorAll('iframe'))frame.addEventListener('load',()=>{
+for(const frame of document.querySelectorAll('#v2, #v3'))frame.addEventListener('load',()=>{
  const doc=frame.contentDocument;if(!doc)return;
  const align=()=>{const main=doc.querySelector('main');if(!main||main.getAttribute('aria-busy')==='true')return false;
   if(view.value==='minute')doc.querySelector('#minute')?.scrollIntoView({behavior:'instant'});return true;};
