@@ -6,7 +6,7 @@ export const koreaTime=v=>new Date(Date.parse(v)+9*3600000).toISOString().replac
 export function normalizeCatalog(rows){return rows.map(r=>({...r,...Object.fromEntries(['start','end','applicationStart','applicationEnd'].map(k=>[k,koreaTime(r[k])]))}));}
 export function catalogFromRows(rows){const programs=new Map(),sessions=[];
  for(const row of rows){if(row.demo!==false||(row.catalogKind&&row.catalogKind!=='retreat'))continue;
- programs.set(row.programId,{id:row.programId,title:row.title,description:row.description,organization:row.organization,taxonomy:row.taxonomy,requirements:row.requirements,source:row.source,audience:row.audience,demo:false});sessions.push({...row,demo:false});}
+ programs.set(row.programId,{id:row.programId,title:row.title,description:row.description,organization:row.organization,tags:row.tags||[],taxonomy:row.taxonomy,requirements:row.requirements,source:row.source,audience:row.audience,demo:false});sessions.push({...row,demo:false});}
  return {programs:[...programs.values()],sessions};}
 export function visibleStatus(s,now=Date.now()){
  if(Date.parse(s.end)<now)return '종료';if(['closed','cancelled','paused','waiting','ended'].includes(s.status))return statusLabels[s.status];

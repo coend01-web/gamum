@@ -1,7 +1,7 @@
 name: CAMUM public homepage checks
 on:
   push:
-    branches: ['main', 'design/camum-final-main']
+    branches: ['main', 'design/camum-final-main', 'design/camum-discovery-final-20261113']
 permissions:
   contents: read
 jobs:
@@ -15,6 +15,4 @@ jobs:
         with:
           node-version: 22
       - run: node tests/regression.mjs && node tests/recommendation-v2.mjs && node tests/demo-catalog.mjs
-      - if: github.ref_name != 'main'
-        run: node scripts/package-public.mjs && node tests/public-home.mjs ../outputs/camum-final-public
-      - run: node tests/public-release.mjs ${{ github.ref_name == 'main' && '.' || '../outputs/camum-final-public' }}
+      - run: node tests/public-release.mjs . && node tests/discovery-final.mjs

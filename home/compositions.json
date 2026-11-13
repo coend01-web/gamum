@@ -1,0 +1,282 @@
+[
+  {
+    "id": "thirst",
+    "minuteImage": "light",
+    "minuteReason": "메마른 벽에서 어둠 속 빛으로",
+    "hero": {
+      "focus": "65% 50%",
+      "desktopFocus": "65% 50%",
+      "ink": "#332619",
+      "shade": "248, 244, 238",
+      "strength": ".91",
+      "nameSize": "56px"
+    },
+    "darkTextBackground": false
+  },
+  {
+    "id": "rest",
+    "minuteImage": "gratitude",
+    "minuteReason": "벤치에서 따뜻한 찻잔 곁으로",
+    "hero": {
+      "focus": "65% 45%",
+      "desktopFocus": "65% 45%",
+      "ink": "#332619",
+      "shade": "248, 244, 238",
+      "strength": ".91",
+      "nameSize": "56px"
+    },
+    "darkTextBackground": false
+  },
+  {
+    "id": "breath",
+    "minuteImage": "window",
+    "minuteReason": "커튼에서 초록 창가로",
+    "hero": {
+      "focus": "65% 45%",
+      "desktopFocus": "65% 45%",
+      "ink": "#332619",
+      "shade": "248, 244, 238",
+      "strength": ".91",
+      "nameSize": "56px"
+    },
+    "darkTextBackground": false
+  },
+  {
+    "id": "silence",
+    "minuteImage": "path",
+    "minuteReason": "회랑에서 고요한 길로",
+    "hero": {
+      "focus": "70% 50%",
+      "desktopFocus": "70% 50%",
+      "ink": "#fff9ef",
+      "shade": "28, 32, 28",
+      "strength": ".82",
+      "nameSize": "56px"
+    },
+    "darkTextBackground": true
+  },
+  {
+    "id": "release",
+    "minuteImage": "peace",
+    "minuteReason": "빈자리에서 안정된 저녁으로",
+    "hero": {
+      "focus": "60% 50%",
+      "desktopFocus": "60% 50%",
+      "ink": "#332619",
+      "shade": "248, 244, 238",
+      "strength": ".91",
+      "nameSize": "42px"
+    },
+    "darkTextBackground": false
+  },
+  {
+    "id": "light",
+    "minuteImage": "invitation",
+    "minuteReason": "빛줄기에서 열린 입구로",
+    "hero": {
+      "focus": "60% 50%",
+      "desktopFocus": "60% 50%",
+      "ink": "#fff9ef",
+      "shade": "28, 32, 28",
+      "strength": ".82",
+      "nameSize": "56px"
+    },
+    "darkTextBackground": true
+  },
+  {
+    "id": "window",
+    "minuteImage": "breath",
+    "minuteReason": "창에서 바람이 드는 커튼으로",
+    "hero": {
+      "focus": "65% 45%",
+      "desktopFocus": "65% 45%",
+      "ink": "#332619",
+      "shade": "248, 244, 238",
+      "strength": ".91",
+      "nameSize": "56px"
+    },
+    "darkTextBackground": false
+  },
+  {
+    "id": "path",
+    "minuteImage": "beginning",
+    "minuteReason": "길에서 새 시작의 문턱으로",
+    "hero": {
+      "focus": "65% 55%",
+      "desktopFocus": "65% 55%",
+      "ink": "#fff9ef",
+      "shade": "28, 32, 28",
+      "strength": ".82",
+      "nameSize": "56px"
+    },
+    "darkTextBackground": true
+  },
+  {
+    "id": "invitation",
+    "minuteImage": "encounter",
+    "minuteReason": "초대에서 만남의 자리로",
+    "hero": {
+      "focus": "65% 45%",
+      "desktopFocus": "65% 45%",
+      "ink": "#332619",
+      "shade": "248, 244, 238",
+      "strength": ".91",
+      "nameSize": "56px"
+    },
+    "darkTextBackground": false
+  },
+  {
+    "id": "companionship",
+    "minuteImage": "rest",
+    "minuteReason": "함께 앉을 벤치로",
+    "hero": {
+      "focus": "65% 50%",
+      "desktopFocus": "65% 50%",
+      "ink": "#332619",
+      "shade": "248, 244, 238",
+      "strength": ".91",
+      "nameSize": "42px"
+    },
+    "darkTextBackground": false
+  },
+  {
+    "id": "wounds",
+    "minuteImage": "forgiveness",
+    "minuteReason": "거친 벽에서 부드러운 빛으로",
+    "hero": {
+      "focus": "65% 50%",
+      "desktopFocus": "65% 50%",
+      "ink": "#332619",
+      "shade": "248, 244, 238",
+      "strength": ".91",
+      "nameSize": "56px"
+    },
+    "darkTextBackground": false
+  },
+  {
+    "id": "forgiveness",
+    "minuteImage": "wounds",
+    "minuteReason": "용서의 빛과 상처의 흔적",
+    "hero": {
+      "focus": "60% 50%",
+      "desktopFocus": "60% 50%",
+      "ink": "#332619",
+      "shade": "248, 244, 238",
+      "strength": ".91",
+      "nameSize": "42px"
+    },
+    "darkTextBackground": false
+  },
+  {
+    "id": "waiting",
+    "minuteImage": "window",
+    "minuteReason": "기다리는 창가에 머무는 초록빛",
+    "hero": {
+      "focus": "65% 45%",
+      "desktopFocus": "65% 45%",
+      "ink": "#332619",
+      "shade": "248, 244, 238",
+      "strength": ".91",
+      "nameSize": "56px"
+    },
+    "darkTextBackground": false
+  },
+  {
+    "id": "tears",
+    "minuteImage": "waiting",
+    "minuteReason": "빗방울에서 조용히 기다리는 창으로",
+    "hero": {
+      "focus": "65% 45%",
+      "desktopFocus": "65% 45%",
+      "ink": "#fff9ef",
+      "shade": "28, 32, 28",
+      "strength": ".82",
+      "nameSize": "56px"
+    },
+    "darkTextBackground": true
+  },
+  {
+    "id": "beginning",
+    "minuteImage": "morning",
+    "minuteReason": "새로운 아침으로",
+    "hero": {
+      "focus": "65% 50%",
+      "desktopFocus": "65% 50%",
+      "ink": "#332619",
+      "shade": "248, 244, 238",
+      "strength": ".91",
+      "nameSize": "42px"
+    },
+    "darkTextBackground": false
+  },
+  {
+    "id": "morning",
+    "minuteImage": "light",
+    "minuteReason": "아침에 스며드는 빛으로",
+    "hero": {
+      "focus": "65% 45%",
+      "desktopFocus": "65% 45%",
+      "ink": "#332619",
+      "shade": "248, 244, 238",
+      "strength": ".91",
+      "nameSize": "56px"
+    },
+    "darkTextBackground": false
+  },
+  {
+    "id": "seed",
+    "minuteImage": "breath",
+    "minuteReason": "씨앗과 숨을 쉬는 초록 공간",
+    "hero": {
+      "focus": "65% 50%",
+      "desktopFocus": "65% 50%",
+      "ink": "#332619",
+      "shade": "248, 244, 238",
+      "strength": ".91",
+      "nameSize": "56px"
+    },
+    "darkTextBackground": false
+  },
+  {
+    "id": "encounter",
+    "minuteImage": "companionship",
+    "minuteReason": "서로 함께 머무는 공간으로",
+    "hero": {
+      "focus": "65% 50%",
+      "desktopFocus": "65% 50%",
+      "ink": "#332619",
+      "shade": "248, 244, 238",
+      "strength": ".91",
+      "nameSize": "56px"
+    },
+    "darkTextBackground": false
+  },
+  {
+    "id": "gratitude",
+    "minuteImage": "rest",
+    "minuteReason": "감사의 찻잔에서 쉬는 벤치로",
+    "hero": {
+      "focus": "65% 50%",
+      "desktopFocus": "65% 50%",
+      "ink": "#332619",
+      "shade": "248, 244, 238",
+      "strength": ".91",
+      "nameSize": "42px"
+    },
+    "darkTextBackground": false
+  },
+  {
+    "id": "peace",
+    "minuteImage": "release",
+    "minuteReason": "저녁의 평화에서 비워진 자리로",
+    "hero": {
+      "focus": "65% 50%",
+      "desktopFocus": "65% 50%",
+      "ink": "#fff9ef",
+      "shade": "28, 32, 28",
+      "strength": ".82",
+      "nameSize": "56px"
+    },
+    "darkTextBackground": true
+  }
+]
