@@ -16,3 +16,14 @@ export function searchItems(items,state,areas,engine,now=Date.now()){
 }
 export function newSearch(now=new Date()){const [year,month]=koreaDay(now.toISOString()).split('-').map(Number);return {tags:[],regionId:'',districtId:'',conditions:{},year,month:month-1,day:'',monthOnly:false};}
 export function newQuiz(){return {step:0,answers:{},conditions:{}};}
+// Source selection uses the whole approved catalog, never the filtered result.
+export const catalogMode=(rows,state='ready')=>state==='ready'&&rows.length===0?'demo':'approved';
+export function topicDiagnosis(items,state,areas,engine,now=Date.now()){
+ const tags=state.tags||[];if(!tags.length)return '';
+ const available=searchItems(items,{...state,tags:[]},areas,engine,now);
+ const counts=tags.map(tag=>({tag,count:available.filter(({p})=>matchesTopics(p,[tag])).length}));
+ const missing=counts.filter(x=>!x.count).map(x=>'#'+x.tag);
+ if(!available.length)return '현재 날짜·지역·참가 조건에 맞는 일정이 없습니다. 상세 조건이나 선택한 날짜·지역을 확인해 주세요.';
+ if(missing.length)return `${missing.join(' · ')}에 해당하는 일정이 현재 다른 조건 안에 없습니다. 해당 태그를 해제해 보세요.`;
+ return `각 주제의 일정은 있지만 ${tags.map(t=>'#'+t).join(' · ')}을 모두 포함하는 피정은 없습니다. 태그 하나를 해제하면 범위를 넓힐 수 있습니다.`;
+}
