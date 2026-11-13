@@ -9,7 +9,11 @@
       "ink": "#332619",
       "shade": "248, 244, 238",
       "strength": ".91",
-      "nameSize": "56px"
+      "nameSize": "56px",
+      "mobileStrength": "0.85",
+      "mobileMid": "0.58",
+      "mobileEnd": "65%",
+      "mobileFade": "9%"
     },
     "darkTextBackground": false
   },
@@ -23,7 +27,11 @@
       "ink": "#332619",
       "shade": "248, 244, 238",
       "strength": ".91",
-      "nameSize": "56px"
+      "nameSize": "56px",
+      "mobileStrength": "0.78",
+      "mobileMid": "0.45",
+      "mobileEnd": "64%",
+      "mobileFade": "8%"
     },
     "darkTextBackground": false
   },
@@ -37,7 +45,11 @@
       "ink": "#332619",
       "shade": "248, 244, 238",
       "strength": ".91",
-      "nameSize": "56px"
+      "nameSize": "56px",
+      "mobileStrength": "0.7",
+      "mobileMid": "0.4",
+      "mobileEnd": "62%",
+      "mobileFade": "7%"
     },
     "darkTextBackground": false
   },
@@ -51,7 +63,11 @@
       "ink": "#fff9ef",
       "shade": "28, 32, 28",
       "strength": ".82",
-      "nameSize": "56px"
+      "nameSize": "56px",
+      "mobileStrength": "0.67",
+      "mobileMid": "0.5",
+      "mobileEnd": "64%",
+      "mobileFade": "8%"
     },
     "darkTextBackground": true
   },
@@ -65,7 +81,11 @@
       "ink": "#332619",
       "shade": "248, 244, 238",
       "strength": ".91",
-      "nameSize": "42px"
+      "nameSize": "42px",
+      "mobileStrength": "0.68",
+      "mobileMid": "0.38",
+      "mobileEnd": "60%",
+      "mobileFade": "8%"
     },
     "darkTextBackground": false
   },
@@ -79,7 +99,11 @@
       "ink": "#fff9ef",
       "shade": "28, 32, 28",
       "strength": ".82",
-      "nameSize": "56px"
+      "nameSize": "56px",
+      "mobileStrength": "0.65",
+      "mobileMid": "0.44",
+      "mobileEnd": "61%",
+      "mobileFade": "7%"
     },
     "darkTextBackground": true
   },
@@ -93,7 +117,11 @@
       "ink": "#332619",
       "shade": "248, 244, 238",
       "strength": ".91",
-      "nameSize": "56px"
+      "nameSize": "56px",
+      "mobileStrength": "0.8",
+      "mobileMid": "0.52",
+      "mobileEnd": "67%",
+      "mobileFade": "8%"
     },
     "darkTextBackground": false
   },
@@ -107,7 +135,11 @@
       "ink": "#fff9ef",
       "shade": "28, 32, 28",
       "strength": ".82",
-      "nameSize": "56px"
+      "nameSize": "56px",
+      "mobileStrength": "0.75",
+      "mobileMid": "0.57",
+      "mobileEnd": "67%",
+      "mobileFade": "9%"
     },
     "darkTextBackground": true
   },
@@ -121,7 +153,11 @@
       "ink": "#332619",
       "shade": "248, 244, 238",
       "strength": ".91",
-      "nameSize": "56px"
+      "nameSize": "56px",
+      "mobileStrength": "0.82",
+      "mobileMid": "0.5",
+      "mobileEnd": "64%",
+      "mobileFade": "8%"
     },
     "darkTextBackground": false
   },
@@ -135,7 +171,11 @@
       "ink": "#332619",
       "shade": "248, 244, 238",
       "strength": ".91",
-      "nameSize": "42px"
+      "nameSize": "42px",
+      "mobileStrength": "0.83",
+      "mobileMid": "0.54",
+      "mobileEnd": "66%",
+      "mobileFade": "8%"
     },
     "darkTextBackground": false
   },
@@ -149,7 +189,11 @@
       "ink": "#332619",
       "shade": "248, 244, 238",
       "strength": ".91",
-      "nameSize": "56px"
+      "nameSize": "56px",
+      "mobileStrength": "0.78",
+      "mobileMid": "0.46",
+      "mobileEnd": "63%",
+      "mobileFade": "9%"
     },
     "darkTextBackground": false
   },
@@ -163,7 +207,11 @@
       "ink": "#332619",
       "shade": "248, 244, 238",
       "strength": ".91",
-      "nameSize": "42px"
+      "nameSize": "42px",
+      "mobileStrength": "0.84",
+      "mobileMid": "0.57",
+      "mobileEnd": "67%",
+      "mobileFade": "8%"
     },
     "darkTextBackground": false
   },
@@ -177,7 +225,11 @@
       "ink": "#332619",
       "shade": "248, 244, 238",
       "strength": ".91",
-      "nameSize": "56px"
+      "nameSize": "56px",
+      "mobileStrength": "0.83",
+      "mobileMid": "0.55",
+      "mobileEnd": "66%",
+      "mobileFade": "9%"
     },
     "darkTextBackground": false
   },
@@ -191,7 +243,11 @@
       "ink": "#fff9ef",
       "shade": "28, 32, 28",
       "strength": ".82",
-      "nameSize": "56px"
+      "nameSize": "56px",
+      "mobileStrength": "0.72",
+      "mobileMid": "0.52",
+      "mobileEnd": "65%",
+      "mobileFade": "9%"
     },
     "darkTextBackground": true
   },
@@ -205,7 +261,11 @@
       "ink": "#332619",
       "shade": "248, 244, 238",
       "strength": ".91",
-      "nameSize": "42px"
+      "nameSize": "42px",
+      "mobileStrength": "0.76",
+      "mobileMid": "0.45",
+      "mobileEnd": "63%",
+      "mobileFade": "7%"
     },
     "darkTextBackground": false
   },
@@ -219,7 +279,11 @@
       "ink": "#332619",
       "shade": "248, 244, 238",
       "strength": ".91",
-      "nameSize": "56px"
+      "nameSize": "56px",
+      "mobileStrength": "0.65",
+      "mobileMid": "0.32",
+      "mobileEnd": "60%",
+      "mobileFade": "8%"
     },
     "darkTextBackground": false
   },
@@ -233,7 +297,11 @@
       "ink": "#332619",
       "shade": "248, 244, 238",
       "strength": ".91",
-      "nameSize": "56px"
+      "nameSize": "56px",
+      "mobileStrength": "0.85",
+      "mobileMid": "0.6",
+      "mobileEnd": "68%",
+      "mobileFade": "8%"
     },
     "darkTextBackground": false
   },
@@ -247,7 +315,11 @@
       "ink": "#332619",
       "shade": "248, 244, 238",
       "strength": ".91",
-      "nameSize": "56px"
+      "nameSize": "56px",
+      "mobileStrength": "0.8",
+      "mobileMid": "0.5",
+      "mobileEnd": "64%",
+      "mobileFade": "8%"
     },
     "darkTextBackground": false
   },
@@ -261,7 +333,11 @@
       "ink": "#332619",
       "shade": "248, 244, 238",
       "strength": ".91",
-      "nameSize": "42px"
+      "nameSize": "42px",
+      "mobileStrength": "0.82",
+      "mobileMid": "0.5",
+      "mobileEnd": "64%",
+      "mobileFade": "8%"
     },
     "darkTextBackground": false
   },
@@ -275,7 +351,11 @@
       "ink": "#fff9ef",
       "shade": "28, 32, 28",
       "strength": ".82",
-      "nameSize": "56px"
+      "nameSize": "56px",
+      "mobileStrength": "0.74",
+      "mobileMid": "0.56",
+      "mobileEnd": "68%",
+      "mobileFade": "9%"
     },
     "darkTextBackground": true
   }

@@ -1,7 +1,7 @@
 name: CAMUM public homepage checks
 on:
   push:
-    branches: ['main', 'design/camum-final-main', 'design/camum-discovery-final-20261113']
+    branches: ['main', 'design/camum-final-main', 'design/camum-discovery-final-20261113', 'fix/camum-search-polish-20261113']
 permissions:
   contents: read
 jobs:
@@ -15,4 +15,4 @@ jobs:
         with:
           node-version: 22
       - run: node tests/regression.mjs && node tests/recommendation-v2.mjs && node tests/demo-catalog.mjs
-      - run: node tests/public-release.mjs . && node tests/discovery-final.mjs
+      - run: node tests/public-release.mjs . && node tests/discovery-final.mjs && node tests/search-polish.mjs
