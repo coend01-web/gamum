@@ -193,3 +193,16 @@ a.cm-episode{display:block;color:inherit}
 .cm-prevnext{display:flex;justify-content:space-between;gap:10px;margin-top:22px;padding-top:14px;border-top:1px solid var(--line)}
 .cm-prevnext a{min-height:46px;display:flex;align-items:center;font-size:15px}
 @media(max-width:700px){.cm-read h1{font-size:24px}.cm-viewer-cut{height:300px}.cm-ct-video{width:96px;height:56px}}
+
+.cm-dio-group{margin-top:22px}
+.cm-dio-group h2{font-size:21px;padding-bottom:8px;border-bottom:1px solid var(--ink);margin-bottom:12px}
+.cm-dio-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px}
+.cm-dio{display:flex;align-items:center;gap:14px;padding:16px;border:1px solid var(--line);background:#fffdf8;color:inherit;min-height:76px}
+a.cm-dio:hover{border-color:#324e43;box-shadow:0 6px 18px rgba(40,44,38,.1)}
+a.cm-dio:hover strong{text-decoration:underline;text-underline-offset:5px}
+.cm-dio-mark{flex:none;width:46px;height:46px;border-radius:50%;background:#324e43;color:#fffdf8;display:grid;place-items:center;font-family:var(--serif);font-size:20px}
+.cm-dio-body{flex:1;display:flex;flex-direction:column;gap:2px;min-width:0}
+.cm-dio-body strong{font-size:17.5px;font-weight:600}
+.cm-dio-body span{font-size:14px;color:#4f5a52}
+.cm-dio-go{flex:none;font-size:14px;font-weight:600;color:#324e43}
+.cm-dio-off{opacity:.75}.cm-dio-off .cm-dio-mark{background:#a3a89d}.cm-dio-off .cm-dio-go{color:#7d867f;font-weight:500}

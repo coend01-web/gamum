@@ -99,7 +99,46 @@
       '<nav class="cm-prevnext" aria-label="이전·다음 글"><a href="#post/' + Math.max(1, n - 1) + '">← 이전 글</a><a href="#board">목록</a><a href="#post/' + Math.min(posts.length, n + 1) + '">다음 글 →</a></nav></article>';
   }
 
-  window.CM_PAGES = { board: board, post: post, contents: contents, webtoon: function () { location.replace('#contents/webtoon'); return ''; }, login: login, convents: convents };
+  // 교구 홈페이지: 한국천주교주교회의 온라인 주소록 등에서 확인한 주소만 연결. url이 빈 곳은 확인 중.
+  var dioceses = [
+    ['seoul', '서울대교구', '서울', 'capital', 'https://www.catholic.or.kr'],
+    ['incheon', '인천교구', '인천·경기 서부', 'capital', ''],
+    ['suwon', '수원교구', '경기 남부', 'capital', 'https://www.casuwon.or.kr'],
+    ['uijeongbu', '의정부교구', '경기 북부', 'capital', 'https://www.ucatholic.or.kr'],
+    ['chuncheon', '춘천교구', '강원', 'gangwon', 'https://www.cccatholic.or.kr'],
+    ['wonju', '원주교구', '강원', 'gangwon', 'https://www.wjcatholic.or.kr'],
+    ['daejeon', '대전교구', '대전·세종·충남', 'chung', 'https://www.djcatholic.or.kr'],
+    ['cheongju', '청주교구', '충북', 'chung', 'https://www.cdcj.or.kr'],
+    ['daegu', '대구대교구', '대구·경북', 'gyeong', ''],
+    ['andong', '안동교구', '경북 북부', 'gyeong', 'https://www.acatholic.or.kr'],
+    ['busan', '부산교구', '부산·울산·경남 일부', 'gyeong', ''],
+    ['masan', '마산교구', '경남', 'gyeong', ''],
+    ['gwangju', '광주대교구', '광주·전남', 'jeolla', 'https://www.gjcatholic.or.kr'],
+    ['jeonju', '전주교구', '전북', 'jeolla', ''],
+    ['jeju', '제주교구', '제주', 'jeju', ''],
+    ['military', '군종교구', '군인과 가족', 'military', 'https://www.gunjong.or.kr']
+  ];
+  var dioRegions = [['all', '전체'], ['capital', '서울·경기·인천'], ['gangwon', '강원'], ['chung', '충청'], ['gyeong', '경상'], ['jeolla', '전라'], ['jeju', '제주'], ['military', '군종']];
+  function diocesesPage() {
+    var r = location.hash.slice(1).split('/')[1] || 'all';
+    var list = dioceses.filter(function (d) { return r === 'all' || d[3] === r; });
+    var groups = dioRegions.slice(1).filter(function (g) { return list.some(function (d) { return d[3] === g[0]; }); });
+    return back() +
+      '<section class="cm-page-head"><h1>교구</h1><p>전국 16개 교구입니다. 누르면 각 교구의 공식 홈페이지로 이동합니다.</p></section>' +
+      '<div class="cm-board-cats cm-kind-tabs">' + dioRegions.map(function (g) { return '<a href="#dioceses/' + g[0] + '" aria-current="' + (g[0] === r ? 'page' : 'false') + '">' + g[1] + '</a>'; }).join('') + '</div>' +
+      groups.map(function (g) {
+        return '<section class="cm-dio-group"><h2>' + g[1] + '</h2><div class="cm-dio-grid">' +
+          list.filter(function (d) { return d[3] === g[0]; }).map(function (d) {
+            var inner = '<span class="cm-dio-mark" aria-hidden="true">' + d[1].charAt(0) + '</span><span class="cm-dio-body"><strong>' + d[1] + '</strong><span>' + d[2] + '</span></span>';
+            return d[4]
+              ? '<a class="cm-dio" href="' + d[4] + '" target="_blank" rel="noopener noreferrer" aria-label="' + d[1] + ' 홈페이지 (새 창)">' + inner + '<span class="cm-dio-go">홈페이지 ↗</span></a>'
+              : '<div class="cm-dio cm-dio-off">' + inner + '<span class="cm-dio-go">주소 확인 중</span></div>';
+          }).join('') + '</div></section>';
+      }).join('') +
+      '<p class="cm-c-foot">교구 홈페이지 주소는 한국천주교주교회의 온라인 주소록과 각 교구 공식 자료로 확인한 것만 연결했습니다.</p>';
+  }
+
+  window.CM_PAGES = { dioceses: diocesesPage, board: board, post: post, contents: contents, webtoon: function () { location.replace('#contents/webtoon'); return ''; }, login: login, convents: convents };
 
   function mark() {
     var page = location.hash.slice(1).split('/')[0] || 'home';
