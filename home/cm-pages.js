@@ -1,6 +1,7 @@
 /* 미리보기: 웹툰·게시판·로그인·수도회 화면. 실제 데이터 연결 전 화면 틀입니다. */
 (function () {
   var note = '<p class="cm-preview-note">화면 미리보기입니다. 아래 글과 이름은 모두 예시이며 실제 자료가 아닙니다.</p>';
+  function safe(v) { return String(v == null ? '' : v).replace(/[&<>"']/g, function (c) { return {'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'}[c]; }); }
   function back() { return '<a class="back-link" href="#home">← 가뭄으로 돌아가기</a>'; }
 
   var posts = [
@@ -69,22 +70,51 @@
   }
 
   function convents() {
-    var kinds = ['전체', '남자 수도회', '여자 수도회', '피정의 집', '재속회'];
+    var data = window.CM_CONVENTS || [];
+    var kinds = [['all', '전체'], ['m', '남자 수도회'], ['f', '여자 수도회']];
     var ig = '<svg viewBox="0 0 28 28" aria-hidden="true"><rect x="4" y="4" width="20" height="20" rx="6"/><circle cx="14" cy="14" r="4.6"/><circle cx="19.6" cy="8.4" r="1.1" class="dot"/></svg>';
-    var rows = [['[수도회 이름]', '남자 수도회'], ['[수녀회 이름]', '여자 수도회'], ['[피정의 집 이름]', '피정의 집'], ['[수도원 이름]', '남자 수도회'], ['[수녀회 이름]', '여자 수도회'], ['[재속회 이름]', '재속회']];
+    var rows = data.map(function (r) {
+      var name = safe(r.n), hay = safe((r.n + ' ' + (r.e || '') + ' ' + (r.r || '') + ' ' + (r.d || '')).toLowerCase());
+      var meta = (r.s === 'm' ? '남자 수도회' : '여자 수도회') + (r.r ? '<i></i>' + safe(r.r) : '') + (r.c ? '<i></i>국내 공동체 ' + r.c + '곳' : '');
+      var main = r.h
+        ? '<a class="cm-cvl-main" href="' + safe(r.h) + '" target="_blank" rel="noopener noreferrer" aria-label="' + name + ' 홈페이지 (새 창)">'
+        : '<span class="cm-cvl-main cm-cvl-nolink">';
+      return '<li data-s="' + r.s + '" data-q="' + hay + '">' + main +
+        '<span class="cm-cvl-body"><strong>' + name + '</strong><span class="cm-meta">' + meta + '</span></span>' +
+        '<span class="cm-cvl-go">' + (r.h ? '홈페이지 ↗' : '홈페이지 없음') + '</span>' + (r.h ? '</a>' : '</span>') +
+        (r.i ? '<a class="cm-cvl-ig" href="' + safe(r.i) + '" target="_blank" rel="noopener noreferrer" aria-label="' + name + ' 인스타그램 (새 창)">' + ig + '</a>' : '') + '</li>';
+    }).join('');
     return back() +
-      '<section class="cm-page-head"><h1>수도회 소개</h1><p>피정을 여는 수도회와 피정의 집입니다. 누르면 각 공동체의 공식 홈페이지로 이동합니다.</p></section>' + note +
-      '<div class="cm-pills">' + kinds.map(function (k, i) { return '<button aria-pressed="' + (i === 0) + '">' + k + '</button>'; }).join('') + '</div>' +
-      '<label class="cm-cv-search">공동체 이름이나 지역으로 찾기<input type="search" placeholder="예: 수원, 베네딕도"></label>' +
-      '<ul class="cm-cvl">' + rows.map(function (r) {
-        return '<li><a class="cm-cvl-main" href="#convents" target="_blank" rel="noopener noreferrer" aria-label="' + r[0] + ' 공식 홈페이지 (새 창)">' +
-          '<span class="cm-cvl-thumb" aria-hidden="true">사진</span>' +
-          '<span class="cm-cvl-body"><strong>' + r[0] + '</strong><span class="cm-cvl-line">[한 줄 소개: 공동체의 영성이나 사도직]</span><span class="cm-meta">' + r[1] + '<i></i>[지역]<i></i>피정 [n]개</span></span>' +
-          '<span class="cm-cvl-go">홈페이지 ↗</span></a>' +
-          '<a class="cm-cvl-ig" href="#convents" target="_blank" rel="noopener noreferrer" aria-label="' + r[0] + ' 인스타그램 (새 창)">' + ig + '</a></li>';
-      }).join('') + '</ul>' +
-      '<p class="cm-c-foot">각 공동체의 공식 홈페이지와 인스타그램으로 연결됩니다. 연결 주소는 수도회가 기관 운영실에서 직접 등록합니다.</p>';
+      '<section class="cm-page-head"><h1>수도회 소개</h1><p>한국 천주교 주교회의 주소록에 오른 남자·여자 수도회와 선교회입니다. 이름을 누르면 각 공동체의 공식 홈페이지가 새 창으로 열립니다.</p></section>' +
+      '<div class="cm-pills" data-cv-kinds>' + kinds.map(function (k, i) { return '<button type="button" data-k="' + k[0] + '" aria-pressed="' + (i === 0) + '">' + k[1] + '</button>'; }).join('') + '</div>' +
+      '<label class="cm-cv-search">수도회 이름이나 지역으로 찾기<input type="search" data-cv-q placeholder="예: 베네딕도, 수원, 가르멜"></label>' +
+      '<p class="cm-cv-count" data-cv-count>' + data.length + '곳</p>' +
+      '<ul class="cm-cvl">' + rows + '</ul>' +
+      '<p class="cm-cv-none" data-cv-none hidden>찾는 수도회가 없습니다. 다른 이름으로 검색해 보세요.</p>' +
+      '<p class="cm-c-foot">출처: 한국 천주교 주교회의 온라인 주소록(' + (window.CM_CONVENTS_DATE || '') + ' 확인). 홈페이지 주소가 바뀌었거나 빠진 곳은 게시판으로 알려 주세요.</p>';
   }
+
+  function cvFilter() {
+    var on = document.querySelector('[data-cv-kinds] [aria-pressed="true"]');
+    var k = on ? on.getAttribute('data-k') : 'all';
+    var qi = document.querySelector('[data-cv-q]');
+    var words = (qi ? qi.value : '').toLowerCase().split(/\s+/).filter(Boolean);
+    var n = 0;
+    document.querySelectorAll('.cm-cvl li').forEach(function (li) {
+      var q = li.getAttribute('data-q');
+      var ok = (k === 'all' || li.getAttribute('data-s') === k) && words.every(function (w) { return q.indexOf(w) > -1; });
+      li.hidden = !ok; if (ok) n++;
+    });
+    var c = document.querySelector('[data-cv-count]'); if (c) c.textContent = n + '곳';
+    var none = document.querySelector('[data-cv-none]'); if (none) none.hidden = n > 0;
+  }
+  document.addEventListener('click', function (e) {
+    var b = e.target.closest && e.target.closest('[data-cv-kinds] button');
+    if (!b) return;
+    b.parentNode.querySelectorAll('button').forEach(function (x) { x.setAttribute('aria-pressed', String(x === b)); });
+    cvFilter();
+  });
+  document.addEventListener('input', function (e) { if (e.target.matches && e.target.matches('[data-cv-q]')) cvFilter(); });
 
   function post() {
     var n = Number(location.hash.split('/')[1]) || 0;
