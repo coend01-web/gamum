@@ -206,3 +206,18 @@ a.cm-dio:hover strong{text-decoration:underline;text-underline-offset:5px}
 .cm-dio-body span{font-size:14px;color:#4f5a52}
 .cm-dio-go{flex:none;font-size:14px;font-weight:600;color:#324e43}
 .cm-dio-off{opacity:.75}.cm-dio-off .cm-dio-mark{background:#a3a89d}.cm-dio-off .cm-dio-go{color:#7d867f;font-weight:500}
+
+button.cm-tool{border:0;background:none;cursor:pointer;padding:0}
+.cm-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.cm-searchbar{background:#fffdf8;border-bottom:1px solid var(--line);position:sticky;top:58px;z-index:14}
+.cm-searchbar form{max-width:1440px;margin:auto;padding:10px 5vw;display:flex;align-items:center;gap:10px}
+.cm-searchbar svg{width:24px;height:24px;flex:none;fill:none;stroke:#324e43;stroke-width:1.6}
+.cm-searchbar input{flex:1;min-width:0;margin:0;border:1.5px solid #324e43;min-height:50px;font-size:16.5px;padding:8px 14px}
+.cm-searchbar button{flex:none;min-height:50px;padding:0 20px;border:0;background:#324e43;color:#fff;font-size:16px;font-weight:600}
+.cm-search-page{margin:4px 0 18px}
+.cm-search-page label{font-size:14px;color:#4f5a52}
+.cm-search-row{display:flex;gap:10px;margin-top:6px}
+.cm-search-row input{flex:1;min-width:0;margin:0;min-height:52px;font-size:17px}
+.cm-search-hint{font-size:15px;color:#4f5a52;margin:16px 0 70px}
+.cm-search-hint a{text-decoration:underline;text-underline-offset:4px}
+@media(max-width:700px){.cm-searchbar{top:52px}.cm-searchbar form{padding:10px 14px}.cm-searchbar svg{display:none}.cm-searchbar button{padding:0 16px}}

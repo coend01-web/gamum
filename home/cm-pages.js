@@ -142,12 +142,26 @@
 
   function mark() {
     var page = location.hash.slice(1).split('/')[0] || 'home';
-    var map = { post: 'board', webtoon: 'contents', themes: 'paths', calendar: 'paths', places: 'paths', discover: 'paths', retreat: 'paths', 'quiz-result': 'paths' };
+    var map = { search: 'paths', post: 'board', webtoon: 'contents', themes: 'paths', calendar: 'paths', places: 'paths', discover: 'paths', retreat: 'paths', 'quiz-result': 'paths' };
     var key = map[page] || page;
     document.querySelectorAll('.cm-menubar a').forEach(function (a) {
       if (a.getAttribute('data-cm') === key) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current');
     });
   }
+  document.addEventListener('click', function (e) {
+    var t = e.target.closest('[data-cm-search-toggle]'); if (!t) return;
+    var bar = document.getElementById('cm-searchbar'), open = bar.hidden;
+    bar.hidden = !open; t.setAttribute('aria-expanded', String(open));
+    if (open) bar.querySelector('input').focus();
+  });
+  document.addEventListener('submit', function (e) {
+    var f = e.target.closest('[data-cm-search]'); if (!f) return;
+    e.preventDefault();
+    var q = (f.querySelector('input[name=q]').value || '').trim(); if (!q) return;
+    var bar = document.getElementById('cm-searchbar'); bar.hidden = true;
+    var tg = document.querySelector('[data-cm-search-toggle]'); if (tg) tg.setAttribute('aria-expanded', 'false');
+    location.hash = '#search/' + encodeURIComponent(q);
+  });
   window.addEventListener('hashchange', mark);
   document.addEventListener('DOMContentLoaded', mark);
 })();
