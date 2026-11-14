@@ -99,23 +99,23 @@
       '<nav class="cm-prevnext" aria-label="이전·다음 글"><a href="#post/' + Math.max(1, n - 1) + '">← 이전 글</a><a href="#board">목록</a><a href="#post/' + Math.min(posts.length, n + 1) + '">다음 글 →</a></nav></article>';
   }
 
-  // 교구 홈페이지: 한국천주교주교회의 온라인 주소록 등에서 확인한 주소만 연결. url이 빈 곳은 확인 중.
+  // 교구 홈페이지: 한국천주교주교회의 온라인 주소록, 각 교구 누리집, Catholic-Hierarchy 등에서 확인한 공식 주소.
   var dioceses = [
     ['seoul', '서울대교구', '서울', 'capital', 'https://www.catholic.or.kr'],
-    ['incheon', '인천교구', '인천·경기 서부', 'capital', ''],
+    ['incheon', '인천교구', '인천·경기 서부', 'capital', 'https://www.caincheon.or.kr'],
     ['suwon', '수원교구', '경기 남부', 'capital', 'https://www.casuwon.or.kr'],
     ['uijeongbu', '의정부교구', '경기 북부', 'capital', 'https://www.ucatholic.or.kr'],
     ['chuncheon', '춘천교구', '강원', 'gangwon', 'https://www.cccatholic.or.kr'],
     ['wonju', '원주교구', '강원', 'gangwon', 'https://www.wjcatholic.or.kr'],
     ['daejeon', '대전교구', '대전·세종·충남', 'chung', 'https://www.djcatholic.or.kr'],
     ['cheongju', '청주교구', '충북', 'chung', 'https://www.cdcj.or.kr'],
-    ['daegu', '대구대교구', '대구·경북', 'gyeong', ''],
+    ['daegu', '대구대교구', '대구·경북', 'gyeong', 'https://www.daegu-archdiocese.or.kr'],
     ['andong', '안동교구', '경북 북부', 'gyeong', 'https://www.acatholic.or.kr'],
-    ['busan', '부산교구', '부산·울산·경남 일부', 'gyeong', ''],
-    ['masan', '마산교구', '경남', 'gyeong', ''],
+    ['busan', '부산교구', '부산·울산·경남 일부', 'gyeong', 'https://www.catholicbusan.or.kr'],
+    ['masan', '마산교구', '경남', 'gyeong', 'http://www.cathms.or.kr'],
     ['gwangju', '광주대교구', '광주·전남', 'jeolla', 'https://www.gjcatholic.or.kr'],
-    ['jeonju', '전주교구', '전북', 'jeolla', ''],
-    ['jeju', '제주교구', '제주', 'jeju', ''],
+    ['jeonju', '전주교구', '전북', 'jeolla', 'https://www.jcatholic.or.kr'],
+    ['jeju', '제주교구', '제주', 'jeju', 'https://www.diocesejeju.or.kr'],
     ['military', '군종교구', '군인과 가족', 'military', 'https://www.gunjong.or.kr']
   ];
   var dioRegions = [['all', '전체'], ['capital', '서울·경기·인천'], ['gangwon', '강원'], ['chung', '충청'], ['gyeong', '경상'], ['jeolla', '전라'], ['jeju', '제주'], ['military', '군종']];
@@ -135,7 +135,7 @@
               : '<div class="cm-dio cm-dio-off">' + inner + '<span class="cm-dio-go">주소 확인 중</span></div>';
           }).join('') + '</div></section>';
       }).join('') +
-      '<p class="cm-c-foot">교구 홈페이지 주소는 한국천주교주교회의 온라인 주소록과 각 교구 공식 자료로 확인한 것만 연결했습니다.</p>';
+      '<p class="cm-c-foot">교구 홈페이지 주소는 한국천주교주교회의 온라인 주소록과 각 교구 공식 자료로 확인했습니다.</p>';
   }
 
   window.CM_PAGES = { dioceses: diocesesPage, board: board, post: post, contents: contents, webtoon: function () { location.replace('#contents/webtoon'); return ''; }, login: login, convents: convents };
