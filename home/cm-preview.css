@@ -258,3 +258,43 @@ button.cm-tool{border:0;background:none;cursor:pointer;padding:0}
 .cm-cv-none{padding:28px 0;color:#6b746d;text-align:center}
 .cm-cvl-nolink strong{color:#6b746d!important;font-weight:500!important}
 @media(max-width:700px){.cm-cvl-main:not(.cm-cvl-nolink) strong::after{content:" ↗";font-size:13px;color:#324e43}}
+
+/* 회원·게시판(실제 연결) */
+.cm-board-cats a{flex:none;display:flex;align-items:center;min-height:50px;font-size:16px;color:#3c4a42}
+.cm-board-cats a[aria-current=page]{font-weight:800;color:#1f2b25;box-shadow:inset 0 -3px 0 #324e43}
+.cm-board-search{display:flex;gap:8px;margin:14px 0 4px}
+.cm-board-search input{flex:1;height:46px;border-radius:23px;border:1px solid #c9cdc4;background:#fffdf8;padding:0 18px;font-size:15px;margin:0}
+.cm-board-search button{height:46px;padding:0 20px;border-radius:23px;border:0;background:#324e43;color:#fff;font-weight:600}
+.cm-loading,.cm-empty{padding:40px 0;text-align:center;color:#6b746d}
+.cm-error{color:#a3342b;font-size:14.5px;margin:6px 0}
+.cm-error.cm-ok{color:#2f5d46}
+.cm-guest{font-style:normal;font-size:11.5px;color:#8a918b;border:1px solid #d5d8d1;border-radius:4px;padding:0 4px;margin-left:2px}
+.cm-form{display:flex;flex-direction:column;gap:12px;margin:8px 0 18px}
+.cm-form h2{font-size:18px;margin:10px 0 0}
+.cm-form label{display:flex;flex-direction:column;gap:6px;font-size:14px;color:#4f5a52}
+.cm-form input,.cm-form select,.cm-form textarea{width:100%;margin:0;font-size:16px;padding:12px 14px;border:1px solid #c9cdc4;background:#fffdf8;border-radius:10px;font-family:inherit}
+.cm-form textarea{resize:vertical;line-height:1.7}
+.cm-form .cm-check{flex-direction:row;align-items:flex-start;gap:8px;font-size:14px}
+.cm-form .cm-check input{width:auto;margin-top:3px}
+.cm-form .cm-check a{text-decoration:underline;text-underline-offset:3px}
+.cm-form-note{font-size:14px;color:#5c675e;line-height:1.6;background:#f1ede4;padding:10px 12px;border-radius:8px}
+.cm-btn{display:flex;align-items:center;justify-content:center;min-height:52px;border:0;border-radius:26px;background:#324e43;color:#fff;font-size:16px;font-weight:700;cursor:pointer}
+.cm-btn:disabled{opacity:.55}
+.cm-btn-line{background:#fffdf8;color:#1f2b25;border:1px solid #aab3a8}
+.cm-btn-danger{background:#a3342b}
+.cm-guest-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.cm-wform{max-width:760px;margin-bottom:90px}
+.cm-cform{margin-top:6px}
+.cm-recovery{background:#f1ede4;border-radius:14px;padding:18px;text-align:center;margin-bottom:16px}
+.cm-recovery p{font-size:15px;line-height:1.7;margin-bottom:10px;word-break:keep-all}
+.cm-recovery strong{display:block;font-size:30px;letter-spacing:.12em;font-family:ui-monospace,monospace;color:#1f2b25}
+.cm-me-row{display:flex;justify-content:space-between;align-items:center;min-height:56px;border-bottom:1px solid var(--line);font-size:16px}
+.cm-leave{margin-top:18px;font-size:14px;color:#6b746d}
+.cm-leave summary{cursor:pointer;padding:8px 0}
+.cm-like a{display:flex;align-items:center;min-height:46px;padding:0 22px;border:1px solid #aab3a8;background:#fffdf8;font-size:15px}
+.cm-like button:disabled{opacity:.6}
+.cm-linkbtn{border:0;background:none;padding:0;font-size:inherit;color:inherit;text-decoration:underline;cursor:pointer}
+.cm-policy h2{font-size:18px;margin:22px 0 4px}
+.cm-tool.cm-in{color:#324e43}
+.cm-tool.cm-in svg{fill:#dfe7df}
+@media(max-width:700px){.cm-guest-row{grid-template-columns:1fr}}
