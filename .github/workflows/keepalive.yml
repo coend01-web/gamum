@@ -1,0 +1,20 @@
+# Supabase 무료 요금제는 7일 동안 접속이 없으면 멈춥니다.
+# 사흘마다 가볍게 한 번 접속해서 멈추지 않게 합니다. (읽기만 하고 아무것도 바꾸지 않습니다)
+name: keep-supabase-awake
+on:
+  schedule:
+    - cron: '17 3 */3 * *'
+  workflow_dispatch:
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping CAMUM database
+        run: |
+          code=$(curl -s -o /tmp/out.json -w '%{http_code}' -X POST \
+            'https://qzxdxqrdulkfoktkmkly.supabase.co/rest/v1/rpc/cm_posts' \
+            -H 'apikey: sb_publishable__Gjo9F1m0TXdxPH_yMEBiA_b91a2xBr' \
+            -H 'Content-Type: application/json' \
+            -d '{"p_category":null,"p_q":null,"p_page":1}')
+          echo "status $code"; head -c 200 /tmp/out.json; echo
+          test "$code" = "200"
