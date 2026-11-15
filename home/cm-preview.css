@@ -298,3 +298,25 @@ button.cm-tool{border:0;background:none;cursor:pointer;padding:0}
 .cm-tool.cm-in{color:#324e43}
 .cm-tool.cm-in svg{fill:#dfe7df}
 @media(max-width:700px){.cm-guest-row{grid-template-columns:1fr}}
+
+/* 가뭄 소개 */
+.cm-about{max-width:720px;margin:10px auto 90px;font-size:17px;line-height:1.95;word-break:keep-all;color:#26332d}
+.cm-about p{margin:0 0 16px}
+.cm-about-kicker{font-size:13px;letter-spacing:.12em;color:#8a6d3b;margin:10px 0 6px!important}
+.cm-about h1{font-size:36px;line-height:1.4;margin:0 0 18px;font-weight:500}
+.cm-about h2{font-size:22px;margin:40px 0 14px;padding-top:18px;border-top:1px solid var(--line)}
+.cm-about-lead{font-size:18.5px;color:#324e43}
+.cm-about-quote{margin:26px 0;padding:18px 22px;background:#f1ede4;border-left:3px solid #8a6d3b;font-size:17.5px;line-height:1.8}
+.cm-about-ways{list-style:none;padding:0;margin:0 0 18px;display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.cm-about-ways a{display:flex;flex-direction:column;gap:4px;height:100%;padding:16px 18px;border:1px solid var(--line);border-radius:14px;background:#fffdf8;line-height:1.6}
+.cm-about-ways b{font-size:17px;color:#1f2b25}
+.cm-about-ways span{font-size:14.5px;color:#5c675e}
+.cm-about a:not(.cm-btn){text-decoration:underline;text-underline-offset:4px}
+.cm-about-ways a{text-decoration:none!important}
+.cm-about-verse{margin:40px 0 18px;text-align:center}
+.cm-about-verse blockquote{margin:0;font-size:21px;line-height:1.7;color:#1f2b25}
+.cm-about-verse figcaption{margin-top:6px;font-size:14px;color:#8a6d3b}
+.cm-about-end{text-align:center;color:#4f5a52}
+.cm-about-cta{display:flex;gap:10px;justify-content:center;margin-top:26px}
+.cm-about-cta .cm-btn{padding:0 26px}
+@media(max-width:700px){.cm-about h1{font-size:28px}.cm-about-ways{grid-template-columns:1fr}.cm-about{font-size:16.5px}}

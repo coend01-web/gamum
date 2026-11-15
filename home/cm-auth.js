@@ -247,8 +247,34 @@
       '<p class="cm-meta">시행일: 2026년 11월</p></div>';
   }
 
+  function aboutPage() {
+    return back() +
+      '<section class="cm-about">' +
+      '<p class="cm-about-kicker">가톨릭 머뭄 · CAMUM</p>' +
+      '<h1>복음과 카리스마가<br>세상에 닿도록</h1>' +
+      '<p class="cm-about-lead">가뭄은 전국의 가톨릭 피정을 한곳에서 찾고, 각 수도회와 피정의 집이 정성껏 준비한 피정으로 신자들을 이어 드리는 곳입니다.</p>' +
+      '<blockquote class="cm-about-quote">“요즘 기도도 잘 안 되고 마음이 너무 지칩니다. 이번 주말에 갈 수 있는 피정이 있을까요?”</blockquote>' +
+      '<p>이렇게 묻는 사람에게 필요한 것은 긴 검색 결과가 아니라 하느님과 다시 만나는 시간입니다. 그런데 막상 피정 하나를 찾으려 하면 교구 주보와 본당 공지, 수도회 누리집과 따로 마련된 신청 링크를 차례로 뒤져야 하고, 날짜와 대상과 비용을 하나씩 견주다 보면 정작 내가 갈 수 있는 피정이 어디에 있는지 알기 어려워집니다.</p>' +
+      '<p>우리 교회에는 말씀과 침묵, 환대와 자비, 식별과 봉사처럼 각 수도회가 오랜 세월 지켜 온 영성이 있고 그 영성을 나누려는 피정도 많습니다. 모자란 것은 피정이 아니라, 피정을 찾는 사람과 피정을 준비한 공동체가 서로 만나는 길이라고 생각했습니다.</p>' +
+      '<h2>네 가지 길로 피정을 찾습니다</h2>' +
+      '<ul class="cm-about-ways">' +
+      '<li><a href="#discover"><b>나를 찾아가는 피정</b><span>몇 가지 물음에 답하면 지금의 나에게 맞는 피정을 추천합니다.</span></a></li>' +
+      '<li><a href="#themes"><b>주제로 찾는 피정</b><span>말씀, 침묵, 청년, 가족처럼 마음이 가는 주제에서 시작합니다.</span></a></li>' +
+      '<li><a href="#calendar"><b>날짜로 찾는 피정</b><span>갈 수 있는 날과 모집 상태를 먼저 봅니다.</span></a></li>' +
+      '<li><a href="#places"><b>장소로 찾는 피정</b><span>가까운 지역의 피정의 집과 일정을 살핍니다.</span></a></li>' +
+      '</ul>' +
+      '<p>피정을 처음 찾는 사람도, 수도회를 잘 모르는 사람도 지금 서 있는 곳에서 바로 시작할 수 있도록 만들었습니다.</p>' +
+      '<h2>수도회와 피정의 집께</h2>' +
+      '<p>가뭄은 수도회를 대신하는 곳이 아니라, 수도회가 간직한 보화로 들어가는 문을 조금 더 넓히려는 곳입니다. 이미 준비하신 피정을 소개해 주시면 신자들이 찾아보고 비교할 수 있도록 안내하고, 신청과 참가비, 환불은 지금처럼 각 공동체가 정한 방식으로 공식 신청처에서 이루어집니다. 새로운 사도직을 하나 더 얹어 드리려는 것이 아니라 이미 하고 계신 일이 더 많은 사람에게 닿도록 돕고 싶습니다.</p>' +
+      '<p>기관 등록은 무료이며, 참여 방법은 <a href="#board/%EA%B3%B5%EC%A7%80">게시판 공지</a>로 안내해 드리겠습니다.</p>' +
+      '<figure class="cm-about-verse"><blockquote>“너희는 온 세상에 가서 모든 피조물에게 복음을 선포하여라.”</blockquote><figcaption>마르 16,15</figcaption></figure>' +
+      '<p class="cm-about-end">수도회의 사명을 바꾸려는 것이 아니라, 복음과 창립자의 카리스마가 더 많은 삶에 닿도록 그 길을 함께 열고자 합니다.</p>' +
+      '<div class="cm-about-cta"><a class="cm-btn" href="#paths">피정 찾아보기</a><a class="cm-btn cm-btn-line" href="#convents">수도회 소개 보기</a></div>' +
+      '</section>';
+  }
+
   var P = window.CM_PAGES = window.CM_PAGES || {};
-  P.login = loginPage; P.me = mePage; P.board = boardPage; P.post = postPage; P.write = writePage; P.privacy = privacyPage; P.terms = termsPage;
+  P.login = loginPage; P.me = mePage; P.board = boardPage; P.post = postPage; P.write = writePage; P.privacy = privacyPage; P.terms = termsPage; P.about = aboutPage;
 
   function start() {
     hdr();
