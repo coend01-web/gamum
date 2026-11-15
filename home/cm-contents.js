@@ -106,12 +106,12 @@
       img.onload = function () {
         URL.revokeObjectURL(url);
         var w = img.naturalWidth, h = img.naturalHeight;
-        if (w <= maxW && file.size < 1.5e6) return ok(file);
+        if (w <= maxW && file.size < 5e5) return ok(file);
         var s = Math.min(1, maxW / w), cw = Math.round(w * s), ch = Math.round(h * s);
         if (ch > 16000) return ok(file);
         var c = document.createElement('canvas'); c.width = cw; c.height = ch;
         c.getContext('2d').drawImage(img, 0, 0, cw, ch);
-        c.toBlob(function (b) { ok(b && b.size < file.size ? new File([b], 'img.jpg', { type: 'image/jpeg' }) : file); }, 'image/jpeg', 0.86);
+        c.toBlob(function (b) { ok(b && b.size < file.size ? new File([b], 'img.jpg', { type: 'image/jpeg' }) : file); }, 'image/jpeg', 0.82);
       };
       img.onerror = function () { URL.revokeObjectURL(url); ok(file); };
       img.src = url;
@@ -221,13 +221,15 @@
       if (j < 0 || j >= imgs.length) return; var x = imgs[i]; imgs[i] = imgs[j]; imgs[j] = x; return drawImgs();
     }
     if (b.hasAttribute('data-work-del')) {
-      if (!window.confirm('작품과 모든 회차를 지울까요? 되돌릴 수 없습니다.')) return;
-      rpc('cm_work_delete', { p_token: token(), p_id: Number(b.getAttribute('data-work-del')) }).then(function () { location.hash = '#contents'; }).catch(function (err) { window.alert(err.message); });
+      window.CM_DIALOG({ text: '작품과 모든 회차를 지울까요? 되돌릴 수 없습니다.', ok: '지우기', danger: true }).then(function (ok) {
+        if (ok) rpc('cm_work_delete', { p_token: token(), p_id: Number(b.getAttribute('data-work-del')) }).then(function () { location.hash = '#contents'; }).catch(function (err) { window.CM_DIALOG({ text: err.message }); });
+      });
       return;
     }
-    if (!window.confirm('이 회차를 지울까요?')) return;
     var w = document.querySelector('[data-ep-form]').getAttribute('data-work');
-    rpc('cm_episode_delete', { p_token: token(), p_id: Number(b.getAttribute('data-ep-del')) }).then(function () { location.hash = '#contents/x/' + w; }).catch(function (err) { window.alert(err.message); });
+    window.CM_DIALOG({ text: '이 회차를 지울까요?', ok: '지우기', danger: true }).then(function (ok) {
+      if (ok) rpc('cm_episode_delete', { p_token: token(), p_id: Number(b.getAttribute('data-ep-del')) }).then(function () { location.hash = '#contents/x/' + w; }).catch(function (err) { window.CM_DIALOG({ text: err.message }); });
+    });
   });
   document.addEventListener('submit', function (e) {
     var f = e.target.closest && e.target.closest('[data-work-form],[data-ep-form]'); if (!f) return;

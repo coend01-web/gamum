@@ -142,18 +142,18 @@
 
   /* 게시판 */
   function boardPage() {
-    var parts = location.hash.slice(1).split('/'), cat = decodeURIComponent(parts[1] || ''), q = decodeURIComponent(parts[2] || '');
+    var parts = location.hash.slice(1).split('/'), cat = decodeURIComponent(parts[1] || ''), q = decodeURIComponent(parts[2] || ''), page = Math.max(1, Number(parts[3]) || 1);
     var catsHtml = '<div class="cm-board-cats">' + ['전체'].concat(CATS).map(function (c) {
       var on = (c === '전체' && !cat) || c === cat;
       return '<a href="#board/' + (c === '전체' ? '' : encodeURIComponent(c)) + '" aria-current="' + (on ? 'page' : 'false') + '">' + c + '</a>';
     }).join('') + '</div>';
     setTimeout(function () {
-      rpc('cm_posts', { p_category: cat || null, p_q: q || null, p_page: 1 }).then(function (d) {
+      rpc('cm_posts', { p_category: cat || null, p_q: q || null, p_page: page }).then(function (d) {
         if (!d.rows.length) return fill('cm-board', '<p class="cm-empty">' + (q ? '찾는 글이 없습니다.' : '아직 글이 없습니다. 첫 글을 남겨 주세요.') + '</p>');
         fill('cm-board', '<ul class="cm-board-list">' + d.rows.map(function (p) {
           if (p.category === '공지') return '<li class="cm-notice"><span class="cm-badge">공지</span><a href="#post/' + p.id + '">' + safe(p.title) + '</a>' + (p.ncom ? '<span class="cm-cmt">' + p.ncom + '</span>' : '') + '</li>';
           return '<li><a href="#post/' + p.id + '" class="cm-post"><strong>' + safe(p.title) + '</strong><span class="cm-meta">' + safe(p.category) + '<i></i>' + safe(p.nickname) + (p.member ? '' : ' <em class="cm-guest">비회원</em>') + '<i></i>' + when(p.created_at) + '<i></i>조회 ' + p.views + '<i></i>추천 ' + p.likes + '</span></a><span class="cm-cmt" aria-label="댓글 ' + p.ncom + '개">' + p.ncom + '</span></li>';
-        }).join('') + '</ul>');
+        }).join('') + '</ul>' + pager(d.total, page, cat, q));
       }).catch(fail('cm-board'));
     });
     return back() + head('게시판', '피정 이야기와 기도 지향을 함께 나누는 곳입니다. 가입하지 않아도 닉네임과 비밀번호로 글을 쓸 수 있습니다.') + catsHtml +
@@ -167,6 +167,13 @@
     location.hash = '#board/' + encodeURIComponent(cat) + '/' + encodeURIComponent(f.elements.q.value.trim());
   });
 
+  function pager(total, page, cat, q) {
+    var last = Math.max(1, Math.ceil(total / 30)); if (last === 1) return '';
+    var from = Math.max(1, Math.min(page - 2, last - 4)), to = Math.min(last, from + 4), h = function (n) { return '#board/' + encodeURIComponent(cat) + '/' + encodeURIComponent(q) + '/' + n; };
+    var out = '<nav class="cm-pager" aria-label="게시판 쪽">' + (page > 1 ? '<a href="' + h(page - 1) + '" aria-label="이전 쪽">‹</a>' : '<span></span>');
+    for (var i = from; i <= to; i++) out += i === page ? '<b aria-current="page">' + i + '</b>' : '<a href="' + h(i) + '">' + i + '</a>';
+    return out + (page < last ? '<a href="' + h(page + 1) + '" aria-label="다음 쪽">›</a>' : '<span></span>') + '</nav>';
+  }
   function guestFields(label) {
     return me() ? '' : '<div class="cm-guest-row"><label>닉네임<input name="nick" required minlength="2" maxlength="12"></label><label>' + label + '<input name="gpw" type="password" required minlength="4" autocomplete="new-password"></label></div>';
   }
@@ -188,7 +195,25 @@
     });
     return back('#board', '게시판 목록으로') + slot('cm-post');
   }
-  function askPw(what) { return me() ? '' : window.prompt(what + ' 비밀번호를 넣어 주세요. (회원 글은 로그인하면 바로 됩니다)'); }
+  /* 비밀번호·확인 창 (브라우저 기본 창 대신: 비밀번호가 가려지고 디자인이 맞음) */
+  function dialog(opt) {
+    return new Promise(function (done) {
+      var d = document.createElement('div'); d.className = 'cm-modal'; d.setAttribute('role', 'dialog'); d.setAttribute('aria-modal', 'true');
+      d.innerHTML = '<form class="cm-modal-box"><p>' + safe(opt.text) + '</p>' + (opt.pw ? '<input type="password" name="pw" required minlength="4" autocomplete="off" placeholder="비밀번호">' : '') +
+        '<p class="cm-error" hidden></p><div class="cm-modal-btns"><button type="button" class="cm-btn cm-btn-line" data-x>취소</button><button type="submit" class="cm-btn' + (opt.danger ? ' cm-btn-danger' : '') + '">' + safe(opt.ok || '확인') + '</button></div></form>';
+      document.body.appendChild(d);
+      var f = d.querySelector('form'), close = function (v) { d.remove(); done(v); };
+      d.addEventListener('click', function (e) { if (e.target === d || e.target.hasAttribute('data-x')) close(null); });
+      d.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(null); });
+      f.addEventListener('submit', function (e) { e.preventDefault(); close(opt.pw ? f.elements.pw.value : true); });
+      (f.elements.pw || f.querySelector('[type=submit]')).focus();
+    });
+  }
+  window.CM_DIALOG = dialog;
+  function askDelete(what) {
+    return me() ? dialog({ text: '이 ' + what + '을(를) 지울까요?', ok: '지우기', danger: true }).then(function (v) { return v ? '' : null; })
+      : dialog({ text: what + '을(를) 쓸 때 정한 비밀번호를 넣어 주세요.', pw: true, ok: '지우기', danger: true });
+  }
   document.addEventListener('click', function (e) {
     var t = e.target.closest && e.target.closest('[data-like],[data-del],[data-cdel]'); if (!t) return;
     if (t.hasAttribute('data-like')) {
@@ -197,13 +222,18 @@
       return;
     }
     if (t.hasAttribute('data-del')) {
-      var pw = askPw('글'); if (pw === null) return;
-      if (!window.confirm('이 글을 지울까요?')) return;
-      rpc('cm_post_delete', { p_id: Number(t.getAttribute('data-del')), p_token: token(), p_guest_pw: pw }).then(function () { location.hash = '#board'; }).catch(function (err) { window.alert(err.message); });
+      askDelete('글').then(function (pw) {
+        if (pw === null) return;
+        rpc('cm_post_delete', { p_id: Number(t.getAttribute('data-del')), p_token: token(), p_guest_pw: pw }).then(function () { location.hash = '#board'; })
+          .catch(function (err) { dialog({ text: err.message }); });
+      });
       return;
     }
-    var cpw = askPw('댓글'); if (cpw === null) return;
-    rpc('cm_comment_delete', { p_id: Number(t.getAttribute('data-cdel')), p_token: token(), p_guest_pw: cpw }).then(function () { window.dispatchEvent(new HashChangeEvent('hashchange', { oldURL: location.href, newURL: location.href })); }).catch(function (err) { window.alert(err.message); });
+    askDelete('댓글').then(function (pw) {
+      if (pw === null) return;
+      rpc('cm_comment_delete', { p_id: Number(t.getAttribute('data-cdel')), p_token: token(), p_guest_pw: pw }).then(function () { window.dispatchEvent(new HashChangeEvent('hashchange', { oldURL: location.href, newURL: location.href })); })
+        .catch(function (err) { dialog({ text: err.message }); });
+    });
   });
   document.addEventListener('submit', function (e) {
     var f = e.target.closest && e.target.closest('[data-comment]'); if (!f) return;
