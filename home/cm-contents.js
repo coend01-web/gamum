@@ -16,22 +16,35 @@
   function tabs(kind) {
     return '<div class="cm-seg" role="tablist">' + KINDS.map(function (k) { return '<a role="tab" href="#contents/' + k[0] + '" aria-selected="' + (k[0] === kind) + '">' + k[1] + '</a>'; }).join('') + '</div>';
   }
-  var sortBy = 'update';
+  var sortBy = 'update', DAYS = ['월','화','수','목','금','토','일'];
+  var today = DAYS[(new Date().getDay() + 6) % 7], dayTab = today;
+  function serial(kind) { return kind === 'webtoon' || kind === 'novel'; }
+  function dayTabs() {
+    return '<div class="cm-days" role="tablist">' + DAYS.concat(['전체']).map(function (d) {
+      return '<button type="button" role="tab" data-day="' + d + '" aria-selected="' + (d === dayTab) + '">' + (d === today ? '<em>오늘</em>' : '') + d + '</button>';
+    }).join('') + '</div>';
+  }
   function isNew(d) { return d && (Date.now() - new Date(d).getTime()) < 3 * 864e5; }
-  function grid(list, kind) {
+  function grid(all, kind) {
+    var list = serial(kind) && dayTab !== '전체' ? all.filter(function (w) { return (w.days || []).indexOf(dayTab) > -1; }) : all;
     var rows = list.slice().sort(function (a, b) {
       return sortBy === 'views' ? (b.views - a.views) : (new Date(b.last_at || b.updated_at) - new Date(a.last_at || a.updated_at));
     });
-    return '<div class="cm-grid-head"><span>전체 <b>' + list.length + '</b></span><span class="cm-grid-tools">' +
+    return (serial(kind) ? dayTabs() : '') + '<div class="cm-grid-head"><span>' + (serial(kind) && dayTab !== '전체' ? dayTab + '요일' : '전체') + ' <b>' + list.length + '</b></span><span class="cm-grid-tools">' +
       (admin() ? '<a class="cm-up-btn" href="#cedit/work/new/' + kind + '">＋ 작품 올리기</a>' : '') +
       '<select data-sort aria-label="정렬"><option value="update"' + (sortBy === 'update' ? ' selected' : '') + '>업데이트순</option><option value="views"' + (sortBy === 'views' ? ' selected' : '') + '>인기순</option></select></span></div>' +
       (list.length ? '<ul class="cm-grid">' + rows.map(function (w) {
         return '<li><a href="#contents/' + kind + '/' + w.id + '"><span class="cm-grid-cover">' + (w.cover_url ? '<img src="' + safe(w.cover_url) + '" alt="" loading="lazy">' : '<i>' + safe(w.title) + '</i>') +
           (isNew(w.last_at) ? '<b class="cm-upb">UP</b>' : '') + (w.published ? '' : '<b class="cm-hideb">비공개</b>') + '</span>' +
           '<strong>' + safe(w.title) + '</strong><span>' + safe(w.author || '가뭄') + '</span></a></li>';
-      }).join('') + '</ul>' : '<p class="cm-empty">아직 올라온 ' + kname(kind) + ' 작품이 없습니다.<br>곧 첫 작품으로 찾아뵙겠습니다.</p>');
+      }).join('') + '</ul>' : '<p class="cm-empty">' + (all.length ? dayTab + '요일에 연재하는 작품이 없습니다.' : '아직 올라온 ' + kname(kind) + ' 작품이 없습니다.<br>곧 첫 작품으로 찾아뵙겠습니다.') + '</p>');
   }
   var cache = {};
+  document.addEventListener('click', function (e) {
+    var b = e.target.closest && e.target.closest('[data-day]'); if (!b) return;
+    dayTab = b.getAttribute('data-day'); var k = (location.hash.slice(1).split('/')[1] || 'webtoon');
+    if (cache[k]) fill('cm-works', grid(cache[k], k));
+  });
   document.addEventListener('change', function (e) {
     if (!(e.target.matches && e.target.matches('[data-sort]'))) return;
     sortBy = e.target.value; var k = (location.hash.slice(1).split('/')[1] || 'webtoon');
@@ -132,6 +145,7 @@
         var f = document.querySelector('[data-work-form]'); if (!f || !w) return;
         f.elements.kind.value = w.kind; f.elements.title.value = w.title; f.elements.author.value = w.author; f.elements.intro.value = w.intro;
         f.elements.cover.value = w.cover_url || ''; f.elements.pub.checked = w.published; preview(f.elements.cover.value);
+        f.querySelectorAll('[name=day]').forEach(function (c) { c.checked = (w.days || []).indexOf(c.value) > -1; });
       });
     });
     return '<a class="back-link" href="' + (id ? '#contents/x/' + id : '#contents/' + kind) + '">← 돌아가기</a><section class="cm-page-head"><h1>' + (id ? '작품 고치기' : '작품 올리기') + '</h1></section>' +
@@ -140,6 +154,7 @@
       '<label>작품 제목<input name="title" required maxlength="80"></label>' +
       '<label>작가<input name="author" maxlength="40" placeholder="예: 가뭄 편집부"></label>' +
       '<label>작품 소개<textarea name="intro" rows="4" maxlength="1000"></textarea></label>' +
+      '<fieldset class="cm-dayset"><legend>연재 요일 (웹툰·웹소설)</legend>' + DAYS.map(function (d) { return '<label><input type="checkbox" name="day" value="' + d + '"> ' + d + '</label>'; }).join('') + '</fieldset>' +
       '<div class="cm-upbox"><span>표지 그림 (가로 3 : 세로 4 비율 권장)</span><div class="cm-cover-prev" data-cover-prev></div><input type="hidden" name="cover"><label class="cm-btn cm-btn-line cm-filebtn">표지 고르기<input type="file" accept="image/*" data-cover-file hidden></label><p class="cm-form-note" data-up-msg hidden></p></div>' +
       '<label class="cm-check"><input type="checkbox" name="pub"> <span>공개하기 (끄면 작가와 관리자에게만 보입니다)</span></label>' +
       '<button class="cm-btn" type="submit">저장</button><p class="cm-error" data-wmsg hidden></p>' +
@@ -220,7 +235,8 @@
     var call;
     if (f.hasAttribute('data-work-form')) {
       var id = Number(f.getAttribute('data-work-form')) || null;
-      call = rpc('cm_work_save', { p_token: token(), p_id: id, p_kind: f.elements.kind.value, p_title: f.elements.title.value, p_author: f.elements.author.value, p_intro: f.elements.intro.value, p_cover_url: f.elements.cover.value, p_published: f.elements.pub.checked })
+      call = rpc('cm_work_save', { p_token: token(), p_id: id, p_kind: f.elements.kind.value, p_title: f.elements.title.value, p_author: f.elements.author.value, p_intro: f.elements.intro.value, p_cover_url: f.elements.cover.value, p_published: f.elements.pub.checked,
+        p_days: Array.prototype.filter.call(f.querySelectorAll('[name=day]'), function (c) { return c.checked; }).map(function (c) { return c.value; }) })
         .then(function (nid) { location.hash = '#contents/' + f.elements.kind.value + '/' + nid; });
     } else {
       var eid = Number(f.getAttribute('data-ep-form')) || null, wid = Number(f.getAttribute('data-work'));
