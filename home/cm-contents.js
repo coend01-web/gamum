@@ -16,8 +16,8 @@
   function tabs(kind) {
     return '<div class="cm-seg" role="tablist">' + KINDS.map(function (k) { return '<a role="tab" href="#contents/' + k[0] + '" aria-selected="' + (k[0] === kind) + '">' + k[1] + '</a>'; }).join('') + '</div>';
   }
-  var sortBy = 'update', DAYS = ['월','화','수','목','금','토','일'];
-  var today = DAYS[(new Date().getDay() + 6) % 7], dayTab = today;
+  var sortBy = 'update', DAYS = ['수', '일'];
+  var today = ['월','화','수','목','금','토','일'][(new Date().getDay() + 6) % 7], dayTab = DAYS.indexOf(today) > -1 ? today : '전체';
   function serial(kind) { return kind === 'webtoon' || kind === 'novel'; }
   function dayTabs() {
     return '<div class="cm-days" role="tablist">' + DAYS.concat(['전체']).map(function (d) {
@@ -66,7 +66,7 @@
         if (!w) return fill('cm-work', '<p class="cm-empty">없거나 아직 공개되지 않은 작품입니다.</p>');
         var eps = w.episodes;
         fill('cm-work', '<a class="back-link" href="#contents/' + w.kind + '">← ' + kname(w.kind) + ' 목록으로</a>' +
-          '<section class="cm-work-head">' + (w.cover_url ? '<img src="' + safe(w.cover_url) + '" alt="">' : '') + '<div><span class="cm-cv-kind">' + kname(w.kind) + '</span><h1>' + safe(w.title) + hidden(w.published) + '</h1><p class="cm-meta">' + safe(w.author || '가뭄') + '<i></i>' + eps.length + '편</p>' + (w.intro ? '<div class="cm-work-intro-full">' + para(w.intro) + '</div>' : '') +
+          '<section class="cm-work-head">' + (w.cover_url ? '<img src="' + safe(w.cover_url) + '" alt="">' : '') + '<div><span class="cm-cv-kind">' + kname(w.kind) + '</span><h1>' + safe(w.title) + hidden(w.published) + '</h1><p class="cm-meta">' + safe(w.author || '가뭄') + '<i></i>' + eps.length + '편' + (w.days && w.days.length ? '<i></i><b>매주 ' + w.days.join('·') + '요일 연재</b>' : '') + '</p>' + (w.intro ? '<div class="cm-work-intro-full">' + para(w.intro) + '</div>' : '') +
           (eps.length ? '<a class="cm-btn cm-first" href="#contents/' + w.kind + '/' + w.id + '/' + eps[0].id + '">첫 화 보기</a>' : '') + '</div></section>' +
           (w.mine ? '<div class="cm-admin-bar"><a class="cm-btn" href="#cedit/ep/' + w.id + '/new">＋ 회차 올리기</a><a class="cm-btn cm-btn-line" href="#cedit/work/' + w.id + '">작품 고치기</a></div>' : '') +
           (eps.length ? '<ul class="cm-eps">' + eps.slice().reverse().map(function (e) {

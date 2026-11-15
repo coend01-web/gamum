@@ -379,7 +379,7 @@ button.cm-tool{border:0;background:none;cursor:pointer;padding:0}
 .cm-grid a>span:last-child{font-size:13px;color:#7d867f;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 @media(min-width:900px){.cm-grid{grid-template-columns:repeat(5,1fr);gap:28px 16px}}
 .cm-grid-tools select{min-height:0!important;height:36px!important;line-height:normal;padding:0 10px!important}
-.cm-days{display:grid;grid-template-columns:repeat(8,1fr);border-bottom:1px solid var(--line);margin-top:8px}
+.cm-days{display:grid;grid-template-columns:repeat(3,1fr);border-bottom:1px solid var(--line);margin-top:8px}
 .cm-days button{position:relative;border:0;background:none;min-height:50px;font-size:16px;color:#5c675e;cursor:pointer;padding:0}
 .cm-days button[aria-selected=true]{color:#1f2b25;font-weight:800;box-shadow:inset 0 -3px 0 #324e43}
 .cm-days em{position:absolute;top:2px;left:50%;transform:translateX(-50%);font-style:normal;font-size:10px;font-weight:700;background:#c0533f;color:#fff;border-radius:8px;padding:0 5px;line-height:15px;white-space:nowrap}
