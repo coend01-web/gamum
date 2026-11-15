@@ -84,7 +84,7 @@
         if (!e) return fill('cm-ep', '<p class="cm-empty">없거나 아직 공개되지 않은 회차입니다.</p>');
         var base = '#contents/' + e.kind + '/' + e.work_id + '/';
         var v = yt(e.video_url), body = '';
-        if (e.images && e.images.length) body += '<div class="cm-toon">' + e.images.map(function (u, i) { return '<img src="' + safe(u) + '" alt="' + (i + 1) + '번째 컷" loading="' + (i < 2 ? 'eager' : 'lazy') + '">'; }).join('') + '</div>';
+        if (e.images && e.images.length) body += '<div class="cm-toon cm-gap' + (e.gap == null ? 1 : e.gap) + '">' + e.images.map(function (u, i) { return '<img src="' + safe(u) + '" alt="' + (i + 1) + '번째 컷" loading="' + (i < 2 ? 'eager' : 'lazy') + '">'; }).join('') + '</div>';
         if (v) body += '<div class="cm-yt"><iframe src="https://www.youtube-nocookie.com/embed/' + v + '" title="' + safe(e.title) + '" allow="accelerometer; encrypted-media; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>';
         if (e.body) body += '<div class="cm-reader">' + para(e.body) + '</div>';
         var nav = '<nav class="cm-prevnext" aria-label="이전·다음 화">' + (e.prev ? '<a href="' + base + e.prev + '">← 이전 화</a>' : '<span></span>') + '<a href="#contents/' + e.kind + '/' + e.work_id + '">목록</a>' + (e.next ? '<a href="' + base + e.next + '">다음 화 →</a>' : '<span></span>') + '</nav>';
@@ -174,7 +174,7 @@
       if (id) rpc('cm_episode', { p_id: id, p_token: token() }).then(function (e) {
         var f = document.querySelector('[data-ep-form]'); if (!f || !e) return;
         f.elements.no.value = e.no; f.elements.title.value = e.title; f.elements.ref.value = e.ref; f.elements.body.value = e.body;
-        f.elements.video.value = e.video_url || ''; f.elements.pub.checked = e.published; imgs = e.images.slice(); drawImgs();
+        f.elements.video.value = e.video_url || ''; f.elements.gap.value = String(e.gap == null ? 1 : e.gap); f.elements.pub.checked = e.published; imgs = e.images.slice(); drawImgs();
       });
     });
     imgs = [];
@@ -184,6 +184,7 @@
       '<label>회차 제목<input name="title" required maxlength="80"></label>' +
       '<div class="cm-upbox" data-for="webtoon essay novel"><span>그림 (웹툰은 위에서 아래 순서대로 붙습니다)</span><div class="cm-imgs" data-imgs></div>' +
       '<label class="cm-btn cm-btn-line cm-filebtn">그림 고르기 (여러 장 가능)<input type="file" accept="image/*" multiple data-ep-files hidden></label><p class="cm-form-note" data-up-msg hidden></p></div>' +
+      '<label data-for="webtoon">컷 사이 간격<select name="gap"><option value="0">붙이기 (이어진 긴 그림)</option><option value="1" selected>보통</option><option value="2">넓게</option></select></label>' +
       '<label data-for="video audio">유튜브 주소<input name="video" placeholder="https://youtu.be/..."></label>' +
       '<label data-for="novel essay webtoon video audio">글 (선택 · 웹소설과 묵상글은 본문)<textarea name="body" rows="10" maxlength="50000"></textarea></label>' +
       '<label class="cm-check"><input type="checkbox" name="pub"> <span>공개하기 (끄면 작가와 관리자에게만 보입니다)</span></label>' +
@@ -240,7 +241,7 @@
         .then(function (nid) { location.hash = '#contents/' + f.elements.kind.value + '/' + nid; });
     } else {
       var eid = Number(f.getAttribute('data-ep-form')) || null, wid = Number(f.getAttribute('data-work'));
-      call = rpc('cm_episode_save', { p_token: token(), p_id: eid, p_work: wid, p_no: Number(f.elements.no.value), p_title: f.elements.title.value, p_ref: f.elements.ref.value, p_body: f.elements.body.value, p_video_url: f.elements.video.value, p_images: imgs, p_published: f.elements.pub.checked })
+      call = rpc('cm_episode_save', { p_token: token(), p_id: eid, p_work: wid, p_no: Number(f.elements.no.value), p_title: f.elements.title.value, p_ref: f.elements.ref.value, p_body: f.elements.body.value, p_video_url: f.elements.video.value, p_images: imgs, p_published: f.elements.pub.checked, p_gap: Number(f.elements.gap.value) })
         .then(function (nid) { location.hash = '#contents/' + (f.getAttribute('data-kind') || 'webtoon') + '/' + wid + '/' + nid; });
     }
     call.catch(function (err) { btn.disabled = false; msg.textContent = err.message; msg.hidden = false; });
