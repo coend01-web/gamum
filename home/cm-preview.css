@@ -393,3 +393,7 @@ button.cm-tool{border:0;background:none;cursor:pointer;padding:0}
 .cm-toon.cm-gap2{gap:clamp(110px,28vw,220px);padding:clamp(40px,10vw,80px) 0 clamp(110px,28vw,220px)}
 .cm-toon.cm-gap0{gap:0}
 .cm-toon img{max-width:720px;margin:0 auto}
+/* 컷 여백: 상하좌우 72px, 컷과 컷 사이 144px (720px 화면 기준, 휴대폰은 같은 비율) */
+.cm-toon.cm-gap1,.cm-toon.cm-gap2{max-width:720px;margin-left:auto;margin-right:auto;padding:min(72px,10vw);gap:min(144px,20vw)}
+.cm-toon.cm-gap2{gap:min(216px,30vw)}
+@media(max-width:700px){.cm-toon.cm-gap1,.cm-toon.cm-gap2{margin-left:-16px;margin-right:-16px}}
