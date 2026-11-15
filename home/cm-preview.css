@@ -356,3 +356,26 @@ button.cm-tool{border:0;background:none;cursor:pointer;padding:0}
 .cm-imgs button{flex:1;border:0;background:#f6f3ec;min-height:32px;font-size:14px;cursor:pointer}
 .cm-wform .cm-btn-danger{margin-top:24px}
 @media(max-width:700px){.cm-work-head{flex-direction:column}.cm-work-head>img{width:130px}.cm-toon{margin:16px -16px 0}.cm-work-cover{width:80px}}
+
+/* 콘텐츠: 네이버 웹툰형 목록 */
+.cm-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.cm-seg{display:grid;grid-template-columns:repeat(5,1fr);margin:16px 0 4px;border:1px solid #c9cdc4;border-radius:8px;overflow:hidden;background:#fffdf8}
+.cm-seg a{display:flex;align-items:center;justify-content:center;min-height:48px;font-size:15.5px;color:#4f5a52;border-left:1px solid #e1ddd2}
+.cm-seg a:first-child{border-left:0}
+.cm-seg a[aria-selected=true]{background:#324e43;color:#fff;font-weight:700}
+.cm-grid-head{display:flex;justify-content:space-between;align-items:center;margin:16px 0 12px;font-size:15px;color:#3c4a42}
+.cm-grid-head b{color:#2f6b4f;font-weight:700}
+.cm-grid-tools{display:flex;gap:8px;align-items:center}
+.cm-grid-tools select{height:38px;border:1px solid #c9cdc4;border-radius:19px;background:#fffdf8;padding:0 12px;font-size:14px;margin:0;width:auto}
+.cm-up-btn{display:flex;align-items:center;height:38px;padding:0 14px;border-radius:19px;background:#324e43;color:#fff;font-size:14px;font-weight:600}
+.cm-grid{list-style:none;padding:0;margin:0 0 90px;display:grid;grid-template-columns:repeat(3,1fr);gap:22px 10px}
+.cm-grid a{display:flex;flex-direction:column;gap:3px;color:inherit}
+.cm-grid-cover{position:relative;display:grid;place-items:center;aspect-ratio:3/4;border-radius:6px;overflow:hidden;background:#e4dfd3;margin-bottom:6px}
+.cm-grid-cover img{width:100%;height:100%;object-fit:cover}
+.cm-grid-cover i{font-style:normal;font-size:14px;color:#5c675e;padding:10px;text-align:center;word-break:keep-all}
+.cm-upb{position:absolute;right:6px;bottom:6px;background:#2f6b4f;color:#fff;font-size:11px;font-weight:800;padding:2px 7px;border-radius:10px}
+.cm-hideb{position:absolute;left:6px;top:6px;background:rgba(163,52,43,.9);color:#fff;font-size:11px;font-weight:700;padding:2px 6px;border-radius:4px}
+.cm-grid strong{font-size:15px;font-weight:600;color:#1f2b25;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.cm-grid a>span:last-child{font-size:13px;color:#7d867f;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+@media(min-width:900px){.cm-grid{grid-template-columns:repeat(5,1fr);gap:28px 16px}}
+.cm-grid-tools select{min-height:0!important;height:36px!important;line-height:normal;padding:0 10px!important}

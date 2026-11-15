@@ -4,7 +4,7 @@
   var rpc = A.rpc, safe = A.safe, token = A.token, me = A.me;
   var KINDS = [['webtoon', '웹툰'], ['novel', '웹소설'], ['video', '영상'], ['essay', '묵상글'], ['audio', '오디오']];
   function kname(k) { var f = KINDS.filter(function (x) { return x[0] === k; })[0]; return f ? f[1] : '콘텐츠'; }
-  function admin() { var m = me(); return !!(m && m.is_admin); }
+  function admin() { var m = me(); return !!(m && (m.is_author || m.is_admin)); }
   function slot(id) { return '<div id="' + id + '" class="cm-async"><p class="cm-loading">불러오는 중…</p></div>'; }
   function fill(id, h) { var el = document.getElementById(id); if (el) el.innerHTML = h; }
   function fail(id) { return function (e) { fill(id, '<p class="cm-error">' + safe(e.message) + '</p>'); }; }
@@ -14,24 +14,37 @@
   function hidden(p) { return p ? '' : ' <em class="cm-hidden-badge">비공개</em>'; }
 
   function tabs(kind) {
-    return '<div class="cm-board-cats cm-kind-tabs">' + KINDS.map(function (k) { return '<a href="#contents/' + k[0] + '" aria-current="' + (k[0] === kind ? 'page' : 'false') + '">' + k[1] + '</a>'; }).join('') + '</div>';
+    return '<div class="cm-seg" role="tablist">' + KINDS.map(function (k) { return '<a role="tab" href="#contents/' + k[0] + '" aria-selected="' + (k[0] === kind) + '">' + k[1] + '</a>'; }).join('') + '</div>';
   }
+  var sortBy = 'update';
+  function isNew(d) { return d && (Date.now() - new Date(d).getTime()) < 3 * 864e5; }
+  function grid(list, kind) {
+    var rows = list.slice().sort(function (a, b) {
+      return sortBy === 'views' ? (b.views - a.views) : (new Date(b.last_at || b.updated_at) - new Date(a.last_at || a.updated_at));
+    });
+    return '<div class="cm-grid-head"><span>전체 <b>' + list.length + '</b></span><span class="cm-grid-tools">' +
+      (admin() ? '<a class="cm-up-btn" href="#cedit/work/new/' + kind + '">＋ 작품 올리기</a>' : '') +
+      '<select data-sort aria-label="정렬"><option value="update"' + (sortBy === 'update' ? ' selected' : '') + '>업데이트순</option><option value="views"' + (sortBy === 'views' ? ' selected' : '') + '>인기순</option></select></span></div>' +
+      (list.length ? '<ul class="cm-grid">' + rows.map(function (w) {
+        return '<li><a href="#contents/' + kind + '/' + w.id + '"><span class="cm-grid-cover">' + (w.cover_url ? '<img src="' + safe(w.cover_url) + '" alt="" loading="lazy">' : '<i>' + safe(w.title) + '</i>') +
+          (isNew(w.last_at) ? '<b class="cm-upb">UP</b>' : '') + (w.published ? '' : '<b class="cm-hideb">비공개</b>') + '</span>' +
+          '<strong>' + safe(w.title) + '</strong><span>' + safe(w.author || '가뭄') + '</span></a></li>';
+      }).join('') + '</ul>' : '<p class="cm-empty">아직 올라온 ' + kname(kind) + ' 작품이 없습니다.<br>곧 첫 작품으로 찾아뵙겠습니다.</p>');
+  }
+  var cache = {};
+  document.addEventListener('change', function (e) {
+    if (!(e.target.matches && e.target.matches('[data-sort]'))) return;
+    sortBy = e.target.value; var k = (location.hash.slice(1).split('/')[1] || 'webtoon');
+    if (cache[k]) fill('cm-works', grid(cache[k], k));
+  });
   function contents() {
     var p = location.hash.slice(1).split('/'), kind = p[1] || 'webtoon';
     if (p[3]) return episodePage(Number(p[3]));
     if (p[2]) return workPage(Number(p[2]));
     setTimeout(function () {
-      rpc('cm_works', { p_kind: kind, p_token: token() }).then(function (list) {
-        if (!list.length) return fill('cm-works', '<p class="cm-empty">아직 올라온 ' + kname(kind) + ' 작품이 없습니다.<br>곧 첫 작품으로 찾아뵙겠습니다.</p>');
-        fill('cm-works', '<ul class="cm-works">' + list.map(function (w) {
-          return '<li><a href="#contents/' + kind + '/' + w.id + '"><span class="cm-work-cover">' + (w.cover_url ? '<img src="' + safe(w.cover_url) + '" alt="" loading="lazy">' : '<i>' + kname(kind) + '</i>') + '</span>' +
-            '<span class="cm-work-body"><strong>' + safe(w.title) + hidden(w.published) + '</strong><span class="cm-meta">' + safe(w.author || '가뭄') + '<i></i>' + w.eps + '편' + (w.last_at ? '<i></i>' + day(w.last_at) : '') + '</span>' +
-            (w.intro ? '<span class="cm-work-intro">' + safe(w.intro) + '</span>' : '') + '</span></a></li>';
-        }).join('') + '</ul>');
-      }).catch(fail('cm-works'));
+      rpc('cm_works', { p_kind: kind, p_token: token() }).then(function (list) { cache[kind] = list; fill('cm-works', grid(list, kind)); }).catch(fail('cm-works'));
     });
-    return '<a class="back-link" href="#home">← 가뭄으로 돌아가기</a><section class="cm-page-head"><h1>콘텐츠</h1><p>말씀과 신앙 이야기를 웹툰·웹소설·영상·글로 만납니다.</p></section>' + tabs(kind) +
-      (admin() ? '<div class="cm-admin-bar"><a class="cm-btn" href="#cedit/work/new/' + kind + '">＋ ' + kname(kind) + ' 작품 올리기</a></div>' : '') + slot('cm-works');
+    return '<h1 class="cm-sr">콘텐츠</h1>' + tabs(kind) + slot('cm-works');
   }
 
   function workPage(id) {
@@ -42,7 +55,7 @@
         fill('cm-work', '<a class="back-link" href="#contents/' + w.kind + '">← ' + kname(w.kind) + ' 목록으로</a>' +
           '<section class="cm-work-head">' + (w.cover_url ? '<img src="' + safe(w.cover_url) + '" alt="">' : '') + '<div><span class="cm-cv-kind">' + kname(w.kind) + '</span><h1>' + safe(w.title) + hidden(w.published) + '</h1><p class="cm-meta">' + safe(w.author || '가뭄') + '<i></i>' + eps.length + '편</p>' + (w.intro ? '<div class="cm-work-intro-full">' + para(w.intro) + '</div>' : '') +
           (eps.length ? '<a class="cm-btn cm-first" href="#contents/' + w.kind + '/' + w.id + '/' + eps[0].id + '">첫 화 보기</a>' : '') + '</div></section>' +
-          (admin() ? '<div class="cm-admin-bar"><a class="cm-btn" href="#cedit/ep/' + w.id + '/new">＋ 회차 올리기</a><a class="cm-btn cm-btn-line" href="#cedit/work/' + w.id + '">작품 고치기</a></div>' : '') +
+          (w.mine ? '<div class="cm-admin-bar"><a class="cm-btn" href="#cedit/ep/' + w.id + '/new">＋ 회차 올리기</a><a class="cm-btn cm-btn-line" href="#cedit/work/' + w.id + '">작품 고치기</a></div>' : '') +
           (eps.length ? '<ul class="cm-eps">' + eps.slice().reverse().map(function (e) {
             return '<li><a href="#contents/' + w.kind + '/' + w.id + '/' + e.id + '">' + (w.kind === 'webtoon' ? '<span class="cm-ep-thumb">' + (e.thumb ? '<img src="' + safe(e.thumb) + '" alt="" loading="lazy">' : '') + '</span>' : '') +
               '<span class="cm-work-body"><strong>' + e.no + '화 · ' + safe(e.title) + hidden(e.published) + '</strong><span class="cm-meta">' + (e.ref ? safe(e.ref) + '<i></i>' : '') + day(e.created_at) + '</span></span></a></li>';
@@ -65,7 +78,7 @@
         fill('cm-ep', '<a class="back-link" href="#contents/' + e.kind + '/' + e.work_id + '">← ' + safe(e.work_title) + '</a>' +
           '<article class="cm-read cm-ep-read"><span class="cm-cv-kind">' + safe(e.work_title) + '</span><h1>' + e.no + '화 · ' + safe(e.title) + hidden(e.published) + '</h1>' +
           '<p class="cm-meta">' + (e.ref ? '<b>' + safe(e.ref) + '</b><i></i>' : '') + safe(e.author || '가뭄') + '<i></i>' + day(e.created_at) + '<i></i>조회 ' + e.views + '</p>' +
-          (admin() ? '<div class="cm-admin-bar"><a class="cm-btn cm-btn-line" href="#cedit/ep/' + e.work_id + '/' + e.id + '">이 회차 고치기</a></div>' : '') +
+          (e.mine ? '<div class="cm-admin-bar"><a class="cm-btn cm-btn-line" href="#cedit/ep/' + e.work_id + '/' + e.id + '">이 회차 고치기</a></div>' : '') +
           body + nav + '</article>');
       }).catch(fail('cm-ep'));
     });
@@ -109,7 +122,7 @@
   }
 
   function cedit() {
-    if (!admin()) { return '<a class="back-link" href="#contents">← 콘텐츠로</a><p class="cm-empty">관리자만 쓸 수 있는 화면입니다. <a href="#login">로그인</a></p>'; }
+    if (!admin()) { return '<a class="back-link" href="#contents">← 콘텐츠로</a><p class="cm-empty">작가만 쓸 수 있는 화면입니다. <a href="#login">로그인</a></p>'; }
     var p = location.hash.slice(1).split('/');
     return p[1] === 'ep' ? epForm(Number(p[2]), p[3] === 'new' ? 0 : Number(p[3])) : workForm(p[2] === 'new' ? 0 : Number(p[2]), p[3] || 'webtoon');
   }
@@ -128,7 +141,7 @@
       '<label>작가<input name="author" maxlength="40" placeholder="예: 가뭄 편집부"></label>' +
       '<label>작품 소개<textarea name="intro" rows="4" maxlength="1000"></textarea></label>' +
       '<div class="cm-upbox"><span>표지 그림 (가로 3 : 세로 4 비율 권장)</span><div class="cm-cover-prev" data-cover-prev></div><input type="hidden" name="cover"><label class="cm-btn cm-btn-line cm-filebtn">표지 고르기<input type="file" accept="image/*" data-cover-file hidden></label><p class="cm-form-note" data-up-msg hidden></p></div>' +
-      '<label class="cm-check"><input type="checkbox" name="pub"> <span>공개하기 (끄면 관리자에게만 보입니다)</span></label>' +
+      '<label class="cm-check"><input type="checkbox" name="pub"> <span>공개하기 (끄면 작가와 관리자에게만 보입니다)</span></label>' +
       '<button class="cm-btn" type="submit">저장</button><p class="cm-error" data-wmsg hidden></p>' +
       (id ? '<button class="cm-btn cm-btn-danger" type="button" data-work-del="' + id + '">작품 지우기 (회차도 모두 지워집니다)</button>' : '') + '</form>';
   }
@@ -158,7 +171,7 @@
       '<label class="cm-btn cm-btn-line cm-filebtn">그림 고르기 (여러 장 가능)<input type="file" accept="image/*" multiple data-ep-files hidden></label><p class="cm-form-note" data-up-msg hidden></p></div>' +
       '<label data-for="video audio">유튜브 주소<input name="video" placeholder="https://youtu.be/..."></label>' +
       '<label data-for="novel essay webtoon video audio">글 (선택 · 웹소설과 묵상글은 본문)<textarea name="body" rows="10" maxlength="50000"></textarea></label>' +
-      '<label class="cm-check"><input type="checkbox" name="pub"> <span>공개하기 (끄면 관리자에게만 보입니다)</span></label>' +
+      '<label class="cm-check"><input type="checkbox" name="pub"> <span>공개하기 (끄면 작가와 관리자에게만 보입니다)</span></label>' +
       '<button class="cm-btn" type="submit">저장</button><p class="cm-error" data-wmsg hidden></p>' +
       (id ? '<button class="cm-btn cm-btn-danger" type="button" data-ep-del="' + id + '">이 회차 지우기</button>' : '') + '</form>';
   }

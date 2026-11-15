@@ -101,6 +101,7 @@
       '<div class="cm-login"><a class="cm-me-row" href="#shelf"><span>피정담기</span><b>' + (s.programs.length + s.spaces.length) + '개 ›</b></a>' +
       '<form class="cm-form" data-me="nick"><h2>닉네임 바꾸기</h2><label>새 닉네임<input name="n" value="' + safe(m.nickname) + '" required minlength="2" maxlength="12"></label><button class="cm-btn cm-btn-line" type="submit">바꾸기</button></form>' +
       '<form class="cm-form" data-me="pw"><h2>비밀번호 바꾸기</h2><label>지금 비밀번호<input name="o" type="password" autocomplete="current-password" required></label><label>새 비밀번호<input name="p" type="password" autocomplete="new-password" required minlength="6"></label><button class="cm-btn cm-btn-line" type="submit">바꾸기</button></form>' +
+      (m.is_admin ? '<form class="cm-form" data-author-form><h2>작가 지정 (관리자)</h2><p class="cm-form-note">작가로 지정한 회원만 콘텐츠에 작품을 올릴 수 있고, 자기 작품만 고칠 수 있습니다.</p><label>회원 아이디<input name="u" required></label><div class="cm-guest-row"><button class="cm-btn" type="submit" name="on" value="1">작가로 지정</button><button class="cm-btn cm-btn-line" type="submit" name="on" value="0">작가 해제</button></div><div data-authors class="cm-form-note">작가 목록을 불러오는 중…</div></form>' : '') +
       '<p class="cm-error" data-me-msg hidden></p>' +
       '<button class="cm-btn cm-btn-line" type="button" data-logout>로그아웃</button>' +
       '<details class="cm-leave"><summary>회원 탈퇴</summary><form class="cm-form" data-me="leave"><p class="cm-form-note">탈퇴하면 계정과 계정에 담긴 피정이 바로 지워집니다. 쓴 글은 남고 닉네임만 표시됩니다.</p><label>비밀번호<input name="p" type="password" required></label><button class="cm-btn cm-btn-danger" type="submit">탈퇴하기</button></form></details></div>';
@@ -124,6 +125,19 @@
     if (!(e.target.closest && e.target.closest('[data-logout]'))) return;
     rpc('cm_logout', { p_token: token() }).catch(function () {});
     clearSession(); location.hash = '#home';
+  });
+
+  function loadAuthors() {
+    var box = document.querySelector('[data-authors]'); if (!box) return;
+    rpc('cm_authors', { p_token: token() }).then(function (l) { box.textContent = l.length ? '지금 작가: ' + l.map(function (a) { return a.nickname + '(' + a.username + ')'; }).join(', ') : '아직 지정한 작가가 없습니다.'; }).catch(function (e) { box.textContent = e.message; });
+  }
+  document.addEventListener('submit', function (e) {
+    var f = e.target.closest && e.target.closest('[data-author-form]'); if (!f) return;
+    e.preventDefault();
+    var on = e.submitter ? e.submitter.value === '1' : true, msg = document.querySelector('[data-me-msg]');
+    rpc('cm_set_author', { p_token: token(), p_username: f.elements.u.value, p_on: on }).then(function (r) {
+      msg.textContent = r.nickname + '(' + r.username + ') 님을 ' + (r.is_author ? '작가로 지정했습니다.' : '작가에서 해제했습니다.'); msg.hidden = false; msg.classList.add('cm-ok'); f.reset(); loadAuthors();
+    }).catch(function (err) { msg.textContent = err.message; msg.hidden = false; msg.classList.remove('cm-ok'); });
   });
 
   /* 게시판 */
@@ -275,7 +289,7 @@
 
   window.CM_API = { rpc: rpc, safe: safe, token: token, me: me, url: URL_, key: KEY };
   var P = window.CM_PAGES = window.CM_PAGES || {};
-  P.login = loginPage; P.me = mePage; P.board = boardPage; P.post = postPage; P.write = writePage; P.privacy = privacyPage; P.terms = termsPage; P.about = aboutPage;
+  P.login = loginPage; P.me = function () { setTimeout(loadAuthors); return mePage(); }; P.board = boardPage; P.post = postPage; P.write = writePage; P.privacy = privacyPage; P.terms = termsPage; P.about = aboutPage;
 
   function start() {
     hdr();
