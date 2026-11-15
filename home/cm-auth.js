@@ -273,6 +273,7 @@
       '</section>';
   }
 
+  window.CM_API = { rpc: rpc, safe: safe, token: token, me: me, url: URL_, key: KEY };
   var P = window.CM_PAGES = window.CM_PAGES || {};
   P.login = loginPage; P.me = mePage; P.board = boardPage; P.post = postPage; P.write = writePage; P.privacy = privacyPage; P.terms = termsPage; P.about = aboutPage;
 

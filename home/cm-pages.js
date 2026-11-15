@@ -172,7 +172,7 @@
 
   function mark() {
     var page = location.hash.slice(1).split('/')[0] || 'home';
-    var map = { search: 'paths', post: 'board', write: 'board', webtoon: 'contents', themes: 'paths', calendar: 'paths', places: 'paths', discover: 'paths', retreat: 'paths', 'quiz-result': 'paths' };
+    var map = { search: 'paths', post: 'board', write: 'board', cedit: 'contents', webtoon: 'contents', themes: 'paths', calendar: 'paths', places: 'paths', discover: 'paths', retreat: 'paths', 'quiz-result': 'paths' };
     var key = map[page] || page;
     document.querySelectorAll('.cm-menubar a').forEach(function (a) {
       if (a.getAttribute('data-cm') === key) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current');
