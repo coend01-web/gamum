@@ -424,3 +424,14 @@ button.cm-tool{border:0;background:none;cursor:pointer;padding:0}
 .cm-modal-box input{width:100%;margin:0;font-size:16px;padding:12px 14px;border:1px solid #c9cdc4;border-radius:10px}
 .cm-modal-btns{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 .cm-modal-btns .cm-btn{min-height:48px}
+
+/* 재점검 수정 */
+.cm-board-search input{min-width:0}
+.cm-board-search button{flex:none;white-space:nowrap}
+.cm-board-cats{overflow-x:auto;scrollbar-width:none;-webkit-mask-image:linear-gradient(90deg,#000 85%,transparent);mask-image:linear-gradient(90deg,#000 85%,transparent)}
+.cm-board-cats::-webkit-scrollbar{display:none}
+.cm-board-cats a:last-child{padding-right:28px}
+.cm-seg+.cm-async,.cm-seg{margin-top:22px}
+@media(max-width:700px){.cm-toon.cm-gap1,.cm-toon.cm-gap2{margin-left:-14px;margin-right:-14px}}
+footer,.site-footer{padding-bottom:96px!important}
+main:focus,main[tabindex]:focus,#main:focus{outline:none}

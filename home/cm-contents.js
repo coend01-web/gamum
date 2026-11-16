@@ -65,6 +65,7 @@
       rpc('cm_work', { p_id: id, p_token: token() }).then(function (w) {
         if (!w) return fill('cm-work', '<p class="cm-empty">없거나 아직 공개되지 않은 작품입니다.</p>');
         var eps = w.episodes;
+        document.title = w.title + ' | 가뭄. 가톨릭 머뭄';
         fill('cm-work', '<a class="back-link" href="#contents/' + w.kind + '">← ' + kname(w.kind) + ' 목록으로</a>' +
           '<section class="cm-work-head">' + (w.cover_url ? '<img src="' + safe(w.cover_url) + '" alt="">' : '') + '<div><span class="cm-cv-kind">' + kname(w.kind) + '</span><h1>' + safe(w.title) + hidden(w.published) + '</h1><p class="cm-meta">' + safe(w.author || '가뭄') + '<i></i>' + eps.length + '편' + (w.days && w.days.length ? '<i></i><b>매주 ' + w.days.join('·') + '요일 연재</b>' : '') + '</p>' + (w.intro ? '<div class="cm-work-intro-full">' + para(w.intro) + '</div>' : '') +
           (eps.length ? '<a class="cm-btn cm-first" href="#contents/' + w.kind + '/' + w.id + '/' + eps[0].id + '">첫 화 보기</a>' : '') + '</div></section>' +
@@ -88,6 +89,7 @@
         if (v) body += '<div class="cm-yt"><iframe src="https://www.youtube-nocookie.com/embed/' + v + '" title="' + safe(e.title) + '" allow="accelerometer; encrypted-media; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>';
         if (e.body) body += '<div class="cm-reader">' + para(e.body) + '</div>';
         var nav = '<nav class="cm-prevnext" aria-label="이전·다음 화">' + (e.prev ? '<a href="' + base + e.prev + '">← 이전 화</a>' : '<span></span>') + '<a href="#contents/' + e.kind + '/' + e.work_id + '">목록</a>' + (e.next ? '<a href="' + base + e.next + '">다음 화 →</a>' : '<span></span>') + '</nav>';
+        document.title = e.work_title + ' ' + (e.no ? e.no + '화' : e.title) + ' | 가뭄. 가톨릭 머뭄';
         fill('cm-ep', '<a class="back-link" href="#contents/' + e.kind + '/' + e.work_id + '">← ' + safe(e.work_title) + '</a>' +
           '<article class="cm-read cm-ep-read"><span class="cm-cv-kind">' + safe(e.work_title) + '</span><h1>' + (e.no ? e.no + '화 · ' : '') + safe(e.title) + hidden(e.published) + '</h1>' +
           '<p class="cm-meta">' + (e.ref ? '<b>' + safe(e.ref) + '</b><i></i>' : '') + safe(e.author || '가뭄') + '<i></i>' + day(e.created_at) + '<i></i>조회 ' + e.views + '</p>' +
