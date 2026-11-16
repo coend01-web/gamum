@@ -41,16 +41,18 @@
   /* 관리자 화면 */
   function adminPage() {
     var m = me(); if (!m || !m.is_admin) { location.replace('#login'); return ''; }
-    var tab = location.hash.split('/')[1] || 'reports';
-    var tabs = '<div class="cm-board-cats">' + [['reports', '신고'], ['recent', '최근 글'], ['members', '회원']].map(function (t) {
+    var tab = location.hash.split('/')[1] || 'retreats';
+    var tabs = '<div class="cm-board-cats">' + [['retreats', '피정 승인'], ['orgs', '기관 계정'], ['reports', '신고'], ['recent', '최근 글'], ['members', '회원']].map(function (t) {
       return '<a href="#admin/' + t[0] + '" aria-current="' + (t[0] === tab ? 'page' : 'false') + '">' + t[1] + '</a>'; }).join('') + '</div>';
     setTimeout(function () {
       if (tab === 'reports') loadReports();
       if (tab === 'recent') loadRecent();
       if (tab === 'members') loadMembers('');
+      if (tab === 'retreats') loadRetreats();
+      if (tab === 'orgs') loadOrgs();
     });
-    return '<a class="back-link" href="#me">← 내 정보로</a><section class="cm-page-head"><h1>관리자 화면</h1><p>신고 처리, 최근 글 살피기, 회원 관리를 합니다.</p></section>' + tabs +
-      (tab === 'members' ? '<form class="cm-board-search" data-msearch><input name="q" type="search" placeholder="아이디·닉네임 찾기" aria-label="회원 찾기"><button type="submit">찾기</button></form>' : '') +
+    return '<a class="back-link" href="#me">← 내 정보로</a><section class="cm-page-head"><h1>관리자 화면</h1><p>피정 승인, 기관 계정, 신고 처리, 회원 관리를 합니다.</p></section>' + tabs +
+      (tab === 'orgs' ? orgForm() : '') + (tab === 'members' ? '<form class="cm-board-search" data-msearch><input name="q" type="search" placeholder="아이디·닉네임 찾기" aria-label="회원 찾기"><button type="submit">찾기</button></form>' : '') +
       '<div id="cm-admin" class="cm-async"><p class="cm-loading">불러오는 중…</p></div>';
   }
   function loadReports() {
@@ -88,6 +90,53 @@
       }).join('') + '</ul>');
     }).catch(fail('cm-admin'));
   }
+  function won(n) { return n == null ? '참가비 문의' : n === 0 ? '무료' : n.toLocaleString('ko-KR') + '원'; }
+  function loadRetreats() {
+    rpc('cm_admin_retreats', { p_token: token(), p_status: null }).then(function (l) {
+      if (!l.length) return fill('cm-admin', '<p class="cm-empty">수도회에서 올린 피정이 아직 없습니다.</p>');
+      var order = { pending: 0, rejected: 1, approved: 2 }; l.sort(function (a, b) { return order[a.status] - order[b.status]; });
+      fill('cm-admin', '<ul class="cm-adm-list">' + l.map(function (r) {
+        var st = { pending: '검토 기다림', approved: '공개 중', rejected: '반려' }[r.status];
+        return '<li><div class="cm-adm-top"><span class="cm-badge">' + st + '</span><b>' + safe(r.org_name) + '</b></div><strong>' + safe(r.title) + '</strong>' +
+          '<p class="cm-meta">' + safe(r.start_date) + (r.end_date !== r.start_date ? ' ~ ' + safe(r.end_date) : '') + '<i></i>' + safe(r.place) + ' · ' + safe(r.region) + '<i></i>' + won(r.fee) + '<i></i>' + safe(r.audience) + '</p>' +
+          (r.description ? '<p>' + safe(r.description.slice(0, 220)) + (r.description.length > 220 ? '…' : '') + '</p>' : '') +
+          '<p class="cm-meta">신청: ' + (r.apply_url ? '<a href="' + safe(r.apply_url) + '" target="_blank" rel="noopener">링크</a>' : '없음') + '<i></i>전화: ' + safe(r.phone || '없음') + (r.review_note ? '<i></i>메모: ' + safe(r.review_note) : '') + '</p>' +
+          '<div class="cm-adm-btns">' + (r.status !== 'approved' ? '<button class="cm-btn" data-rev="' + r.id + ':1">승인·공개</button>' : '<a class="cm-btn cm-btn-line" href="#retreat/approved/cmr-' + r.id + '">공개 화면 보기</a>') +
+          '<button class="cm-btn cm-btn-line" data-rev="' + r.id + ':0">' + (r.status === 'approved' ? '공개 내리기' : '반려') + '</button></div></li>';
+      }).join('') + '</ul>');
+    }).catch(fail('cm-admin'));
+  }
+  function orgForm() {
+    return '<form class="cm-form cm-adm-orgform" data-orgnew><h2 class="cm-adm-h">기관 계정 만들기</h2><p class="cm-form-note">수도회·피정의 집 담당자가 쓸 아이디를 만들어 드립니다. 만든 아이디와 비밀번호를 담당자께 전해 주세요. 담당자는 로그인 뒤 내 정보에서 비밀번호를 바꿀 수 있습니다.</p>' +
+      '<label>수도회·피정의 집 이름<input name="o" required maxlength="60" placeholder="예: 성 베네딕도회 요셉 수도원"></label>' +
+      '<div class="cm-guest-row"><label>아이디<input name="u" required pattern="[a-z0-9_]{4,20}" placeholder="영문 소문자·숫자"></label><label>처음 비밀번호<input name="p" required minlength="6"></label></div>' +
+      '<button class="cm-btn" type="submit">기관 계정 만들기</button></form><div id="cm-admin" class="cm-async"></div>';
+  }
+  function loadOrgs() {
+    rpc('cm_admin_orgs', { p_token: token() }).then(function (l) {
+      fill('cm-admin', '<h2 class="cm-adm-h">기관 계정 ' + l.length + '곳</h2>' + (l.length ? '<ul class="cm-adm-rows">' + l.map(function (o) {
+        return '<li><div><b>' + safe(o.org_name) + '</b><span class="cm-meta">' + safe(o.username) + '<i></i>피정 ' + o.retreats + '<i></i>답장 기다리는 문의 ' + o.waiting + (o.last_seen ? '<i></i>최근 ' + when(o.last_seen) : '<i></i>아직 로그인 전') + '</span></div>' +
+          '<div class="cm-adm-mbtns"><button class="cm-linkbtn" data-mact="reset:' + safe(o.username) + '">비밀번호 초기화</button></div></li>';
+      }).join('') + '</ul>' : '<p class="cm-empty">아직 만든 기관 계정이 없습니다.</p>'));
+    }).catch(fail('cm-admin'));
+  }
+  document.addEventListener('submit', function (e) {
+    var f = e.target.closest && e.target.closest('[data-orgnew]'); if (!f) return; e.preventDefault();
+    rpc('cm_admin_create_org', { p_token: token(), p_org_name: f.elements.o.value, p_username: f.elements.u.value, p_password: f.elements.p.value }).then(function (r) {
+      dialog({ text: r.org_name + ' 기관 계정을 만들었습니다. 아이디: ' + r.username + ' / 비밀번호: 방금 넣으신 처음 비밀번호' }); f.reset(); loadOrgs();
+    }).catch(err);
+  });
+  document.addEventListener('click', function (e) {
+    var b = e.target.closest && e.target.closest('[data-rev]'); if (!b) return;
+    var v = b.getAttribute('data-rev').split(':'), ok = v[1] === '1';
+    if (ok) return rpc('cm_admin_review_retreat', { p_token: token(), p_id: Number(v[0]), p_approve: true, p_note: '' }).then(loadRetreats).catch(err);
+    var d = document.createElement('div'); d.className = 'cm-modal';
+    d.innerHTML = '<form class="cm-modal-box"><p>담당자께 남길 메모 (무엇을 고치면 되는지)</p><textarea name="n" rows="3" maxlength="300" placeholder="예: 날짜를 다시 확인해 주세요"></textarea><div class="cm-modal-btns"><button type="button" class="cm-btn cm-btn-line" data-x>취소</button><button class="cm-btn cm-btn-danger" type="submit">반려·내리기</button></div></form>';
+    document.body.appendChild(d);
+    d.addEventListener('click', function (x) { if (x.target === d || x.target.hasAttribute('data-x')) d.remove(); });
+    d.querySelector('form').addEventListener('submit', function (x) { x.preventDefault(); var n = d.querySelector('textarea').value; d.remove();
+      rpc('cm_admin_review_retreat', { p_token: token(), p_id: Number(v[0]), p_approve: false, p_note: n }).then(loadRetreats).catch(err); });
+  });
   function q() { var i = document.querySelector('[data-msearch] [name=q]'); return i ? i.value.trim() : ''; }
   document.addEventListener('submit', function (e) {
     var f = e.target.closest && e.target.closest('[data-msearch]'); if (!f) return; e.preventDefault(); loadMembers(q());

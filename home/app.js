@@ -1,14 +1,14 @@
-import {topicGroups,matchesTopics,koreaDay,onDate,inMonth,monthDays,shiftMonth,areaOf,matchesArea,actualRows,searchItems,newSearch,newQuiz,catalogMode,topicDiagnosis} from './discovery.js?v=202611161406';
-import {selectSpace,readProgress,saveProgress,readSaved,saveShelf} from './visit.js?v=202611161406';
-import {safe,normalizeCatalog,catalogFromRows,regions,requirementsHTML,https,visibleStatus} from './domain.js?v=202611161406';
-import {profiles,spiritualGuides,saintSources} from './guides.js?v=202611161406';
+import {topicGroups,matchesTopics,koreaDay,onDate,inMonth,monthDays,shiftMonth,areaOf,matchesArea,actualRows,searchItems,newSearch,newQuiz,catalogMode,topicDiagnosis} from './discovery.js?v=202611161439';
+import {selectSpace,readProgress,saveProgress,readSaved,saveShelf} from './visit.js?v=202611161439';
+import {safe,normalizeCatalog,catalogFromRows,regions,requirementsHTML,https,visibleStatus} from './domain.js?v=202611161439';
+import {profiles,spiritualGuides,saintSources} from './guides.js?v=202611161439';
 const main=document.querySelector('#main'),status=document.querySelector('#status'),engine=window.GAMUM_RECOMMEND,questions=window.GAMUM_QUIZ;
 const memory=()=>({getItem:()=>null,setItem:()=>{}});let local,session;try{local=localStorage;}catch{local=memory();}try{session=sessionStorage;}catch{session=memory();}
-const themes=await fetch('themes.json?v=202611161406').then(r=>{if(!r.ok)throw Error('테마 자료를 읽지 못했습니다.');return r.json();});
-const artwork=await fetch('art-v2/manifest.json?v=202611161406').then(r=>r.json());
-const editorial=await fetch('editorial.json?v=202611161406').then(r=>r.json());
-const geo=await fetch('regions.json?v=202611161406').then(r=>r.json());const areas=geo.regions;
-const compositions=await fetch('compositions.json?v=202611161406').then(r=>r.json());
+const themes=await fetch('themes.json?v=202611161439').then(r=>{if(!r.ok)throw Error('테마 자료를 읽지 못했습니다.');return r.json();});
+const artwork=await fetch('art-v2/manifest.json?v=202611161439').then(r=>r.json());
+const editorial=await fetch('editorial.json?v=202611161439').then(r=>r.json());
+const geo=await fetch('regions.json?v=202611161439').then(r=>r.json());const areas=geo.regions;
+const compositions=await fetch('compositions.json?v=202611161439').then(r=>r.json());
 const art=t=>artwork.find(a=>a.id===t.id);
 const chosenSpace=selectSpace(local,session,new URLSearchParams(location.search).get('space'));
 const theme=themes.find(t=>t.id===chosenSpace)||themes[0];
@@ -83,5 +83,5 @@ document.addEventListener('click',e=>{const a=e.target.closest('a');if(a?.getAtt
 document.querySelector('.skip').addEventListener('click',e=>{e.preventDefault();main.focus();});
 window.addEventListener('hashchange',e=>{const next=location.hash.slice(1).split('/')[0];if(next==='discover'&&step>=10)step=9;const mm=document.querySelector('.mobile-menu');if(mm)mm.open=false;const prevPage=new URL(e.oldURL).hash.slice(1).split('/')[0],segs=location.hash.slice(1).split('/');const keepScroll=prevPage===next&&['contents','dioceses','board'].includes(next)&&!(next==='contents'&&segs.length>=3);const position=new URL(e.oldURL).hash.startsWith('#retreat/')?viewPositions.get(location.hash):null;if(keepScroll){const y=window.scrollY;render();window.scrollTo(0,y);return;}render({focus:true});if(position)requestAnimationFrame(()=>{document.querySelector(`a[href="${position.href}"]`)?.focus({preventScroll:true});window.scrollTo({top:position.y,behavior:'instant'});});});
 // Public release: no development backend connection. Verified catalog is empty.
-async function loadCatalog(){try{const response=await fetch('catalog.json?v=202611161406');if(!response.ok)throw Error();const data=await response.json();rows=actualRows(data.rows||[]);catalogState='ready';}catch{rows=[];catalogState='error';}mode=catalogMode(rows,catalogState);const y=scrollY;render();window.scrollTo({top:y,behavior:'instant'});}
+async function loadCatalog(){try{const [response,live]=await Promise.all([fetch('catalog.json?v=202611161439'),fetch('https://qzxdxqrdulkfoktkmkly.supabase.co/rest/v1/rpc/cm_public_retreats',{method:'POST',headers:{apikey:'sb_publishable__Gjo9F1m0TXdxPH_yMEBiA_b91a2xBr','Content-Type':'application/json'},body:'{}'}).then(r=>r.ok?r.json():[]).catch(()=>[])]);if(!response.ok)throw Error();const data=await response.json();rows=actualRows([...(data.rows||[]),...(Array.isArray(live)?live:[])]);catalogState='ready';}catch{rows=[];catalogState='error';}mode=catalogMode(rows,catalogState);const y=scrollY;render();window.scrollTo({top:y,behavior:'instant'});}
 render();loadCatalog();

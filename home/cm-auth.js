@@ -26,7 +26,7 @@
   function hdr() {
     var m = me(), a = document.querySelector('.cm-tool[href="#login"], .cm-tool[href="#me"]');
     if (!a) return;
-    a.setAttribute('href', m ? '#me' : '#login');
+    a.setAttribute('href', m ? (m.is_org ? '#org' : '#me') : '#login');
     a.setAttribute('aria-label', m ? '내 정보 (' + m.nickname + ')' : '로그인');
     a.classList.toggle('cm-in', !!m);
   }
@@ -69,7 +69,7 @@
     }[tab] || '';
     return back() + head('로그인', '로그인하면 담아 둔 피정이 휴대폰과 PC에서 함께 보입니다. 로그인하지 않아도 피정 찾기와 담기는 그대로 쓸 수 있습니다.') + tabs +
       '<div class="cm-login">' + f + '<p class="cm-error" data-auth-msg hidden></p>' +
-      '<p class="cm-login-sub">수도회·피정의 집 담당자이신가요? <a href="../legacy.html#convent-register">기관 번호로 로그인</a></p></div>';
+      '<p class="cm-login-sub"><b>수도회·피정의 집 담당자</b>는 가톨릭 머뭄에서 받은 기관 아이디로 위에서 로그인하시면 됩니다. 로그인하면 받은 문의와 피정 올리기 화면이 바로 열립니다.</p></div>';
   }
   function recoveryBox(code, title) {
     return back() + head(title, '') + '<div class="cm-login"><div class="cm-recovery"><p>비밀번호를 잊었을 때 쓰는 <b>복구 코드</b>입니다. 이 화면을 캡처하거나 적어 두세요. 다시 보여 드리지 않습니다.</p><strong>' + safe(code) + '</strong></div><a class="cm-btn" href="#home">확인했습니다</a></div>';
@@ -88,7 +88,7 @@
       var main = document.getElementById('main') || document.querySelector('main');
       return syncShelf(false).then(function () {
         if (d.recovery) { main.innerHTML = recoveryBox(d.recovery, k === 'join' ? '가입했습니다, ' + safe(d.member.nickname) + '님' : '비밀번호를 바꿨습니다'); window.scrollTo(0, 0); }
-        else { location.hash = '#me'; location.reload(); }
+        else { location.hash = d.member && d.member.is_org ? '#org' : '#me'; location.reload(); }
       });
     }).catch(function (err) { btn.disabled = false; if (msg) { msg.textContent = err.message; msg.hidden = false; } });
   });
@@ -98,7 +98,7 @@
     var m = me(); if (!m) { location.replace('#login'); return ''; }
     var s = shelf();
     return back() + head(safe(m.nickname) + '님', '아이디 ' + safe(m.username)) +
-      '<div class="cm-login">' + (m.is_admin ? '<a class="cm-me-row cm-admin-link" href="#admin"><span>관리자 화면</span><b>신고 · 글 · 회원 ›</b></a>' : '') + '<a class="cm-me-row" href="#shelf"><span>피정담기</span><b>' + (s.programs.length + s.spaces.length) + '개 ›</b></a>' +
+      '<div class="cm-login">' + (m.is_org ? '<a class="cm-me-row cm-admin-link" href="#org"><span>기관 화면</span><b>받은 문의 · 피정 올리기 ›</b></a>' : '') + '<a class="cm-me-row" href="#questions"><span>내 문의</span><b data-myq-count>›</b></a>' + (m.is_admin ? '<a class="cm-me-row cm-admin-link" href="#admin"><span>관리자 화면</span><b>신고 · 글 · 회원 ›</b></a>' : '') + '<a class="cm-me-row" href="#shelf"><span>피정담기</span><b>' + (s.programs.length + s.spaces.length) + '개 ›</b></a>' +
       '<form class="cm-form" data-me="nick"><h2>닉네임 바꾸기</h2><label>새 닉네임<input name="n" value="' + safe(m.nickname) + '" required minlength="2" maxlength="12"></label><button class="cm-btn cm-btn-line" type="submit">바꾸기</button></form>' +
       '<form class="cm-form" data-me="pw"><h2>비밀번호 바꾸기</h2><label>지금 비밀번호<input name="o" type="password" autocomplete="current-password" required></label><label>새 비밀번호<input name="p" type="password" autocomplete="new-password" required minlength="6"></label><button class="cm-btn cm-btn-line" type="submit">바꾸기</button></form>' +
       (m.is_admin ? '<form class="cm-form" data-author-form><h2>작가 지정 (관리자)</h2><p class="cm-form-note">작가로 지정한 회원만 콘텐츠에 작품을 올릴 수 있고, 자기 작품만 고칠 수 있습니다.</p><label>회원 아이디<input name="u" required></label><div class="cm-guest-row"><button class="cm-btn" type="submit" name="on" value="1">작가로 지정</button><button class="cm-btn cm-btn-line" type="submit" name="on" value="0">작가 해제</button></div><div data-authors class="cm-form-note">작가 목록을 불러오는 중…</div></form>' : '') +
