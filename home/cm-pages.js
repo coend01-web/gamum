@@ -172,7 +172,7 @@
 
   function mark() {
     var page = location.hash.slice(1).split('/')[0] || 'home';
-    var map = { search: 'paths', post: 'board', write: 'board', cedit: 'contents', webtoon: 'contents', themes: 'paths', calendar: 'paths', places: 'paths', discover: 'paths', retreat: 'paths', 'quiz-result': 'paths' };
+    var map = { search: 'paths', post: 'board', write: 'board', cedit: 'contents', admin: '', webtoon: 'contents', themes: 'paths', calendar: 'paths', places: 'paths', discover: 'paths', retreat: 'paths', 'quiz-result': 'paths' };
     var key = map[page] || page;
     var on = null;
     document.querySelectorAll('.cm-menubar a').forEach(function (a) {
@@ -183,7 +183,7 @@
     menuFade();
     var T = { home: '', paths: '피정 찾기', search: '피정 검색', discover: '나를 찾아가는 피정', themes: '주제로 찾는 피정', calendar: '날짜로 찾는 피정', places: '장소로 찾는 피정',
       retreat: '피정 안내', 'quiz-result': '나를 찾아가는 피정', shelf: '피정담기', guide: '이용 안내', minute: '1분 머뭄', board: '게시판', post: '게시판', write: '글쓰기',
-      contents: '콘텐츠', cedit: '콘텐츠 올리기', dioceses: '전국 교구', convents: '수도회 소개', login: '로그인', me: '내 정보', about: '가톨릭 머뭄 소개', privacy: '개인정보 처리방침', terms: '이용약관' };
+      contents: '콘텐츠', cedit: '콘텐츠 올리기', dioceses: '전국 교구', convents: '수도회 소개', login: '로그인', me: '내 정보', about: '가톨릭 머뭄 소개', admin: '관리자 화면', privacy: '개인정보 처리방침', terms: '이용약관' };
     var t = T[page];
     document.title = (t ? t + ' | ' : '') + '가톨릭 머뭄 · 전국 피정 찾기';
   }

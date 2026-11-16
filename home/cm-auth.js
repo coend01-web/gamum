@@ -98,7 +98,7 @@
     var m = me(); if (!m) { location.replace('#login'); return ''; }
     var s = shelf();
     return back() + head(safe(m.nickname) + '님', '아이디 ' + safe(m.username)) +
-      '<div class="cm-login"><a class="cm-me-row" href="#shelf"><span>피정담기</span><b>' + (s.programs.length + s.spaces.length) + '개 ›</b></a>' +
+      '<div class="cm-login">' + (m.is_admin ? '<a class="cm-me-row cm-admin-link" href="#admin"><span>관리자 화면</span><b>신고 · 글 · 회원 ›</b></a>' : '') + '<a class="cm-me-row" href="#shelf"><span>피정담기</span><b>' + (s.programs.length + s.spaces.length) + '개 ›</b></a>' +
       '<form class="cm-form" data-me="nick"><h2>닉네임 바꾸기</h2><label>새 닉네임<input name="n" value="' + safe(m.nickname) + '" required minlength="2" maxlength="12"></label><button class="cm-btn cm-btn-line" type="submit">바꾸기</button></form>' +
       '<form class="cm-form" data-me="pw"><h2>비밀번호 바꾸기</h2><label>지금 비밀번호<input name="o" type="password" autocomplete="current-password" required></label><label>새 비밀번호<input name="p" type="password" autocomplete="new-password" required minlength="6"></label><button class="cm-btn cm-btn-line" type="submit">바꾸기</button></form>' +
       (m.is_admin ? '<form class="cm-form" data-author-form><h2>작가 지정 (관리자)</h2><p class="cm-form-note">작가로 지정한 회원만 콘텐츠에 작품을 올릴 수 있고, 자기 작품만 고칠 수 있습니다.</p><label>회원 아이디<input name="u" required></label><div class="cm-guest-row"><button class="cm-btn" type="submit" name="on" value="1">작가로 지정</button><button class="cm-btn cm-btn-line" type="submit" name="on" value="0">작가 해제</button></div><div data-authors class="cm-form-note">작가 목록을 불러오는 중…</div></form>' : '') +
@@ -185,9 +185,9 @@
         fill('cm-post', '<article class="cm-read"><span class="cm-cv-kind">' + safe(p.category) + '</span><h1>' + safe(p.title) + '</h1>' +
           '<p class="cm-meta">' + safe(p.nickname) + (p.member ? '' : ' <em class="cm-guest">비회원</em>') + '<i></i>' + when(p.created_at) + (p.updated_at ? ' (고침)' : '') + '<i></i>조회 ' + p.views + '<i></i>추천 <span data-likes>' + p.likes + '</span></p>' +
           '<div class="cm-reader">' + para(p.body) + '</div>' +
-          '<div class="cm-like"><button type="button" data-like="' + p.id + '">추천</button><a href="#write/' + p.id + '">고치기</a><button type="button" data-del="' + p.id + '">지우기</button></div>' +
+          '<div class="cm-like"><button type="button" data-like="' + p.id + '">추천</button><a href="#write/' + p.id + '">고치기</a><button type="button" data-del="' + p.id + '">지우기</button><button type="button" class="cm-report-btn" data-report="post:' + p.id + '">신고</button></div>' +
           '<section class="cm-comments"><h2>댓글 ' + p.comments.length + '</h2><ul>' + p.comments.map(function (c) {
-            return '<li><b>' + safe(c.nickname) + (c.member ? '' : ' <em class="cm-guest">비회원</em>') + '</b><p>' + safe(c.body) + '</p><span class="cm-meta">' + when(c.created_at) + '<i></i><button type="button" class="cm-linkbtn" data-cdel="' + c.id + '">지우기</button></span></li>';
+            return '<li><b>' + safe(c.nickname) + (c.member ? '' : ' <em class="cm-guest">비회원</em>') + '</b><p>' + safe(c.body) + '</p><span class="cm-meta">' + when(c.created_at) + '<i></i><button type="button" class="cm-linkbtn" data-cdel="' + c.id + '">지우기</button><i></i><button type="button" class="cm-linkbtn" data-report="comment:' + c.id + '">신고</button></span></li>';
           }).join('') + '</ul>' +
           '<form class="cm-form cm-cform" data-comment="' + p.id + '">' + guestFields('댓글 비밀번호') + '<textarea name="body" required maxlength="1000" rows="3" placeholder="따뜻한 댓글을 남겨 주세요"></textarea><button class="cm-btn" type="submit">댓글 쓰기</button><p class="cm-error" data-cmsg hidden></p></form></section>' +
           '<nav class="cm-prevnext" aria-label="이전·다음 글">' + (p.prev ? '<a href="#post/' + p.prev + '">← 이전 글</a>' : '<span></span>') + '<a href="#board">목록</a>' + (p.next ? '<a href="#post/' + p.next + '">다음 글 →</a>' : '<span></span>') + '</nav></article>');
