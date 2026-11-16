@@ -36,7 +36,7 @@
       (list.length ? '<ul class="cm-grid">' + rows.map(function (w) {
         return '<li><a href="#contents/' + kind + '/' + w.id + '"><span class="cm-grid-cover">' + (w.cover_url ? '<img src="' + safe(w.cover_url) + '" alt="" loading="lazy">' : '<i>' + safe(w.title) + '</i>') +
           (isNew(w.last_at) ? '<b class="cm-upb">UP</b>' : '') + (w.published ? '' : '<b class="cm-hideb">비공개</b>') + '</span>' +
-          '<strong>' + safe(w.title) + '</strong><span>' + safe(w.author || '가뭄') + '</span></a></li>';
+          '<strong>' + safe(w.title) + '</strong><span>' + safe(w.author || '가톨릭 머뭄') + '</span></a></li>';
       }).join('') + '</ul>' : '<p class="cm-empty">' + (all.length ? dayTab + '요일에 연재하는 작품이 없습니다.' : '아직 올라온 ' + kname(kind) + ' 작품이 없습니다.<br>곧 첫 작품으로 찾아뵙겠습니다.') + '</p>');
   }
   var cache = {};
@@ -65,9 +65,9 @@
       rpc('cm_work', { p_id: id, p_token: token() }).then(function (w) {
         if (!w) return fill('cm-work', '<p class="cm-empty">없거나 아직 공개되지 않은 작품입니다.</p>');
         var eps = w.episodes;
-        document.title = w.title + ' | 가뭄. 가톨릭 머뭄';
+        document.title = w.title + ' | 가톨릭 머뭄';
         fill('cm-work', '<a class="back-link" href="#contents/' + w.kind + '">← ' + kname(w.kind) + ' 목록으로</a>' +
-          '<section class="cm-work-head">' + (w.cover_url ? '<img src="' + safe(w.cover_url) + '" alt="">' : '') + '<div><span class="cm-cv-kind">' + kname(w.kind) + '</span><h1>' + safe(w.title) + hidden(w.published) + '</h1><p class="cm-meta">' + safe(w.author || '가뭄') + '<i></i>' + eps.length + '편' + (w.days && w.days.length ? '<i></i><b>매주 ' + w.days.join('·') + '요일 연재</b>' : '') + '</p>' + (w.intro ? '<div class="cm-work-intro-full">' + para(w.intro) + '</div>' : '') +
+          '<section class="cm-work-head">' + (w.cover_url ? '<img src="' + safe(w.cover_url) + '" alt="">' : '') + '<div><span class="cm-cv-kind">' + kname(w.kind) + '</span><h1>' + safe(w.title) + hidden(w.published) + '</h1><p class="cm-meta">' + safe(w.author || '가톨릭 머뭄') + '<i></i>' + eps.length + '편' + (w.days && w.days.length ? '<i></i><b>매주 ' + w.days.join('·') + '요일 연재</b>' : '') + '</p>' + (w.intro ? '<div class="cm-work-intro-full">' + para(w.intro) + '</div>' : '') +
           (eps.length ? '<a class="cm-btn cm-first" href="#contents/' + w.kind + '/' + w.id + '/' + eps[0].id + '">첫 화 보기</a>' : '') + '</div></section>' +
           (w.mine ? '<div class="cm-admin-bar"><a class="cm-btn" href="#cedit/ep/' + w.id + '/new">＋ 회차 올리기</a><a class="cm-btn cm-btn-line" href="#cedit/work/' + w.id + '">작품 고치기</a></div>' : '') +
           (eps.length ? '<ul class="cm-eps">' + eps.slice().reverse().map(function (e) {
@@ -89,10 +89,10 @@
         if (v) body += '<div class="cm-yt"><iframe src="https://www.youtube-nocookie.com/embed/' + v + '" title="' + safe(e.title) + '" allow="accelerometer; encrypted-media; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>';
         if (e.body) body += '<div class="cm-reader">' + para(e.body) + '</div>';
         var nav = '<nav class="cm-prevnext" aria-label="이전·다음 화">' + (e.prev ? '<a href="' + base + e.prev + '">← 이전 화</a>' : '<span></span>') + '<a href="#contents/' + e.kind + '/' + e.work_id + '">목록</a>' + (e.next ? '<a href="' + base + e.next + '">다음 화 →</a>' : '<span></span>') + '</nav>';
-        document.title = e.work_title + ' ' + (e.no ? e.no + '화' : e.title) + ' | 가뭄. 가톨릭 머뭄';
+        document.title = e.work_title + ' ' + (e.no ? e.no + '화' : e.title) + ' | 가톨릭 머뭄';
         fill('cm-ep', '<a class="back-link" href="#contents/' + e.kind + '/' + e.work_id + '">← ' + safe(e.work_title) + '</a>' +
           '<article class="cm-read cm-ep-read"><span class="cm-cv-kind">' + safe(e.work_title) + '</span><h1>' + (e.no ? e.no + '화 · ' : '') + safe(e.title) + hidden(e.published) + '</h1>' +
-          '<p class="cm-meta">' + (e.ref ? '<b>' + safe(e.ref) + '</b><i></i>' : '') + safe(e.author || '가뭄') + '<i></i>' + day(e.created_at) + '<i></i>조회 ' + e.views + '</p>' +
+          '<p class="cm-meta">' + (e.ref ? '<b>' + safe(e.ref) + '</b><i></i>' : '') + safe(e.author || '가톨릭 머뭄') + '<i></i>' + day(e.created_at) + '<i></i>조회 ' + e.views + '</p>' +
           (e.mine ? '<div class="cm-admin-bar"><a class="cm-btn cm-btn-line" href="#cedit/ep/' + e.work_id + '/' + e.id + '">이 회차 고치기</a></div>' : '') +
           body + nav + '</article>');
       }).catch(fail('cm-ep'));
@@ -154,7 +154,7 @@
       '<form class="cm-form cm-wform" data-work-form="' + id + '">' +
       '<label>종류<select name="kind">' + KINDS.map(function (k) { return '<option value="' + k[0] + '"' + (k[0] === kind ? ' selected' : '') + '>' + k[1] + '</option>'; }).join('') + '</select></label>' +
       '<label>작품 제목<input name="title" required maxlength="80"></label>' +
-      '<label>작가<input name="author" maxlength="40" placeholder="예: 가뭄 편집부"></label>' +
+      '<label>작가<input name="author" maxlength="40" placeholder="예: 가톨릭 머뭄 편집부"></label>' +
       '<label>작품 소개<textarea name="intro" rows="4" maxlength="1000"></textarea></label>' +
       '<fieldset class="cm-dayset"><legend>연재 요일 (웹툰·웹소설)</legend>' + DAYS.map(function (d) { return '<label><input type="checkbox" name="day" value="' + d + '"> ' + d + '</label>'; }).join('') + '</fieldset>' +
       '<div class="cm-upbox"><span>표지 그림 (가로 3 : 세로 4 비율 권장)</span><div class="cm-cover-prev" data-cover-prev></div><input type="hidden" name="cover"><label class="cm-btn cm-btn-line cm-filebtn">표지 고르기<input type="file" accept="image/*" data-cover-file hidden></label><p class="cm-form-note" data-up-msg hidden></p></div>' +

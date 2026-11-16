@@ -2,7 +2,7 @@
 (function () {
   var note = '<p class="cm-preview-note">화면 미리보기입니다. 아래 글과 이름은 모두 예시이며 실제 자료가 아닙니다.</p>';
   function safe(v) { return String(v == null ? '' : v).replace(/[&<>"']/g, function (c) { return {'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'}[c]; }); }
-  function back() { return '<a class="back-link" href="#home">← 가뭄으로 돌아가기</a>'; }
+  function back() { return '<a class="back-link" href="#home">← 처음으로 돌아가기</a>'; }
 
   var posts = [
       ['피정 후기', '첫 침묵 피정을 다녀왔어요 (예시 글)', '머뭄이', '19:00', 12, 3, 4],
@@ -183,9 +183,9 @@
     menuFade();
     var T = { home: '', paths: '피정 찾기', search: '피정 검색', discover: '나를 찾아가는 피정', themes: '주제로 찾는 피정', calendar: '날짜로 찾는 피정', places: '장소로 찾는 피정',
       retreat: '피정 안내', 'quiz-result': '나를 찾아가는 피정', shelf: '피정담기', guide: '이용 안내', minute: '1분 머뭄', board: '게시판', post: '게시판', write: '글쓰기',
-      contents: '콘텐츠', cedit: '콘텐츠 올리기', dioceses: '전국 교구', convents: '수도회 소개', login: '로그인', me: '내 정보', about: '가뭄 소개', privacy: '개인정보 처리방침', terms: '이용약관' };
+      contents: '콘텐츠', cedit: '콘텐츠 올리기', dioceses: '전국 교구', convents: '수도회 소개', login: '로그인', me: '내 정보', about: '가톨릭 머뭄 소개', privacy: '개인정보 처리방침', terms: '이용약관' };
     var t = T[page];
-    document.title = (t ? t + ' | ' : '') + '가뭄. 가톨릭 머뭄 · 전국 피정 찾기';
+    document.title = (t ? t + ' | ' : '') + '가톨릭 머뭄 · 전국 피정 찾기';
   }
   function menuFade() {
     var sc = document.querySelector('.cm-menu-scroll'), bar = document.querySelector('.cm-menubar'); if (!sc || !bar) return;

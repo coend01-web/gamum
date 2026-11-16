@@ -435,3 +435,8 @@ button.cm-tool{border:0;background:none;cursor:pointer;padding:0}
 @media(max-width:700px){.cm-toon.cm-gap1,.cm-toon.cm-gap2{margin-left:-14px;margin-right:-14px}}
 footer,.site-footer{padding-bottom:96px!important}
 main:focus,main[tabindex]:focus,#main:focus{outline:none}
+/* 공식 이름: 가톨릭 머뭄 */
+.cm-brand .logo{font-size:38px;letter-spacing:-.02em;white-space:nowrap}
+.site-footer .logo{white-space:nowrap}
+@media(max-width:700px){.cm-brand .logo{font-size:25px!important}.cm-ko{font-size:11px}}
+@media(max-width:360px){.cm-brand .logo{font-size:22px!important}.cm-sub{display:none}}
