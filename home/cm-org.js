@@ -25,8 +25,8 @@
       rpc('cm_org_home', { p_token: token() }).then(function (h) {
         home = h;
         var unread = h.messages.filter(function (x) { return !x.read; }).length, waiting = h.messages.filter(function (x) { return !x.reply; }).length;
-        fill('cm-org-sum', '<a class="cm-org-card' + (view === 'inbox' ? ' on' : '') + '" href="#org/inbox"><span>받은 문의</span><b>' + h.messages.length + '</b><em>' + (unread ? '새 문의 ' + unread : waiting ? '답장 기다림 ' + waiting : '모두 답장함') + '</em></a>' +
-          '<a class="cm-org-card' + (view === 'retreats' ? ' on' : '') + '" href="#org/retreats"><span>우리 피정</span><b>' + h.retreats.length + '</b><em>' + h.retreats.filter(function (r) { return r.status === 'approved'; }).length + '개 공개 중</em></a>');
+        fill('cm-org-sum', '<a class="cm-org-card' + (view === 'inbox' ? ' on' : '') + '" href="#org/inbox"><span>받은 문의</span><b>' + h.messages.length + '</b><em' + (unread || waiting ? '' : ' class="ok"') + '>' + (unread ? '새 문의 ' + unread : waiting ? '답장 기다림 ' + waiting : '모두 답장함') + '</em></a>' +
+          '<a class="cm-org-card' + (view === 'retreats' ? ' on' : '') + '" href="#org/retreats"><span>우리 피정</span><b>' + h.retreats.length + '</b><em class="ok">' + h.retreats.filter(function (r) { return r.status === 'approved'; }).length + '개 공개 중</em></a>');
         fill('cm-org-body', view === 'retreats' ? retreatList(h.retreats) : inbox(h.messages));
       }).catch(fail('cm-org-body'));
     });

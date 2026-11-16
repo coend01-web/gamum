@@ -317,6 +317,8 @@
       '</section>';
   }
 
+  /* 수도회가 올리고 관리자가 승인한 피정 (피정 찾기에 섞여 나옴) */
+  window.CM_LIVE_RETREATS = function () { return rpc('cm_public_retreats', {}).then(function (l) { return Array.isArray(l) ? l : []; }); };
   window.CM_API = { rpc: rpc, safe: safe, token: token, me: me, url: URL_, key: KEY };
   var P = window.CM_PAGES = window.CM_PAGES || {};
   P.login = loginPage; P.me = function () { setTimeout(loadAuthors); return mePage(); }; P.board = boardPage; P.post = postPage; P.write = writePage; P.privacy = privacyPage; P.terms = termsPage; P.about = aboutPage;
