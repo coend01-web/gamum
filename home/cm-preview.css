@@ -541,3 +541,6 @@ main:focus,main[tabindex]:focus,#main:focus{outline:none}
 @media(max-width:700px){.cm-org-head h1{font-size:23px}}
 .cm-form input[hidden],.cm-upbox input[type=file]{display:none!important}
 .cm-org-card em.ok{color:#2f6b4f}.back-link+.back-link{display:none}
+
+/* 모바일 본문 14px 여백과 웹툰 확장 폭을 일치시켜 좌우 잘림 방지 */
+@media(max-width:700px){.cm-ep-read .cm-toon{margin-left:-14px;margin-right:-14px}}
