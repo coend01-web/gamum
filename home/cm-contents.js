@@ -12,6 +12,11 @@
   function para(s) { return safe(s).split(/\n{2,}/).map(function (b) { return '<p>' + b.replace(/\n/g, '<br>') + '</p>'; }).join(''); }
   function yt(u) { var m = String(u || '').match(/(?:youtu\.be\/|v=|shorts\/|embed\/)([\w-]{11})/); return m ? m[1] : null; }
   function hidden(p) { return p ? '' : ' <em class="cm-hidden-badge">비공개</em>'; }
+  function episodeTitle(e) {
+    var title = String(e.title || '');
+    if (/^(?:신)?\d+화(?:\s|[·.:：]|$)/.test(title)) return title.replace(/^신(?=\d+화)/, '');
+    return (e.no ? e.no + '화 · ' : '') + title;
+  }
 
   function tabs(kind) {
     return '<div class="cm-seg" role="tablist">' + KINDS.map(function (k) { return '<a role="tab" href="#contents/' + k[0] + '" aria-selected="' + (k[0] === kind) + '">' + k[1] + '</a>'; }).join('') + '</div>';
@@ -72,7 +77,7 @@
           ((w.published || w.mine) ? '<div class="cm-admin-bar"><a class="cm-btn" href="#cedit/ep/' + w.id + '/new">＋ 회차 올리기</a>' + (w.mine ? '<a class="cm-btn cm-btn-line" href="#cedit/work/' + w.id + '">작품 고치기</a>' : '') + '</div>' : '') +
           (eps.length ? '<ul class="cm-eps">' + eps.slice().reverse().map(function (e) {
             return '<li><a href="#contents/' + w.kind + '/' + w.id + '/' + e.id + '">' + (w.kind === 'webtoon' ? '<span class="cm-ep-thumb">' + (e.thumb ? '<img src="' + safe(e.thumb) + '" alt="" loading="lazy">' : '') + '</span>' : '') +
-              '<span class="cm-work-body"><strong>' + (e.no ? e.no + '화 · ' : '') + safe(e.title) + hidden(e.published) + '</strong><span class="cm-meta">' + (e.ref ? safe(e.ref) + '<i></i>' : '') + day(e.created_at) + '</span></span></a></li>';
+              '<span class="cm-work-body"><strong>' + safe(episodeTitle(e)) + hidden(e.published) + '</strong><span class="cm-meta">' + (e.ref ? safe(e.ref) + '<i></i>' : '') + day(e.created_at) + '</span></span></a></li>';
           }).join('') + '</ul>' : '<p class="cm-empty">아직 올라온 회차가 없습니다.</p>'));
       }).catch(fail('cm-work'));
     });
@@ -89,9 +94,9 @@
         if (v) body += '<div class="cm-yt"><iframe src="https://www.youtube-nocookie.com/embed/' + v + '" title="' + safe(e.title) + '" allow="accelerometer; encrypted-media; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>';
         if (e.body) body += '<div class="cm-reader">' + para(e.body) + '</div>';
         var nav = '<nav class="cm-prevnext" aria-label="이전·다음 화">' + (e.prev ? '<a href="' + base + e.prev + '">← 이전 화</a>' : '<span></span>') + '<a href="#contents/' + e.kind + '/' + e.work_id + '">목록</a>' + (e.next ? '<a href="' + base + e.next + '">다음 화 →</a>' : '<span></span>') + '</nav>';
-        document.title = e.work_title + ' ' + (e.no ? e.no + '화' : e.title) + ' | 가톨릭 머뭄';
+        document.title = e.work_title + ' ' + episodeTitle(e) + ' | 가톨릭 머뭄';
         fill('cm-ep', '<a class="back-link" href="#contents/' + e.kind + '/' + e.work_id + '">← ' + safe(e.work_title) + '</a>' +
-          '<article class="cm-read cm-ep-read"><span class="cm-cv-kind">' + safe(e.work_title) + '</span><h1>' + (e.no ? e.no + '화 · ' : '') + safe(e.title) + hidden(e.published) + '</h1>' +
+          '<article class="cm-read cm-ep-read"><span class="cm-cv-kind">' + safe(e.work_title) + '</span><h1>' + safe(episodeTitle(e)) + hidden(e.published) + '</h1>' +
           '<p class="cm-meta">' + (e.ref ? '<b>' + safe(e.ref) + '</b><i></i>' : '') + safe(e.author || '가톨릭 머뭄') + '<i></i>' + day(e.created_at) + '<i></i>조회 ' + e.views + '</p>' +
           (e.mine ? '<div class="cm-admin-bar"><a class="cm-btn cm-btn-line" href="#cedit/ep/' + e.work_id + '/' + e.id + '">이 회차 고치기</a></div>' : '') +
           body + nav + '</article>');
